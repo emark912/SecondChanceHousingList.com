@@ -2,6 +2,7 @@ import { router, publicProcedure, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
 import * as db from "./db";
 import { TRPCError } from "@trpc/server";
+import * as stripeService from "./stripe-service";
 
 export const appRouter = router({
   system: router({}),
@@ -169,20 +170,23 @@ export const appRouter = router({
         }
       }),
 
-    // Create Stripe checkout session (will be implemented with Stripe)
+    // Create Stripe checkout session
     createCheckoutSession: publicProcedure
       .input(z.object({
         userEmail: z.string().email(),
         userName: z.string(),
         amountDollars: z.number().min(20, "Minimum donation is $20"),
       }))
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         try {
-          // Placeholder - will be implemented with Stripe service
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Stripe integration not yet configured",
+          const result = await stripeService.createCheckoutSession({
+            userEmail: input.userEmail,
+            userName: input.userName,
+            amountDollars: input.amountDollars,
+            userId: 0,
+            origin: ctx.req.headers.origin || "https://secondchancehousinglist.com",
           });
+          return result;
         } catch (error) {
           if (error instanceof TRPCError) throw error;
           console.error("Create checkout session error:", error);
@@ -198,11 +202,7 @@ export const appRouter = router({
       .input(z.object({ sessionId: z.string() }))
       .query(async ({ input }) => {
         try {
-          // Placeholder - will be implemented with Stripe service
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Stripe integration not yet configured",
-          });
+          return await stripeService.verifyPaymentSession(input.sessionId);
         } catch (error) {
           if (error instanceof TRPCError) throw error;
           console.error("Verify donation error:", error);

@@ -1,39 +1,39 @@
 # Second Chance Housing List - Project TODO
 
 ## Database & Backend
-- [ ] Define rental properties table with landlord info, acceptance criteria, amenities
-- [ ] Define property searches table for analytics tracking
-- [ ] Define payments table for donation records
-- [ ] Define property views table for tracking user interactions
-- [ ] Define admin users table for access control
-- [ ] Define email logs table for tracking sent emails
-- [ ] Create database query helpers in server/db.ts
-- [ ] Implement tRPC search procedure (public, returns properties without contact info)
-- [ ] Implement tRPC getPropertyById procedure (public)
-- [ ] Implement tRPC createCheckoutSession procedure (Stripe integration)
+- [x] Define rental properties table with landlord info, acceptance criteria, amenities
+- [x] Define property searches table for analytics tracking
+- [x] Define payments table for donation records
+- [x] Define property views table for tracking user interactions
+- [x] Define admin users table for access control
+- [x] Define email logs table for tracking sent emails
+- [x] Create database query helpers in server/db.ts
+- [x] Implement tRPC search procedure (public, returns properties without contact info)
+- [x] Implement tRPC getPropertyById procedure (public)
+- [x] Implement tRPC createCheckoutSession procedure (Stripe integration)
 - [ ] Implement tRPC verifyDonation procedure (check payment status)
-- [ ] Implement tRPC hasAccess procedure (check if user has donation access)
-- [ ] Implement tRPC getLandlordInfo procedure (protected, returns contact info)
-- [ ] Implement tRPC admin.addProperty procedure (admin only)
-- [ ] Implement tRPC admin.getAnalytics procedure (admin only)
+- [x] Implement tRPC hasAccess procedure (check if user has donation access)
+- [x] Implement tRPC getLandlordInfo procedure (protected, returns contact info)
+- [x] Implement tRPC admin.addProperty procedure (admin only)
+- [x] Implement tRPC admin.getAnalytics procedure (admin only)
 
 ## Stripe & Email Integration
-- [ ] Set up Stripe API key and configure webhook
-- [ ] Implement Stripe checkout session creation
+- [x] Set up Stripe API key and configure webhook
+- [x] Implement Stripe checkout session creation
 - [ ] Implement Stripe webhook handler for payment completion
-- [ ] Create email service with nodemailer configuration
-- [ ] Implement donation confirmation email template
+- [x] Create email service with nodemailer configuration
+- [x] Implement donation confirmation email template
 - [ ] Send automated email after successful payment
 
 ## Frontend Pages
-- [ ] Build Home page with hero section and search form
-- [ ] Build Searching page with animated loading state
-- [ ] Build Results page with property listing cards
-- [ ] Build Property Detail page with locked contact section
-- [ ] Build Payment Success page
-- [ ] Build Payment Failed page
-- [ ] Build Admin Dashboard with analytics display
-- [ ] Build Admin Property Management page
+- [x] Build Home page with hero section and search form
+- [x] Build Searching page with animated loading state
+- [x] Build Results page with property listing cards
+- [x] Build Property Detail page with locked contact section
+- [x] Build Payment Success page
+- [x] Build Payment Failed page
+- [x] Build Admin Dashboard with analytics display
+- [x] Build Admin Property Management page
 
 ## UI Components
 - [ ] Create Navbar component with navigation links
@@ -64,7 +64,7 @@
 - [ ] Add demo tags to new pages
 
 ## Testing & Quality
-- [ ] Write vitest tests for database helpers
+- [x] Write vitest tests for database helpers
 - [ ] Write vitest tests for tRPC procedures
 - [ ] Write vitest tests for Stripe integration
 - [ ] Test search functionality end-to-end

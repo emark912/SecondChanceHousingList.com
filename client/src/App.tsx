@@ -8,6 +8,10 @@ import Home from "./pages/Home";
 import Searching from "./pages/Searching";
 import Results from "./pages/Results";
 import PropertyDetail from "./pages/PropertyDetail";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProperties from "./pages/AdminProperties";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -17,6 +21,10 @@ function Router() {
       <Route path={"/searching"} component={Searching} />
       <Route path={"/results"} component={Results} />
       <Route path={"/property/:id"} component={PropertyDetail} />
+      <Route path={"/payment/success"} component={PaymentSuccess} />
+      <Route path={"/payment/failed"} component={PaymentFailed} />
+      <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin/properties"} component={AdminProperties} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
