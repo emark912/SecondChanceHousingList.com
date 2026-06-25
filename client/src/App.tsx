@@ -4,6 +4,8 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Searching from "./pages/Searching";
 import Results from "./pages/Results";
@@ -12,6 +14,9 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProperties from "./pages/AdminProperties";
+import HowItWorks from "./pages/HowItWorks";
+import FAQ from "./pages/FAQ";
+import Application from "./pages/Application";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,6 +30,9 @@ function Router() {
       <Route path={"/payment/failed"} component={PaymentFailed} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/properties"} component={AdminProperties} />
+      <Route path={"/how-it-works"} component={HowItWorks} />
+      <Route path={"/faq"} component={FAQ} />
+      <Route path={"/application"} component={Application} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

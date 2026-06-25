@@ -36,14 +36,14 @@
 - [x] Build Admin Property Management page
 
 ## UI Components
-- [ ] Create Navbar component with navigation links
-- [ ] Create Footer component with links
-- [ ] Create PropertyCard component for results listing
-- [ ] Create PropertyDetailCard component with blurred contact section
-- [ ] Create DonationModal component for Stripe checkout
-- [ ] Create SearchForm component with all filter options
-- [ ] Create TrustIndicators component for homepage
-- [ ] Create AnimatedSearching component with loading state
+- [x] Create Navbar component with navigation links
+- [x] Create Footer component with links
+- [x] Create PropertyCard component for results listing
+- [x] Create PropertyDetailCard component with blurred contact section
+- [x] Create DonationModal component for Stripe checkout
+- [x] Create SearchForm component with all filter options
+- [x] Create TrustIndicators component for homepage
+- [x] Create AnimatedSearching component with loading state
 
 ## Features & Functionality
 - [ ] Search form validation and submission
@@ -57,11 +57,11 @@
 - [ ] Responsive design across all pages
 
 ## Navigation & Pages
-- [ ] Add How It Works page
-- [ ] Add FAQ page
-- [ ] Add Application page (link to external form)
-- [ ] Update footer with all page links
-- [ ] Add demo tags to new pages
+- [x] Add How It Works page
+- [x] Add FAQ page
+- [x] Add Application page (link to external form)
+- [x] Update footer with all page links
+- [x] Add demo tags to new pages
 
 ## Testing & Quality
 - [x] Write vitest tests for database helpers
