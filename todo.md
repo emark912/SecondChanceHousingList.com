@@ -20,10 +20,10 @@
 ## Stripe & Email Integration
 - [x] Set up Stripe API key and configure webhook
 - [x] Implement Stripe checkout session creation
-- [ ] Implement Stripe webhook handler for payment completion
+- [x] Implement Stripe webhook handler for payment completion
 - [x] Create email service with nodemailer configuration
 - [x] Implement donation confirmation email template
-- [ ] Send automated email after successful payment
+- [x] Send automated email after successful payment
 
 ## Frontend Pages
 - [x] Build Home page with hero section and search form
