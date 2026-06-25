@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,29 +18,47 @@ export default function Home() {
   const [, navigate] = useLocation();
   
   // Form state
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [desiredCity, setDesiredCity] = useState("");
+  const [desiredState, setDesiredState] = useState("");
   const [bedrooms, setBedrooms] = useState<number | null>(null);
   const [maxRent, setMaxRent] = useState([1500]);
-  const [moveIn, setMoveIn] = useState("");
-  const [hasPets, setHasPets] = useState(false);
-  const [challenges, setChallenges] = useState<string[]>([]);
+  const [moveInDate, setMoveInDate] = useState("");
+  const [hasPets, setHasPets] = useState("");
+  const [petDetails, setPetDetails] = useState("");
+  const [employmentStatus, setEmploymentStatus] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [creditChallenges, setCreditChallenges] = useState<string[]>([]);
+  const [rentalHistory, setRentalHistory] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
 
   const handleSearch = async () => {
-    if (!city || !state) {
-      toast.error("Please enter a city and state");
+    if (!firstName || !lastName || !email || !desiredCity || !desiredState) {
+      toast.error("Please fill in all required fields");
       return;
     }
 
     // Store search params in session storage
     sessionStorage.setItem("searchParams", JSON.stringify({
-      city,
-      state,
+      firstName,
+      lastName,
+      email,
+      phone,
+      desiredCity,
+      desiredState,
       bedrooms,
       maxRent: maxRent[0],
-      moveIn,
+      moveInDate,
       hasPets,
-      challenges,
+      petDetails,
+      employmentStatus,
+      monthlyIncome,
+      creditChallenges,
+      rentalHistory,
+      additionalInfo,
     }));
 
     // Navigate to searching page
@@ -47,7 +66,7 @@ export default function Home() {
   };
 
   const toggleChallenge = (challenge: string) => {
-    setChallenges((prev) =>
+    setCreditChallenges((prev) =>
       prev.includes(challenge)
         ? prev.filter((c) => c !== challenge)
         : [...prev, challenge]
@@ -58,7 +77,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
-      {/* HERO SECTION: Rental Profile Form */}
+      {/* HERO SECTION: Rental Application Form */}
       <section className="relative py-16 px-4 overflow-hidden">
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-green-50 to-purple-50 opacity-60"></div>
@@ -71,7 +90,7 @@ export default function Home() {
         </div>
 
         <div className="relative max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* LEFT COLUMN: Form */}
             <div className="space-y-8">
               <div className="space-y-4">
@@ -81,41 +100,98 @@ export default function Home() {
                 </div>
                 
                 <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                  Rental Profile Form
+                  Rental Application
                 </h1>
                 
                 <p className="text-xl text-gray-600">
-                  Tell us about your rental needs and situation. Our AI will match you with 50,000+ properties that will approve you in 15 seconds.
+                  Complete this application and our AI will match you with 50,000+ properties that will approve you in 15 seconds.
                 </p>
               </div>
 
               {/* Form Container */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-100">
-                {/* Section 1: Rental Needs */}
-                <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-100 max-h-[90vh] overflow-y-auto">
+                
+                {/* SECTION 1: Personal Information */}
+                <div className="space-y-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">📍</span>
-                    <h2 className="text-lg font-bold text-gray-900">Your Rental Needs</h2>
+                    <span className="text-2xl">👤</span>
+                    <h2 className="text-lg font-bold text-gray-900">Personal Information</h2>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="city" className="text-sm font-semibold text-gray-700">City</Label>
+                      <Label htmlFor="firstName" className="text-sm font-semibold text-gray-700">First Name *</Label>
                       <Input
-                        id="city"
-                        placeholder="Austin"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        id="firstName"
+                        placeholder="John"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="state" className="text-sm font-semibold text-gray-700">State</Label>
+                      <Label htmlFor="lastName" className="text-sm font-semibold text-gray-700">Last Name *</Label>
+                      <Input
+                        id="lastName"
+                        placeholder="Doe"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-sm font-semibold text-gray-700">Email Address *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="john@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-sm font-semibold text-gray-700">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="(555) 123-4567"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION 2: Desired Rental */}
+                <div className="space-y-6 pb-6 border-b border-gray-200">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🏠</span>
+                    <h2 className="text-lg font-bold text-gray-900">Desired Rental</h2>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="city" className="text-sm font-semibold text-gray-700">City *</Label>
+                      <Input
+                        id="city"
+                        placeholder="Austin"
+                        value={desiredCity}
+                        onChange={(e) => setDesiredCity(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="state" className="text-sm font-semibold text-gray-700">State *</Label>
                       <Input
                         id="state"
                         placeholder="TX"
-                        value={state}
-                        onChange={(e) => setState(e.target.value.toUpperCase())}
+                        value={desiredState}
+                        onChange={(e) => setDesiredState(e.target.value.toUpperCase())}
                         maxLength={2}
                         className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                       />
@@ -123,13 +199,13 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-3">
-                    <Label className="text-sm font-semibold text-gray-700">Bedrooms</Label>
+                    <Label className="text-sm font-semibold text-gray-700">Desired Number of Bedrooms</Label>
                     <div className="grid grid-cols-5 gap-2">
                       {[0, 1, 2, 3, 4].map((num) => (
                         <button
                           key={num}
                           onClick={() => setBedrooms(num)}
-                          className={`py-2 px-3 rounded-lg font-semibold transition-all ${
+                          className={`py-2 px-3 rounded-lg font-semibold transition-all text-sm ${
                             bedrooms === num
                               ? "bg-blue-600 text-white shadow-md"
                               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -143,7 +219,7 @@ export default function Home() {
 
                   <div className="space-y-3">
                     <Label className="text-sm font-semibold text-gray-700">
-                      Max Monthly Rent: ${maxRent[0]}
+                      Maximum Monthly Rent: ${maxRent[0]}
                     </Label>
                     <Slider
                       value={maxRent}
@@ -159,103 +235,177 @@ export default function Home() {
                     </div>
                   </div>
 
+                  <div className="space-y-2">
+                    <Label htmlFor="moveIn" className="text-sm font-semibold text-gray-700">Desired Move-in Date</Label>
+                    <Input
+                      id="moveIn"
+                      type="date"
+                      value={moveInDate}
+                      onChange={(e) => setMoveInDate(e.target.value)}
+                      className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+
+                {/* SECTION 3: Household Information */}
+                <div className="space-y-6 pb-6 border-b border-gray-200">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">👨‍👩‍👧‍👦</span>
+                    <h2 className="text-lg font-bold text-gray-900">Household Information</h2>
+                  </div>
+
                   <div className="space-y-3">
-                    <Label htmlFor="moveIn" className="text-sm font-semibold text-gray-700">Move-in Timeline</Label>
-                    <Select value={moveIn} onValueChange={setMoveIn}>
+                    <Label className="text-sm font-semibold text-gray-700">Do you have pets?</Label>
+                    <RadioGroup value={hasPets} onValueChange={setHasPets}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="pets-yes" />
+                        <Label htmlFor="pets-yes" className="font-normal cursor-pointer">Yes</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="pets-no" />
+                        <Label htmlFor="pets-no" className="font-normal cursor-pointer">No</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {hasPets === "yes" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="petDetails" className="text-sm font-semibold text-gray-700">Please describe your pets</Label>
+                      <Input
+                        id="petDetails"
+                        placeholder="e.g., 1 dog (30 lbs), 2 cats"
+                        value={petDetails}
+                        onChange={(e) => setPetDetails(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <Label htmlFor="employment" className="text-sm font-semibold text-gray-700">Employment Status</Label>
+                    <Select value={employmentStatus} onValueChange={setEmploymentStatus}>
                       <SelectTrigger className="rounded-lg border-gray-300">
-                        <SelectValue placeholder="Select timeline" />
+                        <SelectValue placeholder="Select employment status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="asap">ASAP</SelectItem>
-                        <SelectItem value="1-2-weeks">1-2 Weeks</SelectItem>
-                        <SelectItem value="1-month">1 Month</SelectItem>
-                        <SelectItem value="flexible">Flexible</SelectItem>
+                        <SelectItem value="employed-full-time">Employed (Full-time)</SelectItem>
+                        <SelectItem value="employed-part-time">Employed (Part-time)</SelectItem>
+                        <SelectItem value="self-employed">Self-Employed</SelectItem>
+                        <SelectItem value="unemployed">Unemployed</SelectItem>
+                        <SelectItem value="retired">Retired</SelectItem>
+                        <SelectItem value="student">Student</SelectItem>
+                        <SelectItem value="disability">Disability</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  <div className="space-y-3">
-                    <Label className="text-sm font-semibold text-gray-700">Pets</Label>
-                    <div className="flex gap-4">
-                      <button
-                        onClick={() => setHasPets(true)}
-                        className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-all ${
-                          hasPets
-                            ? "bg-green-600 text-white shadow-md"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Yes
-                      </button>
-                      <button
-                        onClick={() => setHasPets(false)}
-                        className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-all ${
-                          !hasPets
-                            ? "bg-green-600 text-white shadow-md"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        No
-                      </button>
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="income" className="text-sm font-semibold text-gray-700">Approximate Monthly Gross Income</Label>
+                    <Input
+                      id="income"
+                      type="number"
+                      placeholder="$3,000"
+                      value={monthlyIncome}
+                      onChange={(e) => setMonthlyIncome(e.target.value)}
+                      className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    />
                   </div>
                 </div>
 
-                {/* Divider */}
-                <div className="h-px bg-gray-200"></div>
-
-                {/* Section 2: Rental Situation */}
-                <div className="space-y-6">
+                {/* SECTION 4: Rental History & Challenges */}
+                <div className="space-y-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">💪</span>
-                    <h2 className="text-lg font-bold text-gray-900">Your Rental Situation</h2>
+                    <span className="text-2xl">📋</span>
+                    <h2 className="text-lg font-bold text-gray-900">Rental History & Challenges</h2>
                   </div>
 
-                  <p className="text-sm text-gray-600">Select all that apply</p>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700">Please select any challenges that apply to your situation</Label>
+                    <p className="text-xs text-gray-500">This helps us find properties that are right for you</p>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { id: "no-credit", label: "No Credit" },
-                      { id: "evictions", label: "Evictions" },
-                      { id: "bankruptcy", label: "Bankruptcy" },
-                      { id: "criminal", label: "Criminal Record" },
-                      { id: "broken-lease", label: "Broken Lease" },
-                      { id: "low-income", label: "Low Income" },
-                    ].map((challenge) => (
-                      <div key={challenge.id} className="flex items-center space-x-3">
-                        <Checkbox
-                          id={challenge.id}
-                          checked={challenges.includes(challenge.id)}
-                          onCheckedChange={() => toggleChallenge(challenge.id)}
-                          className="rounded"
-                        />
-                        <Label
-                          htmlFor={challenge.id}
-                          className="text-sm font-medium text-gray-700 cursor-pointer"
-                        >
-                          {challenge.label}
-                        </Label>
-                      </div>
-                    ))}
+                    <div className="grid grid-cols-2 gap-4">
+                      {[
+                        { id: "no-credit", label: "No Credit History" },
+                        { id: "poor-credit", label: "Poor Credit Score" },
+                        { id: "evictions", label: "Previous Eviction(s)" },
+                        { id: "bankruptcy", label: "Bankruptcy" },
+                        { id: "criminal", label: "Criminal Record" },
+                        { id: "broken-lease", label: "Broken Lease" },
+                        { id: "late-payments", label: "Late Rent Payments" },
+                        { id: "low-income", label: "Low Income" },
+                      ].map((challenge) => (
+                        <div key={challenge.id} className="flex items-center space-x-3">
+                          <Checkbox
+                            id={challenge.id}
+                            checked={creditChallenges.includes(challenge.id)}
+                            onCheckedChange={() => toggleChallenge(challenge.id)}
+                            className="rounded"
+                          />
+                          <Label
+                            htmlFor={challenge.id}
+                            className="text-sm font-medium text-gray-700 cursor-pointer"
+                          >
+                            {challenge.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="rentalHistory" className="text-sm font-semibold text-gray-700">Rental History</Label>
+                    <Select value={rentalHistory} onValueChange={setRentalHistory}>
+                      <SelectTrigger className="rounded-lg border-gray-300">
+                        <SelectValue placeholder="Select your rental history" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="first-time">First-time Renter</SelectItem>
+                        <SelectItem value="current-renter">Currently Renting</SelectItem>
+                        <SelectItem value="previous-renter">Previous Renter</SelectItem>
+                        <SelectItem value="homeowner">Homeowner</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* SECTION 5: Additional Information */}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">💬</span>
+                    <h2 className="text-lg font-bold text-gray-900">Additional Information</h2>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="additionalInfo" className="text-sm font-semibold text-gray-700">Anything else you'd like landlords to know?</Label>
+                    <textarea
+                      id="additionalInfo"
+                      placeholder="Tell us about yourself, your situation, or anything that might help landlords understand your application..."
+                      value={additionalInfo}
+                      onChange={(e) => setAdditionalInfo(e.target.value)}
+                      rows={4}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                    />
                   </div>
                 </div>
 
                 {/* CTA Button */}
-                <Button
-                  onClick={handleSearch}
-                  className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all text-lg"
-                >
-                  🚀 Find My Matches
-                </Button>
+                <div className="pt-6 border-t border-gray-200 space-y-4">
+                  <Button
+                    onClick={handleSearch}
+                    className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all text-lg"
+                  >
+                    🚀 Find My Matches
+                  </Button>
 
-                <p className="text-center text-sm text-gray-600">
-                  <span className="font-semibold text-gray-900">15-second AI match</span> • <span className="font-semibold text-gray-900">95% approval rate</span>
-                </p>
+                  <p className="text-center text-sm text-gray-600">
+                    <span className="font-semibold text-gray-900">15-second AI match</span> • <span className="font-semibold text-gray-900">95% approval rate</span>
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* RIGHT COLUMN: AI Visualization + Benefits */}
-            <div className="space-y-8">
+            <div className="space-y-8 sticky top-24">
               {/* AI Visualization */}
               <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
                 <AIVisualization />
@@ -331,7 +481,7 @@ export default function Home() {
               {
                 step: "1",
                 title: "Your Profile",
-                description: "You tell us your rental needs and situation",
+                description: "You complete your rental application",
                 icon: "👤",
               },
               {
