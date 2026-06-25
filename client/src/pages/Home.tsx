@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
-import { Check } from "lucide-react";
+import { Check, Zap, Shield, Users, Clock } from "lucide-react";
 
 export default function Home() {
   const [, navigate] = useLocation();
@@ -75,35 +75,142 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-[#e8f1f8] via-[#d4e5f0] to-[#e8f1f8] text-gray-900">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="pt-20 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Form */}
-          <div className="space-y-6 bg-white rounded-lg shadow-lg p-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Get Approved for Housing in 15 Seconds</h1>
-            <p className="text-lg text-gray-700 mb-6">Our AI-powered matching system helps you find quality housing even with credit challenges, evictions, or criminal history.</p>
-            
-            <div className="flex flex-col md:flex-row gap-4 mb-8 text-sm">
-              <div className="flex items-center gap-2 text-green-600">
-                <Check size={20} />
-                <span>95% Approval Rate</span>
+      {/* Hero Section with Headline and Benefits */}
+      <div className="pt-16 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">Get Approved for Housing in 15 Seconds</h1>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">Our AI-powered matching system helps you find quality housing even with credit challenges, evictions, or criminal history.</p>
+          
+          <div className="flex flex-col md:flex-row gap-4 justify-center mb-12 text-sm">
+            <div className="flex items-center gap-2 text-green-600">
+              <Check size={20} />
+              <span>95% Approval Rate</span>
+            </div>
+            <div className="flex items-center gap-2 text-green-600">
+              <Check size={20} />
+              <span>30-Day Refund Guarantee</span>
+            </div>
+            <div className="flex items-center gap-2 text-green-600">
+              <Check size={20} />
+              <span>Free to Search</span>
+            </div>
+          </div>
+        </div>
+
+        {/* How Our AI Works Section */}
+        <div className="mb-16">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">How Our AI Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold">1</span>
               </div>
-              <div className="flex items-center gap-2 text-green-600">
-                <Check size={20} />
-                <span>30-Day Refund Guarantee</span>
-              </div>
-              <div className="flex items-center gap-2 text-green-600">
-                <Check size={20} />
-                <span>Free to Search</span>
-              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
+              <p className="text-gray-700">Tell us about your situation, budget, and preferences in just a few minutes.</p>
             </div>
 
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Zap size={32} />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Analyzes 50,000+ Properties</h3>
+              <p className="text-gray-700">Our system instantly scans landlords and their acceptance criteria across the nation.</p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Users size={32} />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">We Find Your Matches</h3>
+              <p className="text-gray-700">Discover properties and landlords that specifically accept renters like you.</p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Clock size={32} />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Get Landlord Contact Info</h3>
+              <p className="text-gray-700">One-time donation unlocks direct contact details for all your matches.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Why Choose Us Section */}
+        <div className="mb-16">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Why Choose Second Chance Housing List?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <Shield className="text-blue-500 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">AI-Powered Matching</h3>
+              <p className="text-gray-700 mb-4">Advanced algorithms analyze landlord policies to find properties that accept your situation.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Intelligent filtering</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Accurate matches</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Time-saving results</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <Users className="text-blue-500 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">50+ States Covered</h3>
+              <p className="text-gray-700 mb-4">Our nationwide database includes landlords and properties across the entire United States.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Nationwide coverage</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>50,000+ properties</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Constantly updated</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <Clock className="text-blue-500 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">30-Day Money Back</h3>
+              <p className="text-gray-700 mb-4">Not satisfied with your results? We offer a full refund within 30 days, no questions asked.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Full refund guarantee</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>No questions asked</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-green-600" />
+                  <span>Risk-free trial</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Rental Profile Form Section */}
+        <div className="mb-16">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Start Your Search Today</h2>
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
             {/* Personal Information Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">1</span>
                 Personal Information
-              </h2>
+              </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label className="text-gray-700">First Name *</Label>
@@ -148,10 +255,10 @@ export default function Home() {
 
             {/* Desired Rental Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">2</span>
                 Desired Rental
-              </h2>
+              </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label className="text-gray-700">City *</Label>
@@ -210,10 +317,10 @@ export default function Home() {
 
             {/* Household Information Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">3</span>
                 Household Information
-              </h2>
+              </h3>
               <div className="space-y-4">
                 <div>
                   <Label className="text-gray-700">Do you have pets?</Label>
@@ -244,10 +351,10 @@ export default function Home() {
 
             {/* Rental History & Challenges Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">4</span>
                 Rental History & Challenges
-              </h2>
+              </h3>
               <div className="space-y-4">
                 <div>
                   <Label className="text-gray-700">Employment Status</Label>
@@ -294,10 +401,10 @@ export default function Home() {
 
             {/* Additional Information Section */}
             <div className="pb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">5</span>
                 Additional Information
-              </h2>
+              </h3>
               <div>
                 <Label className="text-gray-700">Anything else we should know?</Label>
                 <textarea
@@ -316,86 +423,6 @@ export default function Home() {
             >
               Find My Perfect Home
             </Button>
-          </div>
-
-          {/* Right Column - Images and Benefits */}
-          <div className="space-y-8">
-            {/* Property Images */}
-            <div className="grid grid-cols-2 gap-4">
-              <img
-                src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop"
-                alt="Modern apartment living room"
-                className="rounded-lg shadow-lg w-full h-48 object-cover"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
-                alt="Bright modern home"
-                className="rounded-lg shadow-lg w-full h-48 object-cover"
-              />
-            </div>
-
-            {/* How It Works */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">How Our AI Works</h3>
-              <div className="space-y-4">
-                <div className="flex gap-4">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">1</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">You Complete Your Profile</h4>
-                    <p className="text-gray-700 text-sm">Tell us about your situation and preferences</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">2</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">AI Analyzes 50,000+ Properties</h4>
-                    <p className="text-gray-700 text-sm">Our system scans landlords and their acceptance criteria</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">3</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">We Find Your Matches</h4>
-                    <p className="text-gray-700 text-sm">Properties that accept renters like you</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">4</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Get Landlord Contact Info</h4>
-                    <p className="text-gray-700 text-sm">One-time donation unlocks landlord details</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Key Benefits */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Why Choose Us?</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                  <div>
-                    <p className="font-semibold text-gray-900">AI-Powered Matching</p>
-                    <p className="text-gray-700 text-sm">Advanced algorithms find your best options</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                  <div>
-                    <p className="font-semibold text-gray-900">50+ States Covered</p>
-                    <p className="text-gray-700 text-sm">Nationwide database of landlords</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                  <div>
-                    <p className="font-semibold text-gray-900">30-Day Money Back</p>
-                    <p className="text-gray-700 text-sm">Not satisfied? Full refund guaranteed</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
