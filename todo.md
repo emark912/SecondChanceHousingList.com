@@ -11,7 +11,7 @@
 - [x] Implement tRPC search procedure (public, returns properties without contact info)
 - [x] Implement tRPC getPropertyById procedure (public)
 - [x] Implement tRPC createCheckoutSession procedure (Stripe integration)
-- [ ] Implement tRPC verifyDonation procedure (check payment status)
+- [x] Implement tRPC verifyDonation procedure (check payment status)
 - [x] Implement tRPC hasAccess procedure (check if user has donation access)
 - [x] Implement tRPC getLandlordInfo procedure (protected, returns contact info)
 - [x] Implement tRPC admin.addProperty procedure (admin only)
@@ -46,15 +46,15 @@
 - [x] Create AnimatedSearching component with loading state
 
 ## Features & Functionality
-- [ ] Search form validation and submission
-- [ ] Search results filtering and display
-- [ ] Donation gate logic and verification
-- [ ] Contact info blur/unlock on property detail page
-- [ ] Admin authentication and role-based access
-- [ ] Analytics calculation and display
-- [ ] Email confirmation sending
-- [ ] Session storage for search form data
-- [ ] Responsive design across all pages
+- [x] Search form validation and submission
+- [x] Search results filtering and display
+- [x] Donation gate logic and verification
+- [x] Contact info blur/unlock on property detail page
+- [x] Admin authentication and role-based access
+- [x] Analytics calculation and display
+- [x] Email confirmation sending
+- [x] Session storage for search form data
+- [x] Responsive design across all pages
 
 ## Navigation & Pages
 - [x] Add How It Works page
@@ -65,22 +65,36 @@
 
 ## Testing & Quality
 - [x] Write vitest tests for database helpers
-- [ ] Write vitest tests for tRPC procedures
-- [ ] Write vitest tests for Stripe integration
-- [ ] Test search functionality end-to-end
-- [ ] Test donation flow end-to-end
-- [ ] Test admin dashboard access control
-- [ ] Test email sending
+- [x] Write vitest tests for tRPC procedures
+- [x] Write vitest tests for Stripe integration
+- [x] Test search functionality end-to-end
+- [x] Test donation flow end-to-end
+- [x] Test admin dashboard access control
+- [x] Test email sending
 
 ## Styling & Design
-- [ ] Define color palette and design tokens
-- [ ] Implement responsive design
-- [ ] Add animations and micro-interactions
-- [ ] Ensure accessibility standards
-- [ ] Test cross-browser compatibility
+- [x] Define color palette and design tokens
+- [x] Implement responsive design
+- [x] Add animations and micro-interactions
+- [x] Ensure accessibility standards
+- [x] Test cross-browser compatibility
 
 ## Deployment & Final Steps
-- [ ] Configure environment variables (Stripe keys, email credentials)
-- [ ] Set up database migrations
-- [ ] Verify all features working in production
-- [ ] Create checkpoint before publishing
+- [x] Configure environment variables (Stripe keys, email credentials)
+- [x] Set up database migrations
+- [x] Verify all features working in production
+- [x] Create checkpoint before publishing
+
+
+## Homepage Redesign (New Specification)
+- [ ] Update hero section with AI messaging and animated gradient background
+- [ ] Create animated AI visualization component (nodes, connections, matching indicators)
+- [ ] Add "How Our AI Works" section with 4-step process
+- [ ] Add "What You'll Find in Your Results" section with 6 result type cards
+- [ ] Add testimonials section
+- [ ] Add refund guarantee messaging
+- [ ] Add expanded FAQ section
+- [ ] Update database schema to support multiple result types (rental, program, corporate, landlord, realtor)
+- [ ] Update search/results logic to handle multiple result types
+- [ ] Update donation messaging to show "$20 starting donation"
+- [ ] Add refund policy information
