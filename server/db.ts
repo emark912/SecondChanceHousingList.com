@@ -2,9 +2,9 @@ import { eq, and, gte, lte, like, inArray, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, rentalProperties, propertySearches, payments, propertyViews, emailLogs } from "../drizzle/schema";
 import { ENV } from './_core/env';
-import { nanoid as generateNanoid } from "nanoid";
+import { nanoid } from "nanoid";
 
-const generateId = () => generateNanoid();
+const generateId = () => nanoid();
 
 let _db: ReturnType<typeof drizzle> | null = null;
 

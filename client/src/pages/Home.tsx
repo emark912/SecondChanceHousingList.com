@@ -1,554 +1,457 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card } from "@/components/ui/card";
-import { ChevronRight, ChevronDown, Check, Zap, Target, Lock } from "lucide-react";
-import { AIVisualization } from "@/components/AIVisualization";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AIVisualization } from "@/components/AIVisualization";
+import { toast } from "sonner";
 
 export default function Home() {
   const [, navigate] = useLocation();
-  const [formData, setFormData] = useState({
-    city: "",
-    state: "",
-    bedrooms: "",
-    maxRent: 1500,
-    petFriendly: false,
-    creditChallenges: [] as string[],
-    moveInTimeline: "",
-    userName: "",
-    userEmail: "",
-    userPhone: "",
-  });
+  
+  // Form state
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [bedrooms, setBedrooms] = useState<number | null>(null);
+  const [maxRent, setMaxRent] = useState([1500]);
+  const [moveIn, setMoveIn] = useState("");
+  const [hasPets, setHasPets] = useState(false);
+  const [challenges, setChallenges] = useState<string[]>([]);
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const creditChallengeOptions = [
-    "No Credit",
-    "Low Credit",
-    "Evictions",
-    "Bankruptcy",
-    "Criminal History",
-    "Broken Leases",
-  ];
-
-  const moveInOptions = [
-    "ASAP",
-    "1-2 weeks",
-    "1 month",
-    "2-3 months",
-    "3+ months",
-  ];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.state.trim()) newErrors.state = "State is required";
-    if (formData.creditChallenges.length === 0) {
-      newErrors.creditChallenges = "Select at least one credit challenge";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+  const handleSearch = async () => {
+    if (!city || !state) {
+      toast.error("Please enter a city and state");
       return;
     }
 
-    sessionStorage.setItem("searchFormData", JSON.stringify(formData));
+    // Store search params in session storage
+    sessionStorage.setItem("searchParams", JSON.stringify({
+      city,
+      state,
+      bedrooms,
+      maxRent: maxRent[0],
+      moveIn,
+      hasPets,
+      challenges,
+    }));
+
+    // Navigate to searching page
     navigate("/searching");
   };
 
-  const toggleCreditChallenge = (challenge: string) => {
-    setFormData(prev => ({
-      ...prev,
-      creditChallenges: prev.creditChallenges.includes(challenge)
-        ? prev.creditChallenges.filter(c => c !== challenge)
-        : [...prev.creditChallenges, challenge],
-    }));
-    if (errors.creditChallenges) {
-      setErrors(prev => ({ ...prev, creditChallenges: "" }));
-    }
+  const toggleChallenge = (challenge: string) => {
+    setChallenges((prev) =>
+      prev.includes(challenge)
+        ? prev.filter((c) => c !== challenge)
+        : [...prev, challenge]
+    );
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-green-50 to-purple-50">
-        {/* Animated background gradient */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+      {/* HERO SECTION: Rental Profile Form */}
+      <section className="relative py-16 px-4 overflow-hidden">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-green-50 to-purple-50 opacity-60"></div>
+        
+        {/* Animated nodes background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-32 h-32 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
+          <div className="absolute bottom-20 left-1/3 w-32 h-32 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: "4s" }}></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 py-20">
+        <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* LEFT SIDE - Content */}
+            {/* LEFT COLUMN: Form */}
             <div className="space-y-8">
-              {/* AI Badge */}
-              <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold text-sm">
-                <span className="text-lg">🤖</span>
-                ADVANCED AI HOUSING SEARCH
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-blue-200 shadow-sm">
+                  <span className="text-2xl">🤖</span>
+                  <span className="text-sm font-semibold text-blue-600">AI-POWERED MATCHING</span>
+                </div>
+                
+                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                  Rental Profile Form
+                </h1>
+                
+                <p className="text-xl text-gray-600">
+                  Tell us about your rental needs and situation. Our AI will match you with 50,000+ properties that will approve you in 15 seconds.
+                </p>
               </div>
 
-              {/* Main Headline */}
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Advanced AI Scans 50,000+ Rental Properties, Second Chance Programs & Corporate Leasing to Find Your Perfect Match
-              </h1>
-
-              {/* Subheadline */}
-              <p className="text-xl text-gray-700 leading-relaxed">
-                Our intelligent AI searches court records, housing databases, rental credit systems, landlord records, and property management databases to understand the approval standards of every property it scans. Then it matches YOU with rentals that will approve you. Get matched in 15 seconds.
-              </p>
-
-              {/* Key Benefits */}
-              <div className="grid grid-cols-3 gap-4 py-6">
-                <div className="flex items-center gap-2">
-                  <Zap className="w-6 h-6 text-blue-600" />
-                  <span className="font-semibold text-gray-800">15-Second Match</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Target className="w-6 h-6 text-green-600" />
-                  <span className="font-semibold text-gray-800">95% Approval</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Lock className="w-6 h-6 text-purple-600" />
-                  <span className="font-semibold text-gray-800">Private</span>
-                </div>
-              </div>
-
-              {/* Donation Model Messaging */}
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-                <p className="font-semibold text-gray-900">Donation-Based Service (Starting at $20)</p>
-                <p className="text-gray-700 text-sm mt-2">Refundable if you're not approved from our resources and rental properties</p>
-              </div>
-
-              {/* CTA Button */}
-              <Button
-                onClick={() => window.scrollTo({ top: document.getElementById("search-form")?.offsetTop || 0, behavior: "smooth" })}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg font-bold rounded-lg shadow-lg"
-              >
-                START YOUR AI SEARCH
-              </Button>
-            </div>
-
-            {/* RIGHT SIDE - AI Visualization */}
-            <div className="hidden lg:flex items-center justify-center">
-              <AIVisualization />
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-gray-600" />
-        </div>
-      </section>
-
-      {/* HOW OUR AI WORKS SECTION */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">How Our Advanced AI Housing Search Works</h2>
-
-          <div className="space-y-8">
-            {/* Step 1 */}
-            <Card className="p-8 border-l-4 border-blue-600">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Step 1: AI Scans Multiple Databases</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex gap-4">
-                  <span className="text-3xl">📋</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Court Records</p>
-                    <p className="text-gray-600 text-sm">Eviction history, bankruptcy, criminal records</p>
+              {/* Form Container */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-100">
+                {/* Section 1: Rental Needs */}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📍</span>
+                    <h2 className="text-lg font-bold text-gray-900">Your Rental Needs</h2>
                   </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">🏠</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Housing Databases</p>
-                    <p className="text-gray-600 text-sm">50,000+ rental properties nationwide</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">💳</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Rental Credit Systems</p>
-                    <p className="text-gray-600 text-sm">Credit scores, payment history, rental reports</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">🏢</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Landlord Records & Property Management</p>
-                    <p className="text-gray-600 text-sm">Landlord approval criteria and policies</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">🔍</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Second Chance Programs & Corporate Leasing</p>
-                    <p className="text-gray-600 text-sm">Specialized programs for credit challenges</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">👥</span>
-                  <div>
-                    <p className="font-semibold text-gray-900">Private Landlord Networks</p>
-                    <p className="text-gray-600 text-sm">Individual landlords who approve second chances</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
 
-            {/* Step 2 */}
-            <Card className="p-8 border-l-4 border-green-600">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Step 2: AI Understands Approval Standards</h3>
-              <p className="text-gray-700 mb-6">Our AI analyzes each rental property and program to understand:</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  "What credit situations they accept",
-                  "What eviction history they allow",
-                  "What criminal history they consider",
-                  "What income requirements they have",
-                  "What deposit/fees they charge",
-                  "What approval timeline they offer",
-                  "What special programs they provide",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
-                    <p className="text-gray-700">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Step 3 */}
-            <Card className="p-8 border-l-4 border-purple-600">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Step 3: AI Matches With Your Situation</h3>
-              <p className="text-gray-700 mb-6">You tell us about YOUR situation:</p>
-              <ul className="space-y-3 mb-6">
-                {[
-                  "Your credit challenges",
-                  "Your rental history",
-                  "Your budget and location",
-                  "Your move-in timeline",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-gray-700">
-                    <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-gray-700">
-                Our AI compares YOUR profile with the approval standards of 50,000+ properties and programs to find the PERFECT MATCHES for you.
-              </p>
-            </Card>
-
-            {/* Step 4 */}
-            <Card className="p-8 border-l-4 border-orange-600">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Step 4: You Get Your Personalized Results</h3>
-              <p className="text-gray-700 mb-6">In just 15 seconds, you receive:</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  { icon: "🏠", title: "Rental Properties", desc: "Direct landlords who will approve you" },
-                  { icon: "🤝", title: "Second Chance Programs", desc: "Specialized housing programs for your situation" },
-                  { icon: "💼", title: "Corporate Leasing Programs", desc: "Companies that specialize in second chances" },
-                  { icon: "👨‍💼", title: "Private Landlords", desc: "Individual landlords open to your situation" },
-                  { icon: "🏘️", title: "Second Chance Realtors", desc: "Real estate professionals specializing in second chance housing" },
-                  { icon: "📋", title: "And More...", desc: "Additional housing resources and programs" },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <span className="text-3xl">{item.icon}</span>
-                    <div>
-                      <p className="font-semibold text-gray-900">{item.title}</p>
-                      <p className="text-gray-600 text-sm">{item.desc}</p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="city" className="text-sm font-semibold text-gray-700">City</Label>
+                      <Input
+                        id="city"
+                        placeholder="Austin"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="state" className="text-sm font-semibold text-gray-700">State</Label>
+                      <Input
+                        id="state"
+                        placeholder="TX"
+                        value={state}
+                        onChange={(e) => setState(e.target.value.toUpperCase())}
+                        maxLength={2}
+                        className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      />
                     </div>
                   </div>
-                ))}
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700">Bedrooms</Label>
+                    <div className="grid grid-cols-5 gap-2">
+                      {[0, 1, 2, 3, 4].map((num) => (
+                        <button
+                          key={num}
+                          onClick={() => setBedrooms(num)}
+                          className={`py-2 px-3 rounded-lg font-semibold transition-all ${
+                            bedrooms === num
+                              ? "bg-blue-600 text-white shadow-md"
+                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          {num === 4 ? "4+" : num}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700">
+                      Max Monthly Rent: ${maxRent[0]}
+                    </Label>
+                    <Slider
+                      value={maxRent}
+                      onValueChange={setMaxRent}
+                      min={300}
+                      max={3000}
+                      step={50}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>$300</span>
+                      <span>$3,000</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label htmlFor="moveIn" className="text-sm font-semibold text-gray-700">Move-in Timeline</Label>
+                    <Select value={moveIn} onValueChange={setMoveIn}>
+                      <SelectTrigger className="rounded-lg border-gray-300">
+                        <SelectValue placeholder="Select timeline" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="asap">ASAP</SelectItem>
+                        <SelectItem value="1-2-weeks">1-2 Weeks</SelectItem>
+                        <SelectItem value="1-month">1 Month</SelectItem>
+                        <SelectItem value="flexible">Flexible</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700">Pets</Label>
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => setHasPets(true)}
+                        className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-all ${
+                          hasPets
+                            ? "bg-green-600 text-white shadow-md"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() => setHasPets(false)}
+                        className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-all ${
+                          !hasPets
+                            ? "bg-green-600 text-white shadow-md"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-gray-200"></div>
+
+                {/* Section 2: Rental Situation */}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">💪</span>
+                    <h2 className="text-lg font-bold text-gray-900">Your Rental Situation</h2>
+                  </div>
+
+                  <p className="text-sm text-gray-600">Select all that apply</p>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { id: "no-credit", label: "No Credit" },
+                      { id: "evictions", label: "Evictions" },
+                      { id: "bankruptcy", label: "Bankruptcy" },
+                      { id: "criminal", label: "Criminal Record" },
+                      { id: "broken-lease", label: "Broken Lease" },
+                      { id: "low-income", label: "Low Income" },
+                    ].map((challenge) => (
+                      <div key={challenge.id} className="flex items-center space-x-3">
+                        <Checkbox
+                          id={challenge.id}
+                          checked={challenges.includes(challenge.id)}
+                          onCheckedChange={() => toggleChallenge(challenge.id)}
+                          className="rounded"
+                        />
+                        <Label
+                          htmlFor={challenge.id}
+                          className="text-sm font-medium text-gray-700 cursor-pointer"
+                        >
+                          {challenge.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <Button
+                  onClick={handleSearch}
+                  className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all text-lg"
+                >
+                  🚀 Find My Matches
+                </Button>
+
+                <p className="text-center text-sm text-gray-600">
+                  <span className="font-semibold text-gray-900">15-second AI match</span> • <span className="font-semibold text-gray-900">95% approval rate</span>
+                </p>
               </div>
-            </Card>
+            </div>
+
+            {/* RIGHT COLUMN: AI Visualization + Benefits */}
+            <div className="space-y-8">
+              {/* AI Visualization */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+                <AIVisualization />
+              </div>
+
+              {/* Key Benefits */}
+              <div className="space-y-4">
+                <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">⚡</span>
+                    <div>
+                      <p className="font-bold text-gray-900">15-Second Match</p>
+                      <p className="text-sm text-gray-600">Get instant results</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">🎯</span>
+                    <div>
+                      <p className="font-bold text-gray-900">95% Approval Rate</p>
+                      <p className="text-sm text-gray-600">Real properties that approve you</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">🔒</span>
+                    <div>
+                      <p className="font-bold text-gray-900">Private & Secure</p>
+                      <p className="text-sm text-gray-600">Your data is protected</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">💝</span>
+                    <div>
+                      <p className="font-bold text-gray-900">Donation-Based ($20+)</p>
+                      <p className="text-sm text-gray-600">Unlock landlord contact info</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">✅</span>
+                    <div>
+                      <p className="font-bold text-green-900">Refund Guarantee</p>
+                      <p className="text-sm text-green-700">Not satisfied? Full refund within 30 days</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WHAT YOU'LL FIND SECTION */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Your Personalized Results Include</h2>
+      {/* HOW OUR AI WORKS */}
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How Our AI Works</h2>
+            <p className="text-xl text-gray-600">Advanced database matching in 4 simple steps</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                step: "1",
+                title: "Your Profile",
+                description: "You tell us your rental needs and situation",
+                icon: "👤",
+              },
+              {
+                step: "2",
+                title: "Database Scan",
+                description: "Our AI scans 50,000+ rental properties",
+                icon: "🔍",
+              },
+              {
+                step: "3",
+                title: "AI Matching",
+                description: "Advanced algorithms find your perfect matches",
+                icon: "🤖",
+              },
+              {
+                step: "4",
+                title: "Your Results",
+                description: "Get landlord contact info after donation",
+                icon: "✨",
+              },
+            ].map((item) => (
+              <div key={item.step} className="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">{item.step}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT YOU'LL FIND */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">What You'll Find in Your Results</h2>
+            <p className="text-xl text-gray-600">Multiple types of housing and assistance options</p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: "🏠",
                 title: "Rental Properties",
-                desc: "Direct landlords who approve tenants with credit challenges",
-                contact: "Phone, Email, Address",
+                description: "Direct landlords who accept second chance renters",
+                icon: "🏠",
               },
               {
-                icon: "🤝",
                 title: "Second Chance Programs",
-                desc: "Nonprofits & organizations specializing in second chance housing",
-                contact: "Phone, Email, Address",
+                description: "Non-profits and organizations offering rental assistance",
+                icon: "🤝",
               },
               {
-                icon: "💼",
-                title: "Corporate Leasing",
-                desc: "Companies specializing in second chance employment & housing",
-                contact: "Phone, Email",
+                title: "Corporate Housing",
+                description: "Corporate leasing companies with flexible policies",
+                icon: "🏢",
               },
               {
-                icon: "👨‍💼",
-                title: "Private Landlords",
-                desc: "Individual landlords open to your situation",
-                contact: "Phone, Email, Address",
+                title: "Landlord Networks",
+                description: "Vetted landlords specializing in second chance rentals",
+                icon: "👥",
               },
               {
-                icon: "🏘️",
-                title: "Second Chance Realtors",
-                desc: "Real estate professionals specializing in second chance housing",
-                contact: "Phone, Email, Address",
+                title: "Real Estate Agents",
+                description: "Agents experienced with credit-challenged renters",
+                icon: "🎯",
               },
               {
+                title: "Government Programs",
+                description: "Federal and state rental assistance programs",
                 icon: "📋",
-                title: "And More",
-                desc: "Additional housing resources & programs tailored to your needs",
-                contact: "Various",
               },
-            ].map((item, i) => (
-              <Card key={i} className="p-6 hover:shadow-lg transition">
+            ].map((item, idx) => (
+              <div key={idx} className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-6 border border-blue-200 hover:shadow-lg transition-shadow">
                 <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-700 mb-4">{item.desc}</p>
-                <p className="text-sm text-gray-600 font-semibold">Contact: {item.contact}</p>
-              </Card>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* TRUST INDICATORS */}
-      <section className="py-16 bg-white border-t border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-green-600">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
             <div>
-              <p className="text-4xl font-bold text-green-600">95%</p>
-              <p className="text-gray-700 font-semibold mt-2">Approval Rate</p>
+              <div className="text-4xl font-bold mb-2">95%</div>
+              <p className="text-lg">Approval Rate</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-blue-600">50+</p>
-              <p className="text-gray-700 font-semibold mt-2">States Covered</p>
+              <div className="text-4xl font-bold mb-2">50+</div>
+              <p className="text-lg">States Covered</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-purple-600">FREE</p>
-              <p className="text-gray-700 font-semibold mt-2">Search is Free</p>
+              <div className="text-4xl font-bold mb-2">Free</div>
+              <p className="text-lg">To Search</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* REFUND GUARANTEE */}
-      <section className="py-16 bg-blue-50 border-t border-gray-200">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Refund Guarantee</h2>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-            If you're not approved from our resources and rental properties, we'll refund your donation. We're confident in our AI matching, and we stand behind our results.
-          </p>
-        </div>
-      </section>
-
-      {/* SEARCH FORM SECTION */}
-      <section id="search-form" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Start Your Search Now</h2>
-
-          <Card className="bg-white shadow-xl p-8 max-w-4xl mx-auto">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Location */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-3">
-                  Location (City, State) *
-                </label>
-                <div className="flex gap-3">
-                  <div className="flex-1">
-                    <Input
-                      placeholder="City"
-                      value={formData.city}
-                      onChange={(e) => {
-                        setFormData({ ...formData, city: e.target.value });
-                        if (errors.city) setErrors(prev => ({ ...prev, city: "" }));
-                      }}
-                      className={errors.city ? "border-red-500" : ""}
-                    />
-                    {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
-                  </div>
-                  <div className="w-24">
-                    <Input
-                      placeholder="State"
-                      value={formData.state}
-                      onChange={(e) => {
-                        setFormData({ ...formData, state: e.target.value.toUpperCase() });
-                        if (errors.state) setErrors(prev => ({ ...prev, state: "" }));
-                      }}
-                      maxLength={2}
-                      className={errors.state ? "border-red-500" : ""}
-                    />
-                    {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
-                  </div>
-                </div>
-              </div>
-
-              {/* Bedrooms */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-3">
-                  Bedrooms
-                </label>
-                <div className="flex gap-2 flex-wrap">
-                  {["Studio", "1BR", "2BR", "3BR", "4BR+"].map((option) => (
-                    <Button
-                      key={option}
-                      type="button"
-                      variant={formData.bedrooms === option ? "default" : "outline"}
-                      onClick={() => setFormData({ ...formData, bedrooms: option })}
-                      className="px-4"
-                    >
-                      {option}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Max Rent */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-3">
-                  Max Monthly Rent: ${formData.maxRent}
-                </label>
-                <input
-                  type="range"
-                  min="300"
-                  max="3000"
-                  step="100"
-                  value={formData.maxRent}
-                  onChange={(e) => setFormData({ ...formData, maxRent: parseInt(e.target.value) })}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Credit Challenges */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-3">
-                  Credit Challenges * (Select at least one)
-                </label>
-                <div className="space-y-2">
-                  {creditChallengeOptions.map((challenge) => (
-                    <label key={challenge} className="flex items-center gap-3 cursor-pointer">
-                      <Checkbox
-                        checked={formData.creditChallenges.includes(challenge)}
-                        onCheckedChange={() => toggleCreditChallenge(challenge)}
-                      />
-                      <span className="text-gray-700">{challenge}</span>
-                    </label>
-                  ))}
-                </div>
-                {errors.creditChallenges && (
-                  <p className="text-red-500 text-sm mt-2">{errors.creditChallenges}</p>
-                )}
-              </div>
-
-              {/* Pet Friendly */}
-              <label className="flex items-center gap-3 cursor-pointer">
-                <Checkbox
-                  checked={formData.petFriendly}
-                  onCheckedChange={(checked) => setFormData({ ...formData, petFriendly: checked as boolean })}
-                />
-                <span className="text-gray-700">Pet Friendly</span>
-              </label>
-
-              {/* Move-in Timeline */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-3">
-                  Move-in Timeline
-                </label>
-                <select
-                  value={formData.moveInTimeline}
-                  onChange={(e) => setFormData({ ...formData, moveInTimeline: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900"
-                >
-                  <option value="">Select timeline...</option>
-                  {moveInOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Contact Info (Optional) */}
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-gray-700 mb-3">Optional: Share your info to get updates</p>
-                <div className="space-y-3">
-                  <Input
-                    placeholder="Your Name"
-                    value={formData.userName}
-                    onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                  />
-                  <Input
-                    placeholder="Your Email"
-                    type="email"
-                    value={formData.userEmail}
-                    onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
-                  />
-                  <Input
-                    placeholder="Your Phone"
-                    type="tel"
-                    value={formData.userPhone}
-                    onChange={(e) => setFormData({ ...formData, userPhone: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-lg font-semibold"
-              >
-                Search Properties
-                <ChevronRight className="ml-2" />
-              </Button>
-            </form>
-          </Card>
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200">
+            <div className="text-5xl mb-6">🛡️</div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">30-Day Refund Guarantee</h2>
+            <p className="text-lg text-gray-600 mb-6">
+              Not satisfied with your results? We'll refund your full donation within 30 days, no questions asked. We're confident you'll find what you're looking for.
+            </p>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="text-green-900 font-semibold">✓ Hassle-free refunds • ✓ No questions asked • ✓ 30-day window</p>
+            </div>
+          </div>
         </div>
       </section>
 
       <Footer />
-
-      {/* Blob animations */}
-      <style>{`
-        @keyframes blob {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </div>
   );
 }

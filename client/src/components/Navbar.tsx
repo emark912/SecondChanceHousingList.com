@@ -13,9 +13,14 @@ export default function Navbar() {
         {/* Logo */}
         <div
           onClick={() => navigate("/")}
-          className="text-2xl font-bold text-blue-600 cursor-pointer hover:text-blue-700 transition"
+          className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition"
         >
-          Second Chance Housing List
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663281720582/QVW7SNBf6EeKUYsKZD5una/schl-logo-cdTW4vYJTJWHo2jjs5qKJC.webp"
+            alt="Second Chance Housing List"
+            className="h-10 w-10"
+          />
+          <span className="text-xl font-bold text-blue-600">SCHL</span>
         </div>
 
         {/* Navigation Links */}
@@ -39,36 +44,14 @@ export default function Navbar() {
             Apply
           </button>
 
-          {/* Auth Buttons */}
-          {user ? (
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700 font-medium">{user.name || user.email}</span>
-              {user.role === "admin" && (
-                <Button
-                  onClick={() => navigate("/admin")}
-                  variant="outline"
-                  className="text-xs"
-                >
-                  Admin
-                </Button>
-              )}
-              <Button
-                onClick={() => {
-                  logout();
-                  navigate("/");
-                }}
-                variant="outline"
-              >
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={() => (window.location.href = getLoginUrl())}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+          {/* Admin Link - Only for Admins */}
+          {user?.role === "admin" && (
+            <button
+              onClick={() => navigate("/admin")}
+              className="text-gray-700 hover:text-blue-600 transition font-medium cursor-pointer"
             >
-              Login
-            </Button>
+              Admin
+            </button>
           )}
         </div>
       </div>
