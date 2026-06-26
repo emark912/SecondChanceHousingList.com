@@ -4,10 +4,8 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Searching from "./pages/Searching";
+import SearchingScreen from "./pages/SearchingScreen";
 import Results from "./pages/Results";
 import PropertyDetail from "./pages/PropertyDetail";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -17,15 +15,22 @@ import AdminProperties from "./pages/AdminProperties";
 import HowItWorks from "./pages/HowItWorks";
 import FAQ from "./pages/FAQ";
 import Application from "./pages/Application";
+import Checkout from "./pages/Checkout";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import ResultsCheckout from "./pages/ResultsCheckout";
+import ThankYou from "./pages/ThankYou";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/searching"} component={Searching} />
+      <Route path={"/searching"} component={SearchingScreen} />
       <Route path={"/results"} component={Results} />
       <Route path={"/property/:id"} component={PropertyDetail} />
+      <Route path={"/checkout"} component={Checkout} />
+      <Route path={"/checkout/success"} component={CheckoutSuccess} />
+      <Route path={"/results-checkout"} component={ResultsCheckout} />
+      <Route path={"/thank-you"} component={ThankYou} />
       <Route path={"/payment/success"} component={PaymentSuccess} />
       <Route path={"/payment/failed"} component={PaymentFailed} />
       <Route path={"/admin"} component={AdminDashboard} />
@@ -34,24 +39,15 @@ function Router() {
       <Route path={"/faq"} component={FAQ} />
       <Route path={"/application"} component={Application} />
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />
