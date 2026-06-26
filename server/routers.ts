@@ -358,7 +358,6 @@ export const appRouter = router({
         contactPhone: z.string().optional(),
         contactEmail: z.string().optional(),
         description: z.string().optional(),
-        category: z.enum(["program", "apartment", "landlord", "corporate", "realtor", "other"]),
       }))
       .mutation(async ({ input }) => {
         const id = await createNationalResult(input);
@@ -374,7 +373,6 @@ export const appRouter = router({
         contactPhone: z.string().optional(),
         contactEmail: z.string().optional(),
         description: z.string().optional(),
-        category: z.enum(["program", "apartment", "landlord", "corporate", "realtor", "other"]).optional(),
       }))
       .mutation(async ({ input }) => {
         const { id, ...data } = input;
@@ -402,7 +400,6 @@ export const appRouter = router({
         contactPhone: z.string().optional(),
         contactEmail: z.string().optional(),
         description: z.string().optional(),
-        category: z.enum(["program", "apartment", "landlord", "corporate", "government", "nonprofit", "other"]),
         states: z.array(z.string()).default([]),
         nationwide: z.number().default(0),
         acceptsNoCreditScore: z.number().default(0),
@@ -427,7 +424,6 @@ export const appRouter = router({
         contactPhone: z.string().optional(),
         contactEmail: z.string().optional(),
         description: z.string().optional(),
-        category: z.enum(["program", "apartment", "landlord", "corporate", "government", "nonprofit", "other"]).optional(),
         states: z.array(z.string()).optional(),
         nationwide: z.number().optional(),
         acceptsNoCreditScore: z.number().optional(),
@@ -810,7 +806,6 @@ export const appRouter = router({
           customerEmail: z.string().email(),
           customerName: z.string(),
           donationAmount: z.number().min(0).optional(),
-          includeCorporateLeasing: z.boolean().optional(),
           downPaymentChoice: z.enum(['500', '250']).optional(), // '500' = $500 down plan, '250' = $250 down plan
           rentalProfile: z.object({
             location: z.string(),
@@ -839,11 +834,9 @@ export const appRouter = router({
 
           // Determine if this is a payment plan down payment
           // Payment plan is $500, standard is $1,000
-          const isPaymentPlan = input.includeCorporateLeasing && input.amount === 50000; // 50000 cents = $500
 
           // Derive paymentPlan value for the order record
           let paymentPlanValue: 'full' | 'plan_500' | 'plan_250' = 'full';
-          if (input.includeCorporateLeasing) {
             if (input.downPaymentChoice === '500') paymentPlanValue = 'plan_500';
             else if (input.downPaymentChoice === '250') paymentPlanValue = 'plan_250';
           }
@@ -857,7 +850,6 @@ export const appRouter = router({
             successUrl,
             cancelUrl,
             donationAmount: input.donationAmount,
-            includeCorporateLeasing: input.includeCorporateLeasing,
             isPaymentPlan,
           });
 
@@ -991,8 +983,6 @@ export const appRouter = router({
         return result;
       }),
 
-    // Corporate Leasing Payment Plan Procedures
-    createCorporateLeasingCheckout: publicProcedure
       .input(
         z.object({
           submissionId: z.number().int().nonnegative(),
@@ -1019,7 +1009,6 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         try {
           const origin = ctx.req.headers.origin || "https://secondchance-housing.com";
-          const successUrl = `${origin}/corporate-leasing-confirmation?session_id={CHECKOUT_SESSION_ID}`;
           const cancelUrl = `${origin}/results?canceled=true`;
 
           // Create checkout session for $1,000 down payment
@@ -1035,7 +1024,6 @@ export const appRouter = router({
           });
 
           if (!result || !result.url) {
-            throw new Error("Failed to create corporate leasing checkout session");
           }
 
           return {
@@ -1044,35 +1032,25 @@ export const appRouter = router({
             success: true,
           };
         } catch (error) {
-          console.error("[CorporateLeasing] Checkout error:", error);
           throw error;
         }
       }),
 
-    getCorporateLeasingPlan: adminProcedure
       .input(z.object({ planId: z.number() }))
       .query(async ({ input }) => {
-        const { getCorporateLeasingPaymentPlan, getCorporateLeasingInstallments } = await import("./db");
-        const plan = await getCorporateLeasingPaymentPlan(input.planId);
-        const installments = await getCorporateLeasingInstallments(input.planId);
         return { plan, installments };
       }),
 
-    getAllCorporateLeasingPlans: adminProcedure
       .input(z.object({ status: z.enum(['active', 'paused', 'completed', 'cancelled']).optional() }).optional())
       .query(async ({ input }) => {
-        const { getAllCorporateLeasingPaymentPlans } = await import("./db");
-        return getAllCorporateLeasingPaymentPlans(input?.status);
       }),
 
     sendMonthlyPaymentSetupEmail: adminProcedure
       .input(z.object({ planId: z.number() }))
       .mutation(async ({ input }) => {
         try {
-          const { getCorporateLeasingPaymentPlan } = await import("./db");
           const { sendMonthlyPaymentSetupEmail } = await import("./email-service");
           
-          const plan = await getCorporateLeasingPaymentPlan(input.planId);
           if (!plan) {
             throw new Error("Payment plan not found");
           }
@@ -1091,20 +1069,15 @@ export const appRouter = router({
 
           return { success: true, message: "Monthly payment setup email sent" };
         } catch (error) {
-          console.error("[CorporateLeasing] Email error:", error);
           throw error;
         }
       }),
 
-    cancelCorporateLeasingPlan: adminProcedure
       .input(z.object({ planId: z.number(), reason: z.string() }))
       .mutation(async ({ input }) => {
         try {
-          const { cancelCorporateLeasingPaymentPlan } = await import("./db");
-          const success = await cancelCorporateLeasingPaymentPlan(input.planId, input.reason);
           return { success };
         } catch (error) {
-          console.error("[CorporateLeasing] Cancellation error:", error);
           throw error;
         }
       }),

@@ -26,7 +26,6 @@ const BENEFITS = [
   { title: 'Complete Contact Details', description: 'Phone numbers, emails, websites, and direct application links for every listing' },
   { title: 'AI-Powered Matching', description: 'Properties matched to your income, credit challenges, and move-in timeline' },
   { title: 'Professional PDF Report', description: 'Easy-to-read, organized list ready to download and share' },
-  { title: 'Multiple Housing Options', description: 'Apartments, programs, corporate leasing, and private landlords' },
   { title: 'Instant Delivery', description: 'Download immediately after purchase - no waiting' },
   { title: '24/7 Phone Support', description: 'A dedicated support agent will work with you to help you get approved with your Second Chance Rental matches until you\'re approved into a rental property' },
   { title: '100% Money-Back Guarantee', description: '100% of your money back if you\'re not approved into a rental property within 30 days' },

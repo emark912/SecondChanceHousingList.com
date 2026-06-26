@@ -39,8 +39,6 @@ export const EMAIL_WORKFLOWS = [
     steps: [
       { order: 1, templateType: "order_confirmation", label: "Order Confirmation", timing: "Immediately after payment", description: "Confirms the payment and explains next steps." },
       { order: 2, templateType: "rental_results_pdf", label: "Rental Results PDF", timing: "Immediately after payment", description: "Delivers the personalised housing results PDF." },
-      { order: 3, templateType: "corporate_leasing_confirmation", label: "Corporate Leasing Confirmation", timing: "Immediately after payment (plan customers)", description: "Sent to customers who chose the In-House Corporate Leasing Program." },
-      { order: 4, templateType: "corporate_leasing_followup_3days", label: "Corporate Leasing 3-Day Follow-Up", timing: "3 days after payment", description: "Follow-up for corporate leasing customers." },
     ],
   },
   {

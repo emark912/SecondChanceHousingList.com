@@ -90,7 +90,6 @@ Total Rental Matches: ${data.rentalMatches}
 - Apartments: ~${Math.floor(data.rentalMatches * 0.30)}
 - Houses: ~${Math.floor(data.rentalMatches * 0.20)}
 - Second Chance Programs: ~${Math.floor(data.rentalMatches * 0.15)}
-- Corporate Housing: ~${Math.floor(data.rentalMatches * 0.15)}
 - Private Landlords: ~${Math.floor(data.rentalMatches * 0.20)}
 
 PAYMENT DETAILS
@@ -248,7 +247,6 @@ We believe everyone deserves a second chance and access to quality housing.
                     </p>
                     <p className="text-gray-700 text-xs sm:text-sm">
                       Your personalized list includes apartments, houses, second
-                      chance programs, corporate housing, and private landlords
                       in {orderData.location}.
                     </p>
                   </div>

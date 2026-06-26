@@ -32,7 +32,6 @@ const CATEGORIES = [
   { value: "program", label: "Second Chance Program" },
   { value: "apartment", label: "Apartment Complex" },
   { value: "landlord", label: "Private Landlord" },
-  { value: "corporate", label: "Corporate Leasing" },
   { value: "government", label: "Government Program" },
   { value: "nonprofit", label: "Non-Profit Organization" },
   { value: "other", label: "Other" },

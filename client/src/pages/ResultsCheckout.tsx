@@ -40,7 +40,6 @@ export default function ResultsCheckout() {
   const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [donationAmount, setDonationAmount] = useState("25.00");
-  const [corporateLeasingOption, setCorporateLeasingOption] = useState<'none' | 'standard'>('none');
   const [donationError, setDonationError] = useState("");
   const [showPaymentPlanDetails, setShowPaymentPlanDetails] = useState(false);
   const [showApprovalMessage, setShowApprovalMessage] = useState(false);
@@ -78,14 +77,10 @@ export default function ResultsCheckout() {
     window.scrollTo(0, 0);
   }, [navigate]);
 
-    const validateDonation = (amount: string, isCorporateLeasingSelected: boolean): boolean => {
-    // If corporate leasing is selected, donation is optional
-    if (isCorporateLeasingSelected && corporateLeasingOption !== 'none') {
       setDonationError("");
       return true;
     }
     
-    // If no corporate leasing, donation is required with minimum $25
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount < 25) {
       setDonationError("Minimum donation is $25.00");
@@ -99,7 +94,6 @@ export default function ResultsCheckout() {
     const value = e.target.value;
     setDonationAmount(value);
     if (value) {
-      validateDonation(value, corporateLeasingOption !== 'none');
     }
   };
 
@@ -116,7 +110,6 @@ export default function ResultsCheckout() {
       return;
     }
 
-    if (!validateDonation(donationAmount, corporateLeasingOption !== 'none')) {
       return;
     }
 
@@ -133,8 +126,6 @@ export default function ResultsCheckout() {
       let paymentAmountCents = 0;
       let donationAmountCents = 0;
       
-      if (corporateLeasingOption === 'standard') {
-        // Corporate Leasing: charge $1,000 or chosen down payment depending on payment plan selection
         if (usePaymentPlan) {
           // Payment Plan: charge chosen down payment today ($500 or $250)
           paymentAmountCents = downPaymentChoice === '500' ? 50000 : 25000;
@@ -151,15 +142,12 @@ export default function ResultsCheckout() {
       }
       
       const totalAmountCents = paymentAmountCents;
-      console.log("[Payment] Submitting payment:", { totalAmountCents, donationAmountCents, corporateLeasingOption });
 
       const result = await createCheckoutSession.mutateAsync({
         customerEmail: email,
         customerName: `${firstName} ${lastName}`,
         amount: totalAmountCents,
         donationAmount: donationAmountCents,
-        includeCorporateLeasing: corporateLeasingOption === 'standard',
-        downPaymentChoice: (usePaymentPlan && corporateLeasingOption === 'standard') ? downPaymentChoice : undefined,
         orderId: 0,
         submissionId: 0,
         rentalProfile: {
@@ -187,7 +175,6 @@ export default function ResultsCheckout() {
           customerEmail: email,
           location: searchData.location,
           donationAmount: donationAmountCents / 100,
-          includeCorporateLeasing: corporateLeasingOption === 'standard',
           totalAmount: totalAmountCents / 100,
           timestamp: new Date().toISOString(),
           rentalMatches: baseMatches,
@@ -213,7 +200,6 @@ export default function ResultsCheckout() {
   const baseMatches = Math.floor(Math.random() * 50) + 80;
   const apartmentMatches = Math.floor(baseMatches * 0.30);
   const programMatches = Math.floor(baseMatches * 0.20);
-  const corporateMatches = Math.floor(baseMatches * 0.15);
   const privateLandlordMatches = Math.floor(baseMatches * 0.20);
   const rentalPropertyMatches = Math.floor(baseMatches * 0.15);
 
@@ -238,10 +224,8 @@ export default function ResultsCheckout() {
   };
 
   const donationAmountNum = parseFloat(donationAmount) || 0;
-  const corporateLeasingDownPayment = corporateLeasingOption === 'standard'
     ? (usePaymentPlan ? (downPaymentChoice === '500' ? 500.00 : 250.00) : 1000.00)
     : 0;
-  const totalAmount = donationAmountNum + corporateLeasingDownPayment;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -320,10 +304,8 @@ export default function ResultsCheckout() {
                         <div className="flex items-start gap-3 mb-3">
                           <input
                             type="checkbox"
-                            checked={corporateLeasingOption === 'none'}
                             onChange={(e) => {
                               if (e.target.checked) {
-                                setCorporateLeasingOption('none');
                                 setDonationAmount('25.00');
                               }
                             }}
@@ -347,7 +329,6 @@ export default function ResultsCheckout() {
                         </ul>
                       </div>
 
-                      {/* Corporate Leasing Program Option */}
                       <div className="p-4 bg-purple-50 border-2 border-purple-300 rounded-lg relative">
                         {/* Recommended Badge - Top Left */}
                         <span className="absolute top-2 left-2 text-xs font-bold bg-yellow-400 text-yellow-900 px-3 py-1 rounded">RECOMMENDED</span>
@@ -356,7 +337,6 @@ export default function ResultsCheckout() {
                         <div className="mb-4 p-3 bg-green-100 border border-green-400 rounded-lg">
                           <p className="text-sm font-semibold text-green-900 mb-1">✓ Approved - Good News!</p>
                           <p className="text-xs text-green-800 leading-relaxed">
-                            {firstName}, based on the details of your rental profile for {searchData.location}, our system has approved you into our In-House Corporate Leasing Program. Our system only offers this program to credit challenged renters who fit our approval standards.
                           </p>
                         </div>
 
@@ -364,10 +344,8 @@ export default function ResultsCheckout() {
                         <div className="flex items-start gap-3 mb-4">
                           <input
                             type="checkbox"
-                            checked={corporateLeasingOption !== 'none'}
                             onChange={(e) => {
                               if (e.target.checked) {
-                                setCorporateLeasingOption('standard');
                                 setDonationAmount('');
                               }
                             }}
@@ -378,7 +356,6 @@ export default function ResultsCheckout() {
                               <h3 className="font-semibold text-black flex items-center gap-2">
                                 <span className="font-bold">Option 2:</span>
                                 <span className="text-xl">🏢</span>
-                                Our In-House Corporate Leasing Program
                               </h3>
                             </div>
                             <p className="text-sm font-bold text-purple-700 mt-1">Total Cost: $1,250.00</p>
@@ -395,7 +372,6 @@ export default function ResultsCheckout() {
                                   <ul className="text-xs text-purple-800 space-y-1 ml-4">
                                     <li>✓ Generate your Renters ID number</li>
                                     <li>✓ Register Renters ID with rental credit bureaus</li>
-                                    <li>✓ Add our Excellent Corporate Tradelines to your Renters ID</li>
                                     <li>✓ Manage your file</li>
                                   </ul>
                                 </div>
@@ -404,7 +380,6 @@ export default function ResultsCheckout() {
                                   <ul className="text-xs text-purple-800 space-y-1 ml-4">
                                     <li>✓ Add positive rental history to your Renters ID</li>
                                     <li>✓ Provide Landlord/Property Manager Verification Services</li>
-                                    <li>✓ Provide Income Verification Services with our Corporate Financials</li>
                                     <li>✓ Consultation and ongoing support</li>
                                   </ul>
                                 </div>
@@ -417,7 +392,6 @@ export default function ResultsCheckout() {
                               </div>
                             </div>
                           </div>
-                          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663281720582/qmchWyqFIFqtQCOx.jpg" alt="Corporate Leasing Services" className="w-24 h-24 rounded-lg object-cover flex-shrink-0" />
                         </div>
                         {/* Learn How It Works Dropdown */}
                         <div className="border border-yellow-300 rounded-lg bg-yellow-50 overflow-hidden">
@@ -432,10 +406,7 @@ export default function ResultsCheckout() {
                           {showLearnMore && (
                             <div className="p-4 space-y-3 bg-yellow-50">
                               <div className="bg-blue-50 border border-blue-300 rounded p-3">
-                                <p className="text-sm font-semibold text-blue-900 mb-2">What is Corporate Leasing?</p>
-                                <p className="text-sm text-blue-800 mb-2">Corporate Leasing is when a company uses their excellent business credit, corporate name, financials, rental history, and references to submit a corporate rental application on behalf of their client and keeps their client's social security number private during the process to prevent any credit checks.</p>
                                 <p className="text-sm text-blue-800 mb-2">The property manager or landlord will screen the corporation's business credit, but the client is placed on the leasing agreement as the official occupant who will be residing in the property.</p>
-                                <p className="text-sm text-blue-800">What's different about our Corporate Leasing Program is we provide our clients with a Renters ID number, then we add our corporate tradelines to the Renters ID number to generate an excellent rental related credit history to the renters ID number.</p>
                               </div>
                               <div>
                                 <p className="text-sm font-semibold text-slate-800 mb-2">Select Service - How It Works:</p>
@@ -445,12 +416,10 @@ export default function ResultsCheckout() {
                                   <li>• Search and tour rental properties in your desired move-in city</li>
                                   <li>• Pick ANY rental property of your choice, then submit your property choices to us via the proper form links sent to you</li>
                                   <li>• Pay the final fee of $250.00 when you submit your property choice to us</li>
-                                  <li>• We submit corporate rental applications using our business credit and financials</li>
                                   <li>• Your social security number stays private (no credit checks)</li>
                                   <li>• Property managers screen our corporation's excellent business credit</li>
                                   <li>• You're placed on the lease as the official occupant</li>
                                   <li>• We provide you with a Renters ID number</li>
-                                  <li>• We add our corporate tradelines to your Renters ID to arm it with excellent credit</li>
                                   <li>• Your positive rental history helps with future approvals</li>
                                 </ul>
                               </div>
@@ -461,7 +430,6 @@ export default function ResultsCheckout() {
                                   <li>✓ Help selecting properties that match your needs</li>
                                   <li>✓ Negotiate with property managers on your behalf</li>
                                   <li>✓ Manage the approval process from application to lease signing</li>
-                                  <li>✓ Build your rental credit history with our corporate tradelines</li>
                                 </ul>
                               </div>
                               <div className="mt-4 p-3 bg-white rounded border border-purple-100">
@@ -585,28 +553,20 @@ export default function ResultsCheckout() {
                         <p className="text-xs text-slate-600 mt-1 leading-tight">Average donation: $25.00, but donate what works for you.</p>
                       </div>
 
-                      {/* Corporate Leasing Options */}
                       <div className="space-y-3">
-                        {/* Option 2A: Standard Corporate Leasing */}
                         <div className="p-3 sm:p-4 bg-purple-50 border border-purple-200 rounded-lg">
                           <div className="flex items-start gap-3">
                             <Checkbox
-                              id="corporateLeasingStandard"
-                              checked={corporateLeasingOption === 'standard'}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  setCorporateLeasingOption('standard');
                                   setDonationAmount("");
                                 } else {
-                                  setCorporateLeasingOption('none');
                                   setDonationAmount("25.00");
                                 }
                               }}
                               className="mt-1 bg-purple-500 border-purple-500"
                             />
                             <div className="flex-1">
-                              <Label htmlFor="corporateLeasingStandard" className="text-sm sm:text-base font-semibold text-black cursor-pointer">
-                                Option 2: In-House Corporate Leasing Program ($1,000.00 down + $250.00 after)
                               </Label>
                               <p className="text-xs text-slate-700 mt-1 leading-tight">
                                 ✓ $1,000 down payment today<br/>
@@ -624,7 +584,6 @@ export default function ResultsCheckout() {
                                     setIsLoadingPaymentPlan(true);
                                     setShowApprovalMessage(false);
                                     // Auto-select Option 2 when Apply for Payment Plan is clicked
-                                    setCorporateLeasingOption('standard');
                                     await new Promise(resolve => setTimeout(resolve, 2000));
                                     setShowPaymentPlanDetails(true);
                                     setUsePaymentPlan(true);
@@ -749,7 +708,6 @@ export default function ResultsCheckout() {
 
                       {/* Order Summary */}
                       <div className="p-3 sm:p-4 bg-slate-100 rounded-lg space-y-2">
-                        {corporateLeasingOption === 'none' && (
                           <>
                             <div className="text-xs sm:text-sm font-bold text-black mb-2">Option 1:</div>
                             <div className="flex justify-between text-xs sm:text-sm">
@@ -758,7 +716,6 @@ export default function ResultsCheckout() {
                             </div>
                           </>
                         )}
-                        {corporateLeasingOption !== 'none' && (
                           <>
                             <div className="text-xs sm:text-sm font-bold text-black mb-2">Option 2: <span className="text-green-600 text-xs font-semibold">RECOMMENDED</span></div>
                             <div className="flex justify-between text-xs sm:text-sm">
@@ -776,7 +733,6 @@ export default function ResultsCheckout() {
                                 <span className="italic">(Down: $1,000 today + $250 after property selection)</span>
                               )}
                             </div>
-                            {corporateLeasingOption === 'standard' && (
                               <div className="mt-2 pt-2 border-t border-slate-300">
                                 <Button
                                   type="button"
@@ -805,9 +761,7 @@ export default function ResultsCheckout() {
                           </>
                         )}
                         <div className="border-t border-slate-300 pt-2 flex justify-between">
-                          <span className="font-semibold text-black text-sm">{corporateLeasingOption !== 'none' ? 'Charging Today:' : 'Total:'}</span>
                           <span className="text-base sm:text-lg font-bold text-blue-600">
-                            {corporateLeasingOption === 'standard'
                               ? (usePaymentPlan
                                   ? (downPaymentChoice === '500' ? '$500.00' : '$250.00')
                                   : '$1,000.00')
@@ -821,7 +775,6 @@ export default function ResultsCheckout() {
                         type="submit"
                         disabled={
                           isProcessing ||
-                          (corporateLeasingOption === 'none' && (isNaN(parseFloat(donationAmount)) || parseFloat(donationAmount) < 10))
                         }
                         className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-2 sm:py-3 rounded-lg text-sm sm:text-base transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                       >

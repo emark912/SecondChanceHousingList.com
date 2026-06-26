@@ -37,7 +37,6 @@ export default function Checkout() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [donationAmount, setDonationAmount] = useState("25.00");
-  const [includeCorporateLeasing, setIncludeCorporateLeasing] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [orderId, setOrderId] = useState<number | null>(null);
@@ -79,8 +78,6 @@ export default function Checkout() {
 
   const calculateTotal = () => {
     const donation = parseFloat(donationAmount) || 0;
-    const corporateLeasing = includeCorporateLeasing ? CORPORATE_LEASING_DOWN_PAYMENT : 0;
-    return donation + corporateLeasing;
   };
 
   const handleDonationChange = (value: string) => {
@@ -107,7 +104,6 @@ export default function Checkout() {
     }
 
     const donation = parseFloat(donationAmount) || 0;
-    if (!includeCorporateLeasing && donation < DONATION_MINIMUM) {
       toast.error(`Minimum donation is $${DONATION_MINIMUM.toFixed(2)}`);
       return;
     }
@@ -129,7 +125,6 @@ export default function Checkout() {
         orderId: 0,
         submissionId: 0,
         donationAmount: donation,
-        includeCorporateLeasing: includeCorporateLeasing,
         rentalProfile: {
           location: searchData.location,
           searchRadius: 25,
@@ -380,18 +375,12 @@ export default function Checkout() {
                         <div className="flex items-start gap-3 mb-4">
                           <input
                             type="checkbox"
-                            id="corporateLeasing"
-                            checked={includeCorporateLeasing}
-                            onChange={(e) => setIncludeCorporateLeasing(e.target.checked)}
                             className="mt-1 w-5 h-5 rounded border-amber-300 text-amber-600 cursor-pointer"
                             disabled={isProcessing}
                           />
                           <div className="flex-1">
-                            <Label htmlFor="corporateLeasing" className="text-black font-semibold cursor-pointer">
-                              Our In-House Corporate Leasing Program
                             </Label>
                             <p className="text-sm text-slate-700 mt-1">
-                              Use our excellent business credit and corporate name to submit rental applications on your behalf. We provide a Renters ID and add corporate tradelines to build your rental history. Down payment: $1,000 + Final payment: $150 after property selection.
                             </p>
                           </div>
                         </div>
@@ -458,10 +447,8 @@ export default function Checkout() {
                         <span className="font-semibold">${parseFloat(donationAmount || "0").toFixed(2)}</span>
                       </div>
 
-                      {includeCorporateLeasing && (
                         <>
                           <div className="flex justify-between text-black">
-                            <span>Corporate Leasing (Down Payment):</span>
                             <span className="font-semibold text-purple-600">${CORPORATE_LEASING_DOWN_PAYMENT.toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between text-sm text-slate-600">
@@ -512,9 +499,7 @@ export default function Checkout() {
                       ))}
                     </div>
 
-                    {includeCorporateLeasing && (
                       <div className="space-y-3 mb-6 pb-6 border-b border-purple-500/20">
-                        <h4 className="font-semibold text-purple-900 text-sm">+ Corporate Leasing Program Benefits:</h4>
                         <div className="space-y-2">
                           <div className="flex items-center gap-3 text-sm text-amber-900">
                             <span className="text-lg">👤</span>
@@ -540,7 +525,6 @@ export default function Checkout() {
                       </div>
                     )}
 
-                    {!includeCorporateLeasing && (
                       <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded">
                         <p className="text-xs text-blue-900 font-semibold mb-1">Donation Only Includes:</p>
                         <p className="text-xs text-blue-800">Your personalized rental list with 100+ matching Second Chance Rental Properties and Programs in your area.</p>

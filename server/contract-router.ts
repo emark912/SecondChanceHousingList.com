@@ -1,13 +1,9 @@
 import { z } from 'zod';
 import { router, protectedProcedure } from './_core/trpc';
-import { generateCorporateLeasingContract } from './contract-service';
 
 export const contractRouter = router({
   /**
-   * Generate a corporate leasing contract for the current user
-   * This is called after a customer completes payment for the corporate leasing program
    */
-  generateCorporateLeasingContract: protectedProcedure
     .input(
       z.object({
         customerAddress: z.string().min(1, 'Address is required'),
@@ -26,7 +22,6 @@ export const contractRouter = router({
       const expirationDate = new Date();
       expirationDate.setFullYear(expirationDate.getFullYear() + 1);
 
-      const result = await generateCorporateLeasingContract({
         customerName: user.name || 'Valued Customer',
         customerAddress: input.customerAddress,
         customerCity: input.customerCity,

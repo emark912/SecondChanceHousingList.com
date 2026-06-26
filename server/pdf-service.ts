@@ -140,11 +140,8 @@ export async function generateRentalResultsPDF(profileData: RentalProfileData): 
 
       doc.moveDown(5);
 
-      // Corporate Leasing box
       doc.rect(50, doc.y, boxWidth, boxHeight).stroke();
-      doc.fontSize(12).font('Helvetica-Bold').text('Corporate Leasing', 55, doc.y + 10);
       doc.fontSize(24).font('Helvetica-Bold').text('8', 55, doc.y + 30);
-      doc.fontSize(10).font('Helvetica').text('corporate programs', 55, doc.y + 60);
 
       // Private Landlords box
       doc.rect(50 + boxWidth + spacing, doc.y - boxHeight, boxWidth, boxHeight).stroke();

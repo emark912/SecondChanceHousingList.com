@@ -63,13 +63,11 @@ Based on the information you provided, our AI Search Engine has analyzed your re
 Your one-time service fee to SecondChanceHousingLocator.com covers the following:
 
 - **Comprehensive Second Chance Housing Programs List** – Carefully curated and verified programs that match your specific profile
-- **Corporate Guarantor Services** – Alternative approval methods using corporate leasing structures
 - **Research & Data Compilation Services** – Our AI analyzed millions of records to find the best matches for you
 - **Custom Approval Strategy** – A personalized roadmap designed specifically for your situation
 
 ### Important Disclaimer
 
-Each Second Chance Program or Corporate Guarantor on this list is an independent third-party company with their own payment and fees requirements. We are not associated with any programs or corporate guarantors on your personalized list. However, we have thoroughly researched, compiled, and vetted each company as one that has proven to successfully help clients like you get approved for housing with their approval method.
 
 ---
 
@@ -205,14 +203,12 @@ Based on your profile and location, we recommend starting with these top-tier pr
 
 ### 3. SecondChanceHousingList.com
 
-**Overview:** SecondChanceHousingList is a Second Chance Guarantor Program using Corporate Leasing and Renters ID Numbers. They help credit-challenged renters obtain ANY rental property of their choice without using personal credit by providing a new credit profile and handling rental history reporting.
 
 **Key Features:**
 - NO APPLICATION FEE
 - NO CREDIT CHECK during approval
 - Renters ID Number (RIN) creation
 - Tri-merge with major credit bureaus
-- Corporate leasing backing with excellent business credit
 - Positive rental history reported to credit bureaus
 - Registered with all major credit bureaus
 - Fully compliant with industry regulations
@@ -224,13 +220,11 @@ Based on your profile and location, we recommend starting with these top-tier pr
 - 3-7 business days for approval with 72-hour completion
 
 **How It Works:**
-1. Apply to Corporate Leasing Program (NO APPLICATION FEE)
 2. Get approved same day based on income and rental budget (NO CREDIT CHECK)
 3. Select preferred payment arrangement
 4. Choose ANY rental property of your choice
 5. Submit property to SecondChanceHousingList via form
 6. Case Manager provides directions using your Renters ID Number
-7. Apply to your selected rental property with corporate credit backing
 8. Your name placed on lease as official occupant
 9. Get approved to move in
 
@@ -280,7 +274,6 @@ If you prefer to explore additional options beyond the recommended programs abov
 5. **LeaseGuarantee** – Rent guarantee program backing leases for tenants with poor credit
 6. **Flex** – Rent now, pay later service for lower-income renters with weaker credit profiles
 7. **Tenant Screening Plus** (tenantscreeningplus.com) – Second chance rental program
-8. **CorporateLeaser.com** (corporateleaser.com) – Uses corporate leasing loophole to get credit-challenged renters approved
 
 ---
 

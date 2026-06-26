@@ -22,7 +22,6 @@ const faqs = [
   {
     question: "What does my personalized list include?",
     answer:
-      "Your personalized Second Chance Housing List includes: Company Name, Company Website, Contact Person, Company Contact Number, Company Email Address, and detailed descriptions of each rental program, rental property, or housing option. The list typically includes 100+ second chance rental properties, corporate leasing programs, and second chance housing programs.",
   },
   {
     question: "What credit challenges do you help with?",
@@ -32,7 +31,6 @@ const faqs = [
   {
     question: "How does the AI search work?",
     answer:
-      "Our AI-Powered Search Engine Agent researches both public and private databases in real time. It scans second chance housing programs, apartments, private landlords, corporate leasing programs, and local laws. It also verifies legitimacy by checking review platforms, court records, and public records, and removes options associated with excessive negative reviews or high crime areas.",
   },
   {
     question: "What is your refund policy?",
@@ -47,22 +45,16 @@ const faqs = [
   {
     question: "What types of housing options are included?",
     answer:
-      "Our search covers a wide range of housing types including apartments, townhomes, duplexes, single-family houses, condos, and studios. We search for second chance housing programs, second chance apartments, private landlords, corporate leasing programs, and realtors who specialize in helping credit-challenged renters.",
   },
   {
-    question: "What is our In-House Corporate Leasing Program?",
     answer:
-      "Our In-House Corporate Leasing Program is a premium service where we use our company\'s excellent business credit, corporate name, and financials to submit rental applications on your behalf. Your social security number stays private throughout the process - property managers screen our corporation\'s business credit instead of your personal credit. You\'re placed on the lease as the official occupant. This is an excellent option for renters with significant credit challenges. The program includes a Renters ID number, corporate tradelines added to build excellent rental credit history, and guaranteed approval within 30 days or your money back.",
   },
   {
-    question: "How much does the In-House Corporate Leasing Program cost?",
     answer:
-      "The program costs $1,000.00 down payment + $250.00 after you select your rental property. The $1,000 down payment is used to generate your Renters ID number, register it with rental credit bureaus, add our excellent corporate tradelines to your Renters ID, and manage your file. The $150 after property selection is used to add positive rental history to your Renters ID, provide landlord/property manager verification services, and consultation support.",
   },
   {
     question: "What services are included in the $1,000 down payment?",
     answer:
-      "The $1,000 down payment includes: (1) Generation of your unique Renters ID number, (2) Registration of your Renters ID with rental-related credit bureaus, (3) Addition of our excellent corporate tradelines to your Renters ID to build rental credit history, and (4) Professional management of your file throughout the process.",
   },
   {
     question: "What services are included in the $150 after property selection?",
@@ -70,9 +62,7 @@ const faqs = [
       "The $150 payment after you select your rental property includes: (1) Addition of positive rental history to your Renters ID number in your name, (2) Landlord and property manager verification services for your new rental property, and (3) Consultation and ongoing support to ensure your approval.",
   },
   {
-    question: "What is a Corporate Leasing Program?",
     answer:
-      "Corporate Leasing Programs are companies that can get you approved for a rental property using their excellent corporate credit instead of your personal credit. This is an excellent option for renters with significant credit challenges who may not qualify through traditional means.",
   },
   {
     question: "How do you verify the listings?",

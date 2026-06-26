@@ -405,7 +405,6 @@ function AdminContent() {
                         <SelectItem value="program">Program</SelectItem>
                         <SelectItem value="apartment">Apartment</SelectItem>
                         <SelectItem value="landlord">Landlord</SelectItem>
-                        <SelectItem value="corporate">Corporate</SelectItem>
                         <SelectItem value="realtor">Realtor</SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>

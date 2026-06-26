@@ -123,7 +123,6 @@ export function generateHousingListPDF(
       "Government Programs",
       "Non-Profit Programs",
       "Rental Properties",
-      "Corporate Leasing",
       "Rental Assistance",
       "Credit Services",
     ];

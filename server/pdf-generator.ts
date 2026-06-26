@@ -8,7 +8,6 @@ import { storagePut } from "./storage";
 
 interface PropertyListing {
   name: string;
-  type: "apartment" | "program" | "corporate";
   location: string;
   phone: string;
   website: string;
@@ -22,13 +21,11 @@ interface PDFData {
   totalMatches: number;
   apartments: number;
   programs: number;
-  corporate: number;
   properties: PropertyListing[];
 }
 
 /**
  * Generate HTML for PDF (will be converted to PDF by the system)
- * Option 1: Professional/Corporate design
  */
 export function generatePDFHTML(data: PDFData): string {
   const propertyRows = data.properties
@@ -36,7 +33,6 @@ export function generatePDFHTML(data: PDFData): string {
       (prop) => `
     <tr>
       <td style="padding: 12px; border-bottom: 1px solid #e0e0e0; color: #1a1a1a;">${prop.name}</td>
-      <td style="padding: 12px; border-bottom: 1px solid #e0e0e0; color: #1a1a1a;">${prop.type === "apartment" ? "Apartment" : prop.type === "program" ? "Program" : "Corporate"}</td>
       <td style="padding: 12px; border-bottom: 1px solid #e0e0e0; color: #1a1a1a;">${prop.location}</td>
       <td style="padding: 12px; border-bottom: 1px solid #e0e0e0; color: #1a1a1a;">${prop.phone}</td>
       <td style="padding: 12px; border-bottom: 1px solid #e0e0e0; color: #1a1a1a;">
@@ -287,8 +283,6 @@ export function generatePDFHTML(data: PDFData): string {
         </div>
         <div class="stat-box">
           <div class="stat-icon">💼</div>
-          <div class="stat-number">${data.corporate}</div>
-          <div class="stat-label">Corporate</div>
         </div>
       </div>
     </div>
@@ -404,18 +398,13 @@ export function generateSampleProperties(count: number): PropertyListing[] {
     },
   ];
 
-  const corporate: PropertyListing[] = [
     {
-      name: "Executive Suites Corporate Living",
-      type: "corporate",
       location: "789 Pine Blvd, Eastside",
       phone: "(555) 456-7890",
       website: "www.executivesuites.com",
-      description: "Furnished corporate apartments ideal for temporary corporate stays and relocations.",
     },
   ];
 
-  const allProperties = [...apartments, ...programs, ...corporate];
   return allProperties.slice(0, count);
 }
 
@@ -504,7 +493,6 @@ function generatePersonalizedHTML(profile: ClientProfile): string {
     <h2>What Your Service Fee Includes</h2>
     <ul>
       <li>Comprehensive Second Chance Housing Programs List</li>
-      <li>Corporate Guarantor Services</li>
       <li>Research & Data Compilation Services</li>
       <li>Custom Approval Strategy tailored to your profile</li>
     </ul>

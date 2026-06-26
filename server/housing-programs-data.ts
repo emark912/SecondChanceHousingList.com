@@ -97,10 +97,6 @@ export const housingPrograms: HousingProgram[] = [
     category: "Rent Guarantee Programs",
   },
   {
-    name: "CorporateLeaser.com",
-    website: "corporateleaser.com",
-    description: "Uses corporate leasing loophole to get credit-challenged renters approved",
-    category: "Corporate Leasing",
   },
 
   // GOVERNMENT HOUSING ASSISTANCE PROGRAMS

@@ -191,7 +191,6 @@ export const leadNotification15MinTemplate = {
                     <li>100+ verified rental properties in {{city}}</li>
                     <li>Properties specifically matched to your credit profile</li>
                     <li>Direct contact information for landlords</li>
-                    <li>Second chance programs and corporate leasing options</li>
                     <li>Complete application guidance</li>
                     <li>24/7 support from our team</li>
                 </ul>
@@ -268,7 +267,6 @@ WHAT YOU GET ACCESS TO:
 - 100+ verified rental properties in {{city}}
 - Properties specifically matched to your credit profile
 - Direct contact information for landlords
-- Second chance programs and corporate leasing options
 - Complete application guidance
 - 24/7 support from our team
 

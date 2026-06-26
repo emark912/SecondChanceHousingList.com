@@ -44,7 +44,6 @@ const programs = {
     { name: 'LeaseGuarantee', url: 'leaseguarantee.com', desc: 'Rent guarantee program backing leases for tenants with poor credit' },
     { name: 'Flex', url: 'flex.com', desc: 'Rent now, pay later service for lower-income renters with weaker credit profiles' },
     { name: 'Tenant Screening Plus', url: 'tenantscreeningplus.com', desc: 'Second chance rental program' },
-    { name: 'CorporateLeaser.com', url: 'corporateleaser.com', desc: 'Uses corporate leasing loophole to get credit-challenged renters approved' },
     { name: 'Rental Guarantee Services', url: 'rentalguarantee.com', desc: 'Provides landlord protection for risky tenants' },
     { name: 'Cosigner Match', url: 'cosmatchrentals.com', desc: 'Connects renters with willing co-signers' },
     { name: 'Leap', url: 'leapeasy.com', desc: 'Cosigner backing service for credit, income, rental history issues' },
@@ -257,7 +256,6 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   
   // Introduction paragraph
   drawText(
-    'This database includes second chance housing programs, corporate leasing services, rent guarantee companies, government assistance programs, and non-profit organizations that help renters with evictions, bad credit, broken leases, bankruptcy, and other credit challenges across the United States.',
     9,
     false,
     [0.2, 0.2, 0.2]

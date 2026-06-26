@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateCorporateLeasingContract, generateContractForCustomer } from './contract-service';
 
 // Mock the storage module
 vi.mock('./storage', () => ({
@@ -14,7 +13,6 @@ describe('Contract Service', () => {
     vi.clearAllMocks();
   });
 
-  describe('generateCorporateLeasingContract', () => {
     it('should generate a contract with customer information', async () => {
       const contractData = {
         customerName: 'John Doe',
@@ -25,7 +23,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       expect(result).toHaveProperty('contractUrl');
       expect(result).toHaveProperty('contractKey');
@@ -43,7 +40,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       expect(result.contractKey).toContain('Jane-Smith');
     });
@@ -58,7 +54,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       expect(result.contractKey).toContain('Mary-Jane-Watson');
     });
@@ -73,8 +68,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result1 = await generateCorporateLeasingContract(contractData);
-      const result2 = await generateCorporateLeasingContract(contractData);
 
       // Keys should be different due to timestamp (or same if called too quickly)
       // This test verifies the structure is correct
@@ -144,7 +137,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       // Verify contract was created
       expect(result.contractUrl).toBeDefined();
@@ -161,7 +153,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       // Verify contract was created with proper structure
       expect(result).toHaveProperty('contractUrl');
@@ -178,7 +169,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       // Verify contract structure
       expect(result).toHaveProperty('contractUrl');
@@ -198,7 +188,6 @@ describe('Contract Service', () => {
       };
 
       // Should still generate a contract, even with empty fields
-      const result = await generateCorporateLeasingContract(contractData);
 
       expect(result).toHaveProperty('contractUrl');
       expect(result).toHaveProperty('contractKey');
@@ -214,7 +203,6 @@ describe('Contract Service', () => {
         expirationDate: 'February 25, 2027',
       };
 
-      const result = await generateCorporateLeasingContract(contractData);
 
       expect(result).toHaveProperty('contractUrl');
       expect(result).toHaveProperty('contractKey');

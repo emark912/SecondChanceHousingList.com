@@ -11,7 +11,6 @@ export const downloadRentalPDFEndpoint = publicProcedure
     apartmentMatches: z.number(),
     houseMatches: z.number(),
     programMatches: z.number(),
-    corporateMatches: z.number(),
     landlordMatches: z.number(),
     creditChallenges: z.array(z.string()),
     housingTypes: z.array(z.string()),

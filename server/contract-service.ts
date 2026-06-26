@@ -13,10 +13,8 @@ export interface ContractData {
 }
 
 /**
- * Generate a personalized corporate leasing contract PDF
  * Fills in customer information and returns a signed contract
  */
-export async function generateCorporateLeasingContract(
   data: ContractData
 ): Promise<{ contractUrl: string; contractKey: string }> {
   const contractTemplate = `
@@ -30,7 +28,6 @@ Date: ${new Date().toLocaleDateString('en-US', {
 
 AGREEMENT
 
-This Corporate Leasing Program Agreement ("Agreement") is entered into as of ${new Date().toLocaleDateString('en-US', { 
   year: 'numeric', 
   month: 'long', 
   day: 'numeric' 
@@ -56,7 +53,6 @@ The Company agrees to provide housing relocation and rental approval services to
 1.2 Assist the Client in securing approval for a rental property through one or more of the following methods:
    - Direct rental property approval in the Client's name
    - Approval through a Second Chance Program within the Company's network
-   - Approval through the Company's Corporate Leasing Program
 
 1.3 Provide the Client with a Renter's ID Number for use in the rental application process as authorized by this Agreement.
 
@@ -120,7 +116,6 @@ The Client agrees to allow the Company a period of 30 days from the date of this
 The Company agrees to make reasonable efforts to secure rental property approval for the Client within the 30-day period. The Company's approval methods include:
 - Direct landlord negotiations
 - Second Chance Program placements
-- Corporate Leasing Program approvals
 - Alternative rental options within the Client's specified criteria
 
 4. REFUND POLICY
@@ -138,7 +133,6 @@ If the Client wishes to request a refund, they must:
 4.2.3 The denial documentation must be from an official source, such as:
 - Written denial letter from a landlord or property manager
 - Official denial from a Second Chance Program
-- Official denial from a Corporate Leasing Program partner
 
 4.3 Refund Processing
 Upon receipt of valid denial documentation, the Company will process the refund within 14 business days. The refund amount shall be equal to the Client's service fee, minus any non-refundable administrative costs.
@@ -192,7 +186,6 @@ This Agreement shall be governed by and construed in accordance with the laws of
 
 10. ENTIRE AGREEMENT
 
-This Agreement constitutes the entire agreement between the Company and the Client regarding the corporate leasing program services. Any modifications to this Agreement must be made in writing and signed by both parties.
 
 11. ACKNOWLEDGMENT AND CONSENT
 
@@ -209,7 +202,6 @@ The Client further acknowledges that they understand the legal consequences of m
 
 SIGNATURES
 
-By signing below, both parties agree to the terms and conditions outlined in this Corporate Leasing Program Agreement.
 
 CLIENT SIGNATURE:
 
@@ -296,5 +288,4 @@ export async function generateContractForCustomer(
     companyEmail: 'support@secondchancehousinglocator.com',
   };
 
-  return generateCorporateLeasingContract(contractData);
 }

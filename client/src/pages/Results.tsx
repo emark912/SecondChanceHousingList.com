@@ -43,7 +43,6 @@ export default function Results() {
   const baseMatches = Math.floor(Math.random() * 50) + 80; // 80-130 total matches
   const apartmentMatches = Math.floor(baseMatches * 0.45);
   const programMatches = Math.floor(baseMatches * 0.35);
-  const corporateMatches = Math.floor(baseMatches * 0.2);
 
   const handleViewResults = () => {
     // Store customer data in sessionStorage for checkout form pre-filling
@@ -209,7 +208,6 @@ export default function Results() {
               </Card>
             </motion.div>
 
-            {/* Corporate Leasing Card */}
             <motion.div variants={itemVariants}>
               <Card className="glass border-pink-500/20 hover:border-pink-500/50 transition-all h-full">
                 <CardContent className="p-8">
@@ -226,7 +224,6 @@ export default function Results() {
                   </div>
 
                   <h3 className="text-lg font-semibold text-black mb-2">
-                    Corporate Leasing in {searchData.location}
                   </h3>
 
                   <motion.div
@@ -235,11 +232,9 @@ export default function Results() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
                   >
-                    {corporateMatches}
                   </motion.div>
 
                   <p className="text-sm text-black">
-                    Corporate housing programs for employees and relocations
                   </p>
                 </CardContent>
               </Card>
@@ -338,8 +333,6 @@ export default function Results() {
                       <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-lg">
                         <div className="text-2xl">💼</div>
                         <div>
-                          <p className="font-semibold text-black">{corporateMatches}</p>
-                          <p className="text-xs text-slate-600">Corporate</p>
                         </div>
                       </div>
                     </div>
@@ -352,10 +345,7 @@ export default function Results() {
                   </div>
 
 
-                  {/* Corporate Leasing Program - Payment Plan */}
                   <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h3 className="font-semibold text-black mb-2">💼 Corporate Leasing Program - Flexible Payment Plan</h3>
-                    <p className="text-sm text-slate-700 mb-3">Our in-house corporate leasing program offers flexible payment options for those who prefer to spread payments over time. Perfect for people who don't have the full amount upfront.</p>
                     <div className="space-y-3 mb-3">
                       {/* Option A: $500 Down */}
                       <div className="bg-white p-3 rounded border border-green-200">
@@ -385,7 +375,6 @@ export default function Results() {
                       <li>✓ Dedicated housing consultant support</li>
                       <li>✓ Help with property selection and applications</li>
                       <li>✓ No income verification required</li>
-                      <li>✓ We use our corporate financials as income verification</li>
                       <li>✓ Listed as a remote employee of our Corporation</li>
                       <li>✓ Income Verification Included - We provide the renter with income verification as a remote worker under our corporation as an extra layer of privacy and maximizing approval chances</li>
                       <li>✓ Priority support throughout your journey</li>

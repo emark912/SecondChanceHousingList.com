@@ -75,7 +75,6 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li className="text-sm text-gray-400">Second Chance Housing Search</li>
               <li className="text-sm text-gray-400">AI-Powered Property Matching</li>
-              <li className="text-sm text-gray-400">Corporate Leasing Programs</li>
               <li className="text-sm text-gray-400">Credit Challenge Solutions</li>
             </ul>
           </div>

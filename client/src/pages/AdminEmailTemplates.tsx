@@ -29,7 +29,6 @@ const TEMPLATE_VARIABLES: Record<string, TemplateVariable[]> = {
     { name: "{{rentalBudget}}", example: "$1,500", description: "Monthly rental budget" },
     { name: "{{moveInDate}}", example: "March 15, 2026", description: "Desired move-in date" },
   ],
-  corporate: [
     { name: "{{renterId}}", example: "SCH-2026-001", description: "Unique renter ID" },
     { name: "{{caseManager}}", example: "George Williams", description: "Assigned case manager name" },
     { name: "{{propertyAddress}}", example: "123 Main St, LA, CA", description: "Selected rental property" },

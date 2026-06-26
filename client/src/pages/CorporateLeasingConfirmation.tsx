@@ -19,7 +19,6 @@ interface OrderData {
   downPaymentAmount?: number;
 }
 
-export default function CorporateLeasingConfirmation() {
   const [, navigate] = useLocation();
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [renterId] = useState(`SCHL-${Math.random().toString(36).substr(2, 9).toUpperCase()}`);
@@ -77,7 +76,6 @@ export default function CorporateLeasingConfirmation() {
             We have received your first payment to join our
           </p>
           <p className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600 mb-4">
-            Second Chance Program - Corporate Leasing
           </p>
         </motion.div>
 
@@ -113,7 +111,6 @@ export default function CorporateLeasingConfirmation() {
                   Congratulations, {firstName}!
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  Thank you for signing up for our Second Chance Program - Corporate Leasing. 
                   We're excited to help you secure approval at your selected rental property.
                 </p>
                 <p className="text-gray-700 leading-relaxed font-semibold text-blue-600">

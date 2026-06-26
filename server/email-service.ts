@@ -158,7 +158,6 @@ export async function sendRentalResultsEmail(
             <ul>
               <li><strong>100+ Rental Properties</strong> - Apartments, houses, and townhomes in your area</li>
               <li><strong>Second Chance Programs</strong> - Specifically designed for renters with credit challenges</li>
-              <li><strong>Corporate Leasing Programs</strong> - Companies that work with credit-challenged renters</li>
               <li><strong>Private Landlords</strong> - Willing to work with your situation</li>
               <li><strong>Complete Contact Information</strong> - Direct phone numbers, emails, and websites</li>
             </ul>
@@ -277,7 +276,6 @@ export async function sendAbandonedCartEmail(
             <ul>
               <li>✓ <strong>${rentalMatches}+ Verified Rental Listings</strong> matched to your credit profile</li>
               <li>✓ <strong>Second Chance Programs</strong> specifically designed for renters with credit challenges</li>
-              <li>✓ <strong>Corporate Leasing Options</strong> for credit-challenged renters</li>
               <li>✓ <strong>Private Landlords</strong> willing to work with your situation</li>
               <li>✓ <strong>Complete Contact Information</strong> for immediate outreach</li>
               <li>✓ <strong>Personalized PDF Report</strong> for easy reference</li>
@@ -364,7 +362,6 @@ export async function sendAbandonedCartEmail(
 
 
 /**
- * Send monthly payment setup email for corporate leasing program
  */
 export async function sendMonthlyPaymentSetupEmail(
   customerEmail: string,
@@ -405,7 +402,6 @@ export async function sendMonthlyPaymentSetupEmail(
           <div class="content">
             <p>Dear ${customerName},</p>
             
-            <p>Thank you for your <strong>$1,000.00 down payment</strong> for our Corporate Leasing Program! We're excited to help you find the perfect rental property.</p>
             
             <div class="highlight">
               <h3 style="margin-top: 0;">🎉 What's Next?</h3>
@@ -442,7 +438,6 @@ export async function sendMonthlyPaymentSetupEmail(
             <p>To complete your monthly payment setup and ensure uninterrupted service, please click the button below:</p>
             
             <p style="text-align: center;">
-              <a href="https://secondchance-3gdukdvh.manus.space/corporate-leasing/setup-monthly-payments?planId=${paymentPlanId}" class="cta-button">
                 Set Up Monthly Payments Now
               </a>
             </p>
@@ -481,8 +476,6 @@ export async function sendMonthlyPaymentSetupEmail(
           
           <div class="footer">
             <p>© 2026 SecondChance Housing Locator. All rights reserved.</p>
-            <p>You received this email because you enrolled in our Corporate Leasing Program.</p>
-            <p><a href="https://secondchance-3gdukdvh.manus.space/corporate-leasing/setup-monthly-payments?planId=${paymentPlanId}" style="color: #667eea;">Set Up Payments</a></p>
           </div>
         </div>
         ${trackingPixelId ? generateTrackingPixel(trackingPixelId) : ''}

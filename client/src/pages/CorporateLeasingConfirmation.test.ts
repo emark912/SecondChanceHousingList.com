@@ -1,13 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 /**
- * CorporateLeasingConfirmation Page Tests
  * 
- * Tests for the corporate leasing confirmation page that users see after
- * making a $500 or $1,000 down payment for the corporate leasing program.
  */
 
-describe("CorporateLeasingConfirmation Page", () => {
   beforeEach(() => {
     // Setup: Clear session storage before each test
     sessionStorage.clear();

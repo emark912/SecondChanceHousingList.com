@@ -139,7 +139,6 @@ router.post("/webhook", async (req: Request, res: Response) => {
               });
               console.log(`Order ${order.id} payment status updated`);
 
-              const paymentType = order.includeCaseManager ? "Corporate Leasing Program" : "Donation";
               await notifyOwner({
                 title: `New Payment Received - ${paymentType}`,
                 content: `Payment received from ${order.customerName} (${order.customerEmail})\n\nPayment Type: ${paymentType}\nAmount: $${order.amount}\nOrder ID: ${order.id}\nSubmission ID: ${submissionId}\n\nCustomer has been sent their rental results PDF.`,

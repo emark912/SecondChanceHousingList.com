@@ -26,7 +26,6 @@ export interface CheckoutSessionParams {
   isPaymentPlan?: boolean; // True if payment plan is selected
   searchData?: any;
   donationAmount?: number;
-  includeCorporateLeasing?: boolean;
 }
 
 export async function createCheckoutSession(
@@ -36,7 +35,6 @@ export async function createCheckoutSession(
     console.log("[Stripe] Creating session with params:", {
       amount: params.amount,
       donationAmount: params.donationAmount,
-      includeCorporateLeasing: params.includeCorporateLeasing,
     });
 
     const lineItems = [
@@ -53,14 +51,10 @@ export async function createCheckoutSession(
         },
         quantity: 1,
       }] : []),
-      ...(params.includeCorporateLeasing ? [{
         price_data: {
           currency: "usd",
           product_data: {
-            name: params.isPaymentPlan ? "In-House Corporate Leasing Program - Payment Plan Down Payment" : "In-House Corporate Leasing Program - Down Payment",
             description: params.isPaymentPlan 
-              ? "Corporate leasing using our business credit + build your rental history. Down payment of $500 (flexible payment plan: $250 after property selection + $500/month for 10 months)"
-              : "Corporate leasing using our business credit + build your rental history. Down payment of $1,000 (final payment of $250 after property selection)",
             images: [],
           },
           unit_amount: params.amount, // Use the amount passed from frontend
@@ -90,7 +84,6 @@ export async function createCheckoutSession(
         isPaymentPlan: params.isPaymentPlan ? "true" : "false",
         searchData: params.searchData ? JSON.stringify(params.searchData) : "{}",
         donationAmount: params.donationAmount?.toString() || "0",
-        includeCorporateLeasing: params.includeCorporateLeasing ? "true" : "false",
       },
       payment_intent_data: {
         metadata: {
@@ -101,7 +94,6 @@ export async function createCheckoutSession(
         isPaymentPlan: params.isPaymentPlan ? "true" : "false",
         searchData: params.searchData ? JSON.stringify(params.searchData) : "{}",
         donationAmount: params.donationAmount?.toString() || "0",
-        includeCorporateLeasing: params.includeCorporateLeasing ? "true" : "false",
       },
       },
     } as any);

@@ -76,7 +76,6 @@ export const SEARCH_STEPS = [
   "Scanning Second Chance Housing Programs",
   "Second Chance Apartments",
   "Private Landlords with properties for Rent",
-  "Corporate Leasing Programs",
   "Scanning Local and County Laws to develop a custom plan",
   "Scanning programs, rental properties, and resources on review platforms",
   "Removing options associated with excessive negative reviews or high crime areas",

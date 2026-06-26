@@ -20,7 +20,6 @@ const SEARCH_STEPS = [
   { title: "Second Chance Programs", icon: "📋" },
   { title: "Second Chance Apartments", icon: "🏢" },
   { title: "Private Landlords", icon: "🏠" },
-  { title: "Corporate Leasing", icon: "💼" },
   { title: "Local Laws & Regulations", icon: "⚖️" },
 ];
 

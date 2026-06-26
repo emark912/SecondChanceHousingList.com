@@ -1,7 +1,5 @@
 import { eq, desc, sql, and, gte, lte, count, sum, avg } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, searchSubmissions, orders, nationalResults, contactMessages, secondChancePrograms, emailLogs, emailTrackingOpens, emailTrackingClicks, pageViews, trafficEvents, formSubmissions, emailTracking, flexiblePaymentPlans, scheduledPayments, paymentProcessingLogs, emailDeliveryMetrics, abandonedCartAnalytics, emailTemplates, corporateLeasingPaymentPlans, corporateLeasingInstallments } from "../drizzle/schema";
-import type { InsertSearchSubmission, InsertOrder, InsertNationalResult, InsertContactMessage, InsertSecondChanceProgram, SecondChanceProgram, InsertEmailLog, InsertEmailTrackingOpen, InsertEmailTrackingClick, InsertPageView, InsertTrafficEvent, InsertFormSubmission, FormSubmission, InsertEmailTracking, InsertFlexiblePaymentPlan, FlexiblePaymentPlan, InsertScheduledPayment, ScheduledPayment, InsertPaymentProcessingLog, InsertEmailDeliveryMetric, InsertAbandonedCartAnalytic, EmailTemplate, InsertEmailTemplate, CorporateLeasingPaymentPlan, InsertCorporateLeasingPaymentPlan, CorporateLeasingInstallment, InsertCorporateLeasingInstallment } from "../drizzle/schema";
 
 import { ENV } from './_core/env';
 
@@ -1782,122 +1780,81 @@ export async function getDailyOrderAnalytics(days: number = 30) {
 }
 
 
-// Corporate Leasing Payment Plan Functions
-export async function createCorporateLeasingPaymentPlan(data: InsertCorporateLeasingPaymentPlan) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const result = await db.insert(corporateLeasingPaymentPlans).values(data);
   return result[0].insertId;
 }
 
-export async function getCorporateLeasingPaymentPlan(planId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const result = await db.select().from(corporateLeasingPaymentPlans).where(eq(corporateLeasingPaymentPlans.id, planId));
   return result[0] || null;
 }
 
-export async function getAllCorporateLeasingPaymentPlans(status?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
   if (status) {
-    return db.select().from(corporateLeasingPaymentPlans)
-      .where(eq(corporateLeasingPaymentPlans.status, status as any))
-      .orderBy(desc(corporateLeasingPaymentPlans.createdAt));
   }
   
-  return db.select().from(corporateLeasingPaymentPlans)
-    .orderBy(desc(corporateLeasingPaymentPlans.createdAt));
 }
 
-export async function updateCorporateLeasingPaymentPlan(planId: number, data: Partial<CorporateLeasingPaymentPlan>) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  await db.update(corporateLeasingPaymentPlans).set(data).where(eq(corporateLeasingPaymentPlans.id, planId));
   return true;
 }
 
-export async function cancelCorporateLeasingPaymentPlan(planId: number, reason: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  await db.update(corporateLeasingPaymentPlans)
     .set({
       status: 'cancelled',
       cancelledAt: new Date(),
       cancelReason: reason,
     })
-    .where(eq(corporateLeasingPaymentPlans.id, planId));
   
   return true;
 }
 
-// Corporate Leasing Installment Functions
-export async function createCorporateLeasingInstallment(data: InsertCorporateLeasingInstallment) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const result = await db.insert(corporateLeasingInstallments).values(data);
   return result[0].insertId;
 }
 
-export async function getCorporateLeasingInstallments(planId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
   return db.select()
-    .from(corporateLeasingInstallments)
-    .where(eq(corporateLeasingInstallments.paymentPlanId, planId))
-    .orderBy(sql`${corporateLeasingInstallments.dueDate} ASC`);
 }
 
-export async function getPendingCorporateLeasingInstallments() {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
   return db.select()
-    .from(corporateLeasingInstallments)
     .where(and(
-      eq(corporateLeasingInstallments.status, 'pending'),
-      lte(corporateLeasingInstallments.dueDate, new Date())
     ))
-    .orderBy(sql`${corporateLeasingInstallments.dueDate} ASC`);
 }
 
-export async function updateCorporateLeasingInstallment(installmentId: number, data: Partial<CorporateLeasingInstallment>) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  await db.update(corporateLeasingInstallments)
     .set(data)
-    .where(eq(corporateLeasingInstallments.id, installmentId));
   
   return true;
 }
 
-export async function getCorporateLeasingDashboardStats() {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const totalPlans = await db.select({ count: count() }).from(corporateLeasingPaymentPlans);
-  const activePlans = await db.select({ count: count() }).from(corporateLeasingPaymentPlans).where(eq(corporateLeasingPaymentPlans.status, 'active'));
-  const completedPlans = await db.select({ count: count() }).from(corporateLeasingPaymentPlans).where(eq(corporateLeasingPaymentPlans.status, 'completed'));
   
   const totalDownPayments = await db.select({
-    total: sql<number>`COALESCE(SUM(${corporateLeasingPaymentPlans.downPaymentAmount}), 0)`
-  }).from(corporateLeasingPaymentPlans).where(eq(corporateLeasingPaymentPlans.downPaymentStatus, 'completed'));
   
   const totalPropertySelectionPayments = await db.select({
-    total: sql<number>`COALESCE(SUM(${corporateLeasingPaymentPlans.propertySelectionPaymentAmount}), 0)`
-  }).from(corporateLeasingPaymentPlans).where(eq(corporateLeasingPaymentPlans.propertySelectionPaymentStatus, 'completed'));
   
   const totalInstallmentsCompleted = await db.select({
-    total: sql<number>`COALESCE(SUM(${corporateLeasingInstallments.paymentAmount}), 0)`
-  }).from(corporateLeasingInstallments).where(eq(corporateLeasingInstallments.status, 'completed'));
   
   return {
     totalPlans: totalPlans[0]?.count || 0,
