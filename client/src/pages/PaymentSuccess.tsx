@@ -1,264 +1,152 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { useLocation, useSearch } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Download, Home, Mail, FileText, Calendar, CreditCard } from "lucide-react";
-import { motion } from "framer-motion";
-
-interface OrderDetails {
-  orderId: string;
-  amount: number;
-  paymentMethod: string;
-  date: string;
-  email: string;
-  fullName: string;
-}
+import { Card } from "@/components/ui/card";
+import { Check, Download } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 export default function PaymentSuccess() {
   const [, navigate] = useLocation();
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const search = useSearch();
+  const sessionId = new URLSearchParams(search).get("session_id");
+  const [isVerifying, setIsVerifying] = useState(true);
+  const [verificationResult, setVerificationResult] = useState<any>(null);
+
+  const verifyMutation = trpc.donations.verifyDonation.useQuery(
+    { sessionId: sessionId || "" },
+    { enabled: !!sessionId }
+  );
 
   useEffect(() => {
-    // Get order details from session storage or URL params
-    const params = new URLSearchParams(window.location.search);
-    const sessionData = sessionStorage.getItem("searchFormData");
-    const paymentData = sessionStorage.getItem("paymentData");
-
-    if (!sessionData || !paymentData) {
-      navigate("/");
-      return;
+    if (verifyMutation.data) {
+      setVerificationResult(verifyMutation.data);
+      setIsVerifying(false);
+      if (verifyMutation.data.success) {
+        toast.success("Payment confirmed! Your access is now active.");
+      }
     }
+  }, [verifyMutation.data]);
 
-    const searchData = JSON.parse(sessionData);
-    const payment = JSON.parse(paymentData);
-
-    setOrderDetails({
-      orderId: payment.orderId || `ORD-${Date.now()}`,
-      amount: payment.amount || 59.99,
-      paymentMethod: payment.paymentMethod || "Credit Card",
-      date: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-      email: searchData.email,
-      fullName: searchData.fullName,
-    });
-
-    setIsLoading(false);
-    window.scrollTo(0, 0);
-  }, [navigate]);
-
-  const handleDownloadPDF = () => {
-    // Trigger PDF download from the server
-    const pdfUrl = sessionStorage.getItem("pdfUrl") || "/api/download-housing-list";
-    window.open(pdfUrl, "_blank");
-  };
-
-  if (isLoading) {
+  if (isVerifying) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+        <Card className="p-8 text-center max-w-md">
+          <p className="text-lg text-gray-600">Verifying your payment...</p>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!verificationResult?.success) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+        <Card className="p-8 text-center max-w-md">
+          <p className="text-lg text-red-600 mb-4">Payment verification failed</p>
+          <Button onClick={() => navigate("/")} className="bg-blue-600 hover:bg-blue-700">
+            Return Home
+          </Button>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
-      <Navbar />
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Navbar */}
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="text-2xl font-bold text-blue-600">Second Chance Housing List</div>
+        </div>
+      </nav>
 
-      <main className="container mx-auto px-4 py-12 md:py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto"
-        >
-          {/* Success Header */}
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-              className="flex justify-center mb-6"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-emerald-400 rounded-full blur-lg opacity-50"></div>
-                <CheckCircle2 className="w-20 h-20 text-emerald-500 relative" />
-              </div>
-            </motion.div>
+      {/* Success Message */}
+      <div className="max-w-2xl mx-auto px-4 py-16 flex items-center justify-center min-h-[calc(100vh-80px)]">
+        <Card className="p-12 text-center">
+          <div className="mb-6 flex justify-center">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+              <Check className="w-12 h-12 text-green-600" />
+            </div>
+          </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-              Payment Successful!
-            </h1>
-            <p className="text-lg text-slate-600 mb-2">
-              Your Second Chance Housing List is ready to download
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Thank You for Your Donation!
+          </h1>
+
+          <p className="text-xl text-gray-600 mb-2">
+            Your donation of <span className="font-bold text-blue-600">${verificationResult.amount}</span> has been received
+          </p>
+
+          <p className="text-gray-600 mb-8">
+            A confirmation email has been sent to <span className="font-semibold">{verificationResult.userEmail}</span>
+          </p>
+
+          {/* Access Confirmation */}
+          <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+            <h2 className="text-lg font-bold text-green-900 mb-2">✓ Your Access is Now Active</h2>
+            <p className="text-green-800 mb-4">
+              You now have unlimited access to landlord and property manager contact information for all properties in our database.
             </p>
-            <p className="text-sm text-slate-500">
-              A confirmation email has been sent to {orderDetails?.email}
+            <p className="text-sm text-green-700">
+              This access is permanent and never expires. You can search and contact landlords anytime.
             </p>
           </div>
 
-          {/* Order Details Card */}
-          <Card className="mb-8 border-0 shadow-lg bg-white">
-            <CardContent className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left Column - Order Info */}
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm font-medium text-slate-500 mb-1">Order ID</p>
-                    <p className="text-lg font-semibold text-slate-900">{orderDetails?.orderId}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-medium text-slate-500 mb-1">Order Date</p>
-                    <div className="flex items-center text-slate-900">
-                      <Calendar className="w-4 h-4 mr-2 text-blue-600" />
-                      <span className="font-semibold">{orderDetails?.date}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-medium text-slate-500 mb-1">Payment Method</p>
-                    <div className="flex items-center text-slate-900">
-                      <CreditCard className="w-4 h-4 mr-2 text-blue-600" />
-                      <span className="font-semibold">{orderDetails?.paymentMethod}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column - Amount */}
-                <div className="flex flex-col justify-between">
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-                    <p className="text-sm font-medium text-slate-600 mb-2">Total Amount Paid</p>
-                    <p className="text-4xl font-bold text-blue-600">${orderDetails?.amount.toFixed(2)}</p>
-                    <p className="text-xs text-slate-500 mt-3">
-                      ✓ Includes all discounts applied
-                    </p>
-                  </div>
-
-                  <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200 mt-4">
-                    <p className="text-sm text-emerald-800 font-medium">
-                      ✓ Payment received and processed
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* What's Included */}
-          <Card className="mb-8 border-0 shadow-lg bg-white">
-            <CardContent className="p-8">
-              <h2 className="text-xl font-bold text-slate-900 mb-6">What's Included in Your List</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-1" />
-                  </div>
-                  <div className="ml-3">
-                    <p className="font-semibold text-slate-900">Verified Rental Properties</p>
-                    <p className="text-sm text-slate-600">Properties that accept second chance renters</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-1" />
-                  </div>
-                  <div className="ml-3">
-                    <p className="font-semibold text-slate-900">Contact Information</p>
-                    <p className="text-sm text-slate-600">Direct contact details for landlords</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-1" />
-                  </div>
-                  <div className="ml-3">
-                    <p className="font-semibold text-slate-900">Personalized Matches</p>
-                    <p className="text-sm text-slate-600">Based on your rental profile</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-1" />
-                  </div>
-                  <div className="ml-3">
-                    <p className="font-semibold text-slate-900">Application Tips</p>
-                    <p className="text-sm text-slate-600">Guidance for successful applications</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* What's Next */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 text-left">
+            <h3 className="font-bold text-blue-900 mb-4">What's Next?</h3>
+            <ol className="space-y-3 text-blue-900">
+              <li className="flex gap-3">
+                <span className="font-bold">1.</span>
+                <span>Return to search and browse properties in your area</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-bold">2.</span>
+                <span>Click on any property to view landlord contact information</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-bold">3.</span>
+                <span>Contact landlords directly to apply for your rental</span>
+              </li>
+            </ol>
+          </div>
 
           {/* Action Buttons */}
-          <div className="space-y-4">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+          <div className="flex gap-4 justify-center">
+            <Button
+              onClick={() => navigate("/results")}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8"
             >
-              <Button
-                onClick={handleDownloadPDF}
-                className="w-full h-14 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-lg flex items-center justify-center transition-all duration-300 shadow-lg"
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Download Your Housing List (PDF)
-              </Button>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              View Results
+            </Button>
+            <Button
+              onClick={() => navigate("/")}
+              variant="outline"
+              className="px-8"
             >
-              <Button
-                variant="outline"
-                className="w-full h-14 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold rounded-lg flex items-center justify-center transition-all duration-300"
-              >
-                <Mail className="w-5 h-5 mr-2" />
-                Resend Confirmation Email
-              </Button>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button
-                onClick={() => navigate("/")}
-                variant="ghost"
-                className="w-full h-14 text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-semibold rounded-lg flex items-center justify-center transition-all duration-300"
-              >
-                <Home className="w-5 h-5 mr-2" />
-                Return to Home
-              </Button>
-            </motion.div>
+              New Search
+            </Button>
           </div>
 
-          {/* Support Info */}
-          <Card className="mt-8 border-0 bg-blue-50 shadow-sm">
-            <CardContent className="p-6">
-              <div className="flex items-start">
-                <FileText className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                <div className="ml-3">
-                  <p className="font-semibold text-slate-900 mb-1">Need Help?</p>
-                  <p className="text-sm text-slate-700">
-                    Check your email for the confirmation with your housing list. If you don't see it, check your spam folder or contact our support team.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </main>
+          {/* Confirmation Details */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <p className="text-sm text-gray-600 mb-4">
+              <Download className="w-4 h-4 inline mr-2" />
+              Check your email for a receipt and confirmation details
+            </p>
+            <p className="text-xs text-gray-500">
+              Transaction ID: {sessionId}
+            </p>
+          </div>
+        </Card>
+      </div>
 
-      <Footer />
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-16">
+        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-400">
+          <p>&copy; 2026 Second Chance Housing List. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }

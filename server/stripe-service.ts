@@ -1,209 +1,128 @@
 import Stripe from "stripe";
-import { sendPaymentReceipt } from "./email-receipt-service";
 
-function getPaymentMethodName(methodType?: string): string {
-  if (!methodType) return "Credit/Debit Card";
-  const names: Record<string, string> = {
-    card: "Credit/Debit Card",
-    link: "Stripe Link",
-  };
-  return names[methodType] || methodType.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
-}
+type StripeEvent = Stripe.Event;
+import { ENV } from "./_core/env";
+import * as db from "./db";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-01-28.clover" as any,
-});
+const stripe = new Stripe(ENV.stripeSecretKey || "");
 
-export interface CheckoutSessionParams {
-  amount: number; // in cents
-  customerEmail: string;
-  customerName: string;
-  orderId: number;
-  submissionId: number;
-  successUrl: string;
-  cancelUrl: string;
-  isFlexiblePayment?: boolean;
-  isPaymentPlan?: boolean; // True if payment plan is selected
-  searchData?: any;
-  donationAmount?: number;
-}
+export async function createCheckoutSession(input: {
+  userEmail: string;
+  userName: string;
+  amountDollars: number;
+  userId: number;
+  origin: string;
+}) {
+  if (input.amountDollars < 20) {
+    throw new Error("Minimum donation is $20");
+  }
 
-export async function createCheckoutSession(
-  params: CheckoutSessionParams
-): Promise<{ url: string; sessionId: string } | null> {
+  const amountCents = Math.round(input.amountDollars * 100);
+
   try {
-    console.log("[Stripe] Creating session with params:", {
-      amount: params.amount,
-      donationAmount: params.donationAmount,
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Donation - Access to Landlord Information",
+              description: "Support Second Chance Housing List and unlock landlord contact details",
+            },
+            unit_amount: amountCents,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: `${input.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${input.origin}/payment-failed`,
+      customer_email: input.userEmail,
+      client_reference_id: input.userId.toString(),
+      metadata: {
+        user_id: input.userId.toString(),
+        customer_email: input.userEmail,
+        customer_name: input.userName,
+      },
+      allow_promotion_codes: true,
     });
 
-    const lineItems = [
-      ...(params.donationAmount && params.donationAmount > 0 ? [{
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "Donation to Support Second Chance Housing",
-            description:
-              "Support our mission to help credit-challenged renters find housing",
-            images: [],
-          },
-          unit_amount: params.donationAmount, // Already in cents from client
-        },
-        quantity: 1,
-      }] : []),
-        price_data: {
-          currency: "usd",
-          product_data: {
-            description: params.isPaymentPlan 
-            images: [],
-          },
-          unit_amount: params.amount, // Use the amount passed from frontend
-        },
-        quantity: 1,
-      }] : []),
-    ];
+    // Save donation record
+    await db.saveDonation({
+      userEmail: input.userEmail,
+      userName: input.userName,
+      amountCents,
+      stripeSessionId: session.id,
+    });
 
-    if (lineItems.length === 0) {
-      throw new Error("No line items to charge");
-    }
-
-    console.log("[Stripe] Line items:", lineItems.length, "items");
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card", "link"],
-      line_items: lineItems,
-      mode: "payment",
-      success_url: params.successUrl,
-      cancel_url: params.cancelUrl,
-      customer_email: params.customerEmail,
-      metadata: {
-        orderId: params.orderId ? params.orderId.toString() : "0",
-        submissionId: params.submissionId ? params.submissionId.toString() : "0",
-        customerName: params.customerName,
-        isFlexiblePayment: params.isFlexiblePayment ? "true" : "false",
-        isPaymentPlan: params.isPaymentPlan ? "true" : "false",
-        searchData: params.searchData ? JSON.stringify(params.searchData) : "{}",
-        donationAmount: params.donationAmount?.toString() || "0",
-      },
-      payment_intent_data: {
-        metadata: {
-          orderId: params.orderId ? params.orderId.toString() : "0",
-          submissionId: params.submissionId ? params.submissionId.toString() : "0",
-          customerName: params.customerName,
-        isFlexiblePayment: params.isFlexiblePayment ? "true" : "false",
-        isPaymentPlan: params.isPaymentPlan ? "true" : "false",
-        searchData: params.searchData ? JSON.stringify(params.searchData) : "{}",
-        donationAmount: params.donationAmount?.toString() || "0",
-      },
-      },
-    } as any);
-
-    console.log("[Stripe] Session created successfully:", { sessionId: session.id, hasUrl: !!session.url });
-    return { url: session.url || "", sessionId: session.id };
+    return {
+      sessionId: session.id,
+      url: session.url,
+    };
   } catch (error) {
-    console.error("[Stripe] Error creating checkout session:", error);
+    console.error("Stripe checkout session error:", error);
     throw error;
   }
 }
 
-export async function retrieveSession(
-  sessionId: string
-): Promise<Stripe.Checkout.Session | null> {
+export async function verifyPaymentSession(sessionId: string) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    return session;
+
+    if (session.payment_status === "paid") {
+      const donation = await db.getDonationBySessionId(sessionId);
+
+      if (donation) {
+        await db.grantListAccess(donation.id);
+        return {
+          success: true,
+          userEmail: session.customer_email,
+          amount: (session.amount_total || 0) / 100,
+        };
+      }
+    }
+
+    return {
+      success: false,
+      message: "Payment not completed or donation not found",
+    };
   } catch (error) {
-    console.error("Error retrieving session:", error);
-    return null;
+    console.error("Verify payment session error:", error);
+    throw error;
   }
 }
 
-export async function handleWebhookEvent(
-  event: Stripe.Event
-): Promise<{ success: boolean; message: string }> {
+export async function handleWebhookEvent(event: StripeEvent) {
   try {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log("Payment successful:", session.id);
-        console.log("Customer email:", session.customer_email);
-        console.log("Metadata:", session.metadata);
-        console.log("Payment method types:", session.payment_method_types);
-
-        // Send payment receipt email
-        if (session.customer_email && session.metadata) {
-          const receiptData = {
-            email: session.customer_email,
-            fullName: session.metadata.customerName || "Valued Customer",
-            orderId: session.metadata.orderId || session.id,
-            amount: (session.amount_total || 0) / 100,
-            paymentMethod: getPaymentMethodName(session.payment_method_types?.[0]),
-            date: new Date().toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            }),
-            pdfUrl: `/api/download-housing-list?orderId=${session.metadata.orderId}`,
-            itemsCount: 50,
-          };
-          await sendPaymentReceipt(receiptData).catch((err) => {
-            console.error("Failed to send payment receipt:", err);
-          });
+        if (session.payment_status === "paid") {
+          const donation = await db.getDonationBySessionId(session.id);
+          if (donation) {
+            await db.grantListAccess(donation.id);
+            console.log(`[Webhook] Payment completed for ${session.customer_email}`);
+          }
         }
-
-        // Return success - the webhook handler will update the order
-        return {
-          success: true,
-          message: "Payment processed successfully",
-        };
+        break;
       }
 
-      case "charge.succeeded": {
+      case "charge.refunded": {
         const charge = event.data.object as Stripe.Charge;
-        console.log("Charge succeeded:", charge.id);
-        console.log("Payment method:", charge.payment_method_details?.type);
-        return {
-          success: true,
-          message: "Charge processed",
-        };
-      }
-
-      case "charge.failed": {
-        const charge = event.data.object as Stripe.Charge;
-        console.error("Charge failed:", charge.id);
-        console.error("Payment method:", charge.payment_method_details?.type);
-        return {
-          success: false,
-          message: "Charge failed",
-        };
+        console.log(`[Webhook] Charge refunded: ${charge.id}`);
+        break;
       }
 
       default:
-        console.log("Unhandled event type:", event.type);
-        return {
-          success: true,
-          message: "Event received",
-        };
+        console.log(`[Webhook] Unhandled event type: ${event.type}`);
     }
+
+    return { received: true };
   } catch (error) {
-    console.error("Error handling webhook event:", error);
-    return {
-      success: false,
-      message: "Error processing webhook",
-    };
+    console.error("Webhook event handling error:", error);
+    throw error;
   }
 }
 
-export function constructWebhookEvent(
-  body: string,
-  signature: string
-): Stripe.Event | null {
-  try {
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
-    const event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    return event;
-  } catch (error) {
-    console.error("Webhook signature verification failed:", error);
-    return null;
-  }
-}
+export { stripe };
