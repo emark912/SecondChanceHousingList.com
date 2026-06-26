@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
-import { Check, Zap, Shield, Users, Clock } from "lucide-react";
+import { Check, Zap, Shield, Users, Clock, Heart } from "lucide-react";
 
 export default function Home() {
   const [, navigate] = useLocation();
@@ -72,148 +72,125 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#e8f1f8] via-[#d4e5f0] to-[#e8f1f8] text-gray-900">
+    <div className="min-h-screen bg-white text-gray-900">
       <Navbar />
       
-      {/* Hero Section with Headline and Benefits */}
-      <div className="pt-16 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">Get Approved for Housing in 15 Seconds</h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">Our AI-powered matching system helps you find quality housing even with credit challenges, evictions, or criminal history.</p>
-          
-          <div className="flex flex-col md:flex-row gap-4 justify-center mb-12 text-sm">
-            <div className="flex items-center gap-2 text-green-600">
-              <Check size={20} />
-              <span>95% Approval Rate</span>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-b from-white to-gray-50 pt-12 pb-8 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gray-900 leading-tight">
+              Advanced AI Powered<br />Second Chance Housing Match Service
+            </h1>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+              Our AI-powered matching system helps you find quality housing even with credit challenges, evictions, or criminal history. Search for free and unlock landlord contact details with a one-time donation.
+            </p>
+            
+            <div className="flex flex-col md:flex-row gap-4 justify-center mb-8 text-sm">
+              <div className="flex items-center gap-2 text-teal-600">
+                <Check size={20} className="text-teal-600" />
+                <span className="font-semibold">95% Approval Rate</span>
+              </div>
+              <div className="flex items-center gap-2 text-teal-600">
+                <Check size={20} className="text-teal-600" />
+                <span className="font-semibold">30-Day Refund Guarantee</span>
+              </div>
+              <div className="flex items-center gap-2 text-teal-600">
+                <Check size={20} className="text-teal-600" />
+                <span className="font-semibold">Free to Search</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-green-600">
-              <Check size={20} />
-              <span>30-Day Refund Guarantee</span>
+
+            {/* Donation-Based Service Message */}
+            <div className="bg-teal-50 border-l-4 border-teal-600 p-4 rounded max-w-2xl mx-auto mb-8">
+              <div className="flex items-start gap-3">
+                <Heart className="text-teal-600 mt-1 flex-shrink-0" size={20} />
+                <div className="text-left">
+                  <p className="font-semibold text-gray-900 mb-1">Donation-Based Service</p>
+                  <p className="text-gray-700 text-sm">
+                    Searching for properties is completely free. A one-time donation ($20+) unlocks direct landlord and property manager contact information for all your matches. Your donation supports our mission to help renters in challenging situations.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-green-600">
-              <Check size={20} />
-              <span>Free to Search</span>
+          </div>
+
+          {/* Hero Images */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="rounded-lg overflow-hidden shadow-lg h-64 md:h-80 bg-gray-200">
+              <img 
+                src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" 
+                alt="Modern apartment interior"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="rounded-lg overflow-hidden shadow-lg h-64 md:h-80 bg-gray-200">
+              <img 
+                src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop" 
+                alt="Modern house exterior"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* How Our AI Works Section */}
-        <div className="mb-16">
+      {/* How Our AI Works Section */}
+      <div className="bg-gray-50 py-16 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">How Our AI Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-lg shadow p-6 text-center">
+              <div className="bg-teal-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold">1</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
-              <p className="text-gray-700">Tell us about your situation, budget, and preferences in just a few minutes.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
+              <p className="text-gray-700 text-sm">Tell us about your situation, budget, and preferences in just a few minutes.</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Zap size={32} />
+            <div className="bg-white rounded-lg shadow p-6 text-center">
+              <div className="bg-teal-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Zap size={28} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Analyzes 50,000+ Properties</h3>
-              <p className="text-gray-700">Our system instantly scans landlords and their acceptance criteria across the nation.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Analyzes 50,000+ Properties</h3>
+              <p className="text-gray-700 text-sm">Our system instantly scans landlords and their acceptance criteria across the nation.</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Users size={32} />
+            <div className="bg-white rounded-lg shadow p-6 text-center">
+              <div className="bg-teal-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Users size={28} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">We Find Your Matches</h3>
-              <p className="text-gray-700">Discover properties and landlords that specifically accept renters like you.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">We Find Your Matches</h3>
+              <p className="text-gray-700 text-sm">Discover properties and landlords that specifically accept renters like you.</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Clock size={32} />
+            <div className="bg-white rounded-lg shadow p-6 text-center">
+              <div className="bg-teal-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Clock size={28} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Get Landlord Contact Info</h3>
-              <p className="text-gray-700">One-time donation unlocks direct contact details for all your matches.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Get Landlord Contact Info</h3>
+              <p className="text-gray-700 text-sm">One-time donation unlocks direct contact details for all your matches.</p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Why Choose Us Section */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Why Choose Second Chance Housing List?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <Shield className="text-blue-500 mb-4" size={40} />
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">AI-Powered Matching</h3>
-              <p className="text-gray-700 mb-4">Advanced algorithms analyze landlord policies to find properties that accept your situation.</p>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Intelligent filtering</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Accurate matches</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Time-saving results</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <Users className="text-blue-500 mb-4" size={40} />
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">50+ States Covered</h3>
-              <p className="text-gray-700 mb-4">Our nationwide database includes landlords and properties across the entire United States.</p>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Nationwide coverage</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>50,000+ properties</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Constantly updated</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <Clock className="text-blue-500 mb-4" size={40} />
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">30-Day Money Back</h3>
-              <p className="text-gray-700 mb-4">Not satisfied with your results? We offer a full refund within 30 days, no questions asked.</p>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Full refund guarantee</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>No questions asked</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check size={18} className="text-green-600" />
-                  <span>Risk-free trial</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Rental Profile Form Section */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Start Your Search Today</h2>
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+      {/* Rental Profile Form Section - Under How Our AI Works */}
+      <div className="bg-white py-16 px-4 md:px-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-2 text-gray-900">Rental Profile Form</h2>
+          <p className="text-center text-gray-700 mb-12">Complete your profile to get started with our AI-powered matching system</p>
+          
+          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
             {/* Personal Information Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">1</span>
+                <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</span>
                 Personal Information
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-gray-700">First Name *</Label>
+                  <Label className="text-gray-700 font-semibold">First Name *</Label>
                   <Input
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -222,7 +199,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700">Last Name *</Label>
+                  <Label className="text-gray-700 font-semibold">Last Name *</Label>
                   <Input
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -231,7 +208,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700">Email *</Label>
+                  <Label className="text-gray-700 font-semibold">Email *</Label>
                   <Input
                     type="email"
                     value={email}
@@ -241,7 +218,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700">Phone</Label>
+                  <Label className="text-gray-700 font-semibold">Phone</Label>
                   <Input
                     type="tel"
                     value={phone}
@@ -256,12 +233,12 @@ export default function Home() {
             {/* Desired Rental Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">2</span>
+                <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</span>
                 Desired Rental
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-gray-700">City *</Label>
+                  <Label className="text-gray-700 font-semibold">City *</Label>
                   <Input
                     value={desiredCity}
                     onChange={(e) => setDesiredCity(e.target.value)}
@@ -270,7 +247,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700">State *</Label>
+                  <Label className="text-gray-700 font-semibold">State *</Label>
                   <Input
                     value={desiredState}
                     onChange={(e) => setDesiredState(e.target.value)}
@@ -279,7 +256,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700">Bedrooms</Label>
+                  <Label className="text-gray-700 font-semibold">Bedrooms</Label>
                   <Select value={bedrooms?.toString() || ""} onValueChange={(v) => setBedrooms(v ? parseInt(v) : null)}>
                     <SelectTrigger className="mt-1 bg-gray-50 border-gray-300 text-gray-900">
                       <SelectValue placeholder="Select bedrooms" />
@@ -293,7 +270,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <Label className="text-gray-700">Move-In Date</Label>
+                  <Label className="text-gray-700 font-semibold">Move-In Date</Label>
                   <Input
                     type="date"
                     value={moveInDate}
@@ -303,7 +280,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-4">
-                <Label className="text-gray-700">Max Monthly Rent: ${maxRent[0]}</Label>
+                <Label className="text-gray-700 font-semibold">Max Monthly Rent: ${maxRent[0]}</Label>
                 <Slider
                   value={maxRent}
                   onValueChange={setMaxRent}
@@ -318,12 +295,12 @@ export default function Home() {
             {/* Household Information Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">3</span>
+                <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</span>
                 Household Information
               </h3>
               <div className="space-y-4">
                 <div>
-                  <Label className="text-gray-700">Do you have pets?</Label>
+                  <Label className="text-gray-700 font-semibold">Do you have pets?</Label>
                   <RadioGroup value={hasPets} onValueChange={setHasPets} className="mt-2">
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="yes" id="pets-yes" />
@@ -337,7 +314,7 @@ export default function Home() {
                 </div>
                 {hasPets === "yes" && (
                   <div>
-                    <Label className="text-gray-700">Pet Details</Label>
+                    <Label className="text-gray-700 font-semibold">Pet Details</Label>
                     <Input
                       value={petDetails}
                       onChange={(e) => setPetDetails(e.target.value)}
@@ -352,12 +329,12 @@ export default function Home() {
             {/* Rental History & Challenges Section */}
             <div className="border-b border-gray-300 pb-6 mb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">4</span>
+                <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">4</span>
                 Rental History & Challenges
               </h3>
               <div className="space-y-4">
                 <div>
-                  <Label className="text-gray-700">Employment Status</Label>
+                  <Label className="text-gray-700 font-semibold">Employment Status</Label>
                   <Select value={employmentStatus} onValueChange={setEmploymentStatus}>
                     <SelectTrigger className="mt-1 bg-gray-50 border-gray-300 text-gray-900">
                       <SelectValue placeholder="Select employment status" />
@@ -372,7 +349,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <Label className="text-gray-700">Monthly Income</Label>
+                  <Label className="text-gray-700 font-semibold">Monthly Income</Label>
                   <Input
                     type="number"
                     value={monthlyIncome}
@@ -382,7 +359,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-700 block mb-3">Rental Challenges (Select all that apply)</Label>
+                  <Label className="text-gray-700 font-semibold block mb-3">Rental Challenges (Select all that apply)</Label>
                   <div className="space-y-2">
                     {["Bad Credit", "Eviction History", "Criminal Record", "Low Income", "No Rental History", "Bankruptcy"].map((challenge) => (
                       <div key={challenge} className="flex items-center space-x-2">
@@ -402,16 +379,16 @@ export default function Home() {
             {/* Additional Information Section */}
             <div className="pb-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">5</span>
+                <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">5</span>
                 Additional Information
               </h3>
               <div>
-                <Label className="text-gray-700">Anything else we should know?</Label>
+                <Label className="text-gray-700 font-semibold">Anything else we should know?</Label>
                 <textarea
                   value={additionalInfo}
                   onChange={(e) => setAdditionalInfo(e.target.value)}
                   placeholder="Tell us more about your situation..."
-                  className="mt-1 w-full p-3 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full p-3 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-600"
                   rows={4}
                 />
               </div>
@@ -419,10 +396,78 @@ export default function Home() {
 
             <Button
               onClick={handleSearch}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-semibold rounded-lg"
+              className="w-full bg-teal-600 hover:bg-teal-700 text-white py-3 text-lg font-semibold rounded-lg transition-colors"
             >
-              Find My Perfect Home
+              Submit Rental Profile Form
             </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Why Choose Us Section */}
+      <div className="bg-gray-50 py-16 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Why Choose Second Chance Housing List?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow p-8">
+              <Shield className="text-teal-600 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">AI-Powered Matching</h3>
+              <p className="text-gray-700 mb-4">Advanced algorithms analyze landlord policies to find properties that accept your situation.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Intelligent filtering</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Accurate matches</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Time-saving results</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-8">
+              <Users className="text-teal-600 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">50+ States Covered</h3>
+              <p className="text-gray-700 mb-4">Our nationwide database includes landlords and properties across the entire United States.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Nationwide coverage</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>50,000+ properties</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Constantly updated</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-8">
+              <Clock className="text-teal-600 mb-4" size={40} />
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">30-Day Money Back</h3>
+              <p className="text-gray-700 mb-4">Not satisfied with your results? We offer a full refund within 30 days, no questions asked.</p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Full refund guarantee</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>No questions asked</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check size={18} className="text-teal-600" />
+                  <span>Risk-free trial</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
