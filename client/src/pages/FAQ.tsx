@@ -10,9 +10,9 @@ import { HelpCircle, Shield } from "lucide-react";
 
 const faqs = [
   {
-    question: "What is SecondChanceHousingLocator.com?",
+    question: "What is SecondChanceHousingList.com?",
     answer:
-      "SecondChanceHousingLocator.com is an AI-powered search engine that helps credit-challenged renters find second chance housing programs, rental properties, and options that will approve them into a rental property based on their unique rental criteria. Our AI Agent examines both public and private databases in real time to compile a customized list of housing options.",
+      "SecondChanceHousingList.com is an AI-powered search engine that helps credit-challenged renters find second chance housing programs, rental properties, and options that will approve them into a rental property based on their unique rental criteria. Our AI Agent examines both public and private databases in real time to compile a customized list of housing options.",
   },
   {
     question: "Is it really free to search?",

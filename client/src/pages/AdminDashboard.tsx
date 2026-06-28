@@ -101,7 +101,7 @@ function AdminContent() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Manage your SecondChanceHousingLocator.com business
+          Manage your SecondChanceHousingList.com business
         </p>
       </div>
 

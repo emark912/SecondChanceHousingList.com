@@ -508,7 +508,7 @@ export default function Home() {
                 <h3 className="text-lg sm:text-xl font-bold text-black">AI-Powered Housing Search - FREE</h3>
               </div>
               <p className="text-black text-sm sm:text-base leading-relaxed mb-3">
-                SecondChanceHousingLocator.com is the first and only Advanced AI Powered Search Engine for Credit Challenged Renters who may have credit issues such as Evictions, Broken Leases, Low Credit Score, Bankruptcy, Loan Defaults, and more. After you submit your exact rental profile details below, the Advanced AI Search Engine generates a customized list of real-time local Second Chance Housing Rentals, Second Chance Apartments, Second Chance Programs, Second Chance Private Landlords, and/or Corporate Leasing Programs that will APPROVE your rental application based on the details listed on your rental profile.
+                SecondChanceHousingList.com is the first and only Advanced AI Powered Search Engine for Credit Challenged Renters who may have credit issues such as Evictions, Broken Leases, Low Credit Score, Bankruptcy, Loan Defaults, and more. After you submit your exact rental profile details below, the Advanced AI Search Engine generates a customized list of real-time local Second Chance Housing Rentals, Second Chance Apartments, Second Chance Programs, Second Chance Private Landlords, and/or Corporate Leasing Programs that will APPROVE your rental application based on the details listed on your rental profile.
               </p>
               <div className="bg-white border-l-4 border-green-500 p-3 rounded">
                 <p className="text-xs font-semibold text-black mb-1">✓ Your personalized rental list is FREE</p>

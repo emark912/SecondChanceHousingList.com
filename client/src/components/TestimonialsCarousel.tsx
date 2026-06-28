@@ -20,7 +20,7 @@ const TESTIMONIALS: Testimonial[] = [
     city: "Atlanta",
     state: "GA",
     story:
-      "I had a bankruptcy on my record and thought finding an apartment would be impossible. SecondChanceHousingLocator.com found me 3 amazing options within my budget. I was approved for my dream apartment in just 2 weeks! The support team was incredible throughout the process.",
+      "I had a bankruptcy on my record and thought finding an apartment would be impossible. SecondChanceHousingList.com found me 3 amazing options within my budget. I was approved for my dream apartment in just 2 weeks! The support team was incredible throughout the process.",
     rating: 5,
     hosingType: "Apartment",
     image: "https://private-us-east-1.manuscdn.com/sessionFile/sdHT03nvrYhKXPcXiG7ZuR/sandbox/M11Gn9ub4Msl6F8mKJnAyp-img-1_1771085089000_na1fn_dGVzdGltb25pYWwtMS1tYXJpYQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc2RIVDAzbnZyWWhLWFBjWGlHN1p1Ui9zYW5kYm94L00xMUduOXViNE1zbDZGOG1LSm5BeXAtaW1nLTFfMTc3MTA4NTA4OTAwMF9uYTFmbl9kR1Z6ZEdsdGIyNXBZV3d0TVMxdFlYSnBZUS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Rxivk0SqxCJAe6~BSvMb9bbBt578N8LthiQNqEXqPj1cMdXQvi9ucuKlJExT3~AKnGBxDgV9dmPfxG1uv2GkEhK1Z17Vuu1CSMcDOBABxIi8g3fUz7mWyh4iY8QMJYyeGm9iZkaVG8NM1QOj2T08HVNwNd8WqKYtZh6NtyCqLVU2rVJHEqw-2c2cm71JwkPl4atP18rWQzph5TfBZ7-DCdhCwHnvv~CpRA9ab3qy0Y4IvMCeBhzhEJOi25KDlAp8Guh-hJyEDQKf-66Uf984ArDeuoyYqKwC885TxBLkUXFqWMeAwI4tyfmNr5yYQJuJO0QfWGPNmhFrqTb3lcjy8g__",
@@ -42,7 +42,7 @@ const TESTIMONIALS: Testimonial[] = [
     city: "Atlanta",
     state: "GA",
     story:
-      "As a young professional with a low credit score, I thought I'd be stuck in a bad situation forever. SecondChanceHousingLocator found me 5 great apartments I actually qualified for. The coupon code saved me $200 in application fees! Highly recommend!",
+      "As a young professional with a low credit score, I thought I'd be stuck in a bad situation forever. SecondChanceHousingList found me 5 great apartments I actually qualified for. The coupon code saved me $200 in application fees! Highly recommend!",
     rating: 5,
     hosingType: "Apartment",
     image: "https://private-us-east-1.manuscdn.com/sessionFile/sdHT03nvrYhKXPcXiG7ZuR/sandbox/M11Gn9ub4Msl6F8mKJnAyp-img-3_1771085087000_na1fn_dGVzdGltb25pYWwtMy1zYXJhaA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvc2RIVDAzbnZyWWhLWFBjWGlHN1p1Ui9zYW5kYm94L00xMUduOXViNE1zbDZGOG1LSm5BeXAtaW1nLTNfMTc3MTA4NTA4NzAwMF9uYTFmbl9kR1Z6ZEdsdGIyNXBZV3d0TXkxellYSmhhQS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=MozR~qCR6Tv~nqG-Di2Y9jUWVjoKfIWP9VzTBjSnX3VtfIGos6LkcyMtx-dU0Jhi6jRoUVTEs5G9Fpf~3HXkBPBrfcUYIdUKa0fDe~9PjUA1QQEc6UxlTQDv6lnokRvY8knYQzC-LU6r7j5NqhzLeTidyHPC1Y21Ae9txMjmO2Q9wHfBhhktM17O8KKOjU67fE3iQCYFA4yf-HE7-OlNbVM2TPmh2O8HteRdVHTWcbCaCx6RdlJ4D7Ic-1lrma~QPSoZ-kz7byS6c-kfn8GAgJxyB7eu-YZ3m6cRWdvrHImyvpIF~5cewnvgxlL3oCzIJ1JMiunlEQrtHKElWVbJRw__",

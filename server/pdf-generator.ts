@@ -481,7 +481,7 @@ function generatePersonalizedHTML(profile: ClientProfile): string {
   
   <div class="profile-box">
     <h2>Welcome, ${profile.fullName}!</h2>
-    <p>Thank you for using <strong>SecondChanceHousingLocator.com</strong> – the first and only Advanced AI-Powered Search Engine designed specifically for credit-challenged renters.</p>
+    <p>Thank you for using <strong>SecondChanceHousingList.com</strong> – the first and only Advanced AI-Powered Search Engine designed specifically for credit-challenged renters.</p>
   </div>
 
   <div class="section">

@@ -23,7 +23,7 @@ export default function ToDoList() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-4">Your To-Do List</h1>
           <p className="text-lg text-blue-100">
-            Follow these steps to complete the SecondChanceHousingLocator.com Program from start to finish.
+            Follow these steps to complete the SecondChanceHousingList.com Program from start to finish.
           </p>
         </div>
       </div>

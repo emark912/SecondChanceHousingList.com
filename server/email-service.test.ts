@@ -24,7 +24,7 @@ describe("Email Service", () => {
 
   it("should send a test email successfully", async () => {
     const result = await sendEmail({
-      to: "Support@SecondChanceHousingLocator.com",
+      to: "Support@SecondChanceHousingList.com",
       subject: "Email Service Test - Credentials Verification",
       html: "<p>This is a test email to verify the email service is working correctly with the configured credentials.</p>",
     });
@@ -35,7 +35,7 @@ describe("Email Service", () => {
     const testBuffer = Buffer.from("Test PDF content");
 
     const result = await sendEmail({
-      to: "Support@SecondChanceHousingLocator.com",
+      to: "Support@SecondChanceHousingList.com",
       subject: "Email Service Test - With Attachment",
       html: "<p>This is a test email with an attachment.</p>",
       attachments: [

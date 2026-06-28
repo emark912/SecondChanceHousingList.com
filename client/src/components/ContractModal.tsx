@@ -49,7 +49,7 @@ export const ContractModal: React.FC<ContractModalProps> = ({ isOpen, onClose })
             </p>
             <p>
               <strong>SECOND CHANCE HOUSING LOCATOR, INC.</strong><br />
-              A corporation operating under the name SecondChanceHousingLocator.com<br />
+              A corporation operating under the name SecondChanceHousingList.com<br />
               ("Company")
             </p>
             <p>
@@ -279,20 +279,20 @@ export const ContractModal: React.FC<ContractModalProps> = ({ isOpen, onClose })
               <p className="font-semibold mb-4 mt-8">COMPANY REPRESENTATIVE:</p>
               <p className="mb-6">Signature: <strong>George Williams</strong> ✓</p>
               <p className="mb-6">Print Name: <strong>George Williams</strong></p>
-              <p className="mb-6">Title: <strong>Administrator, SecondChanceHousingLocator.com</strong></p>
+              <p className="mb-6">Title: <strong>Administrator, SecondChanceHousingList.com</strong></p>
               <p className="mb-6">Date: <strong>February 25, 2026</strong></p>
             </div>
 
             <div className="mt-8 bg-yellow-50 border border-yellow-200 p-4 rounded">
               <p className="text-sm text-yellow-900">
-                <strong>IMPORTANT NOTICE:</strong> This Agreement is a legally binding contract. Please retain a copy for your records. If you have any questions about the terms and conditions, please contact SecondChanceHousingLocator.com before signing.
+                <strong>IMPORTANT NOTICE:</strong> This Agreement is a legally binding contract. Please retain a copy for your records. If you have any questions about the terms and conditions, please contact SecondChanceHousingList.com before signing.
               </p>
             </div>
 
             <div className="mt-8 text-center text-sm text-gray-600 border-t pt-6">
-              <p><strong>SecondChanceHousingLocator.com</strong></p>
+              <p><strong>SecondChanceHousingList.com</strong></p>
               <p>Housing Relocation Services</p>
-              <p>www.SecondChanceHousingLocator.com</p>
+              <p>www.SecondChanceHousingList.com</p>
               <p>Email: support@secondchancehousinglocator.com</p>
               <p className="mt-4">© 2026 Second Chance Housing Locator, Inc. All Rights Reserved.</p>
             </div>

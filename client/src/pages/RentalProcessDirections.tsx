@@ -204,7 +204,7 @@ export default function RentalProcessDirections() {
                 <p>Our support team is available 24/7 to help you through the rental process.</p>
                 <div className="space-y-2">
                   <p>
-                    <strong>Email:</strong> <a href="mailto:support@secondchancehousinglocator.com" className="text-blue-600 hover:underline">Support@SecondChanceHousingLocator.com</a>
+                    <strong>Email:</strong> <a href="mailto:support@secondchancehousinglocator.com" className="text-blue-600 hover:underline">Support@SecondChanceHousingList.com</a>
                   </p>
                   <p>
                     <strong>Chat:</strong> Available on our website 24 hours a day

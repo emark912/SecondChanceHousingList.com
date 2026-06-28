@@ -19,7 +19,7 @@ describe("Email Delivery Workflow", () => {
   beforeAll(async () => {
     const testData: FormSubmissionData = {
       fullName: "Test Customer",
-      email: "Support@SecondChanceHousingLocator.com",
+      email: "Support@SecondChanceHousingList.com",
       location: "Atlanta, Georgia",
       creditChallenges: ["Low Credit Score", "Evictions"],
       housingTypes: ["Apartment", "Townhome"],
@@ -42,7 +42,7 @@ describe("Email Delivery Workflow", () => {
 
   it("should send rental results email with PDF attachment", async () => {
     const result = await sendRentalResultsEmail(
-      "Support@SecondChanceHousingLocator.com",
+      "Support@SecondChanceHousingList.com",
       "Test",
       pdfBuffer
     );
@@ -51,7 +51,7 @@ describe("Email Delivery Workflow", () => {
 
   it("should send email with personalized content", async () => {
     const result = await sendRentalResultsEmail(
-      "Support@SecondChanceHousingLocator.com",
+      "Support@SecondChanceHousingList.com",
       "John",
       pdfBuffer
     );
@@ -61,17 +61,17 @@ describe("Email Delivery Workflow", () => {
   it("should handle multiple concurrent email sends", async () => {
     const emailPromises = [
       sendRentalResultsEmail(
-        "Support@SecondChanceHousingLocator.com",
+        "Support@SecondChanceHousingList.com",
         "Customer1",
         pdfBuffer
       ),
       sendRentalResultsEmail(
-        "Support@SecondChanceHousingLocator.com",
+        "Support@SecondChanceHousingList.com",
         "Customer2",
         pdfBuffer
       ),
       sendRentalResultsEmail(
-        "Support@SecondChanceHousingLocator.com",
+        "Support@SecondChanceHousingList.com",
         "Customer3",
         pdfBuffer
       ),
@@ -84,7 +84,7 @@ describe("Email Delivery Workflow", () => {
 
   it("should include PDF attachment in email", async () => {
     const result = await sendRentalResultsEmail(
-      "Support@SecondChanceHousingLocator.com",
+      "Support@SecondChanceHousingList.com",
       "TestUser",
       pdfBuffer
     );

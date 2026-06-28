@@ -258,7 +258,7 @@ export default function Results() {
               <div>
                 <h2 className="text-xl font-bold text-black mb-3">Our Mission: Everyone Deserves a Second Chance</h2>
                 <p className="text-slate-700 mb-3">
-                  SecondChanceHousingLocator.com is dedicated to providing advanced AI-powered search technology to help credit-challenged renters find housing options that will approve them. We believe everyone deserves access to quality housing and a second chance.
+                  SecondChanceHousingList.com is dedicated to providing advanced AI-powered search technology to help credit-challenged renters find housing options that will approve them. We believe everyone deserves access to quality housing and a second chance.
                 </p>
                 <p className="text-slate-700 font-semibold">
                   Our service is supported by donations. Your custom rental list is available for a donation of your choice (minimum $10.00). The average donation is $25.00, but you decide what works for your budget.

@@ -104,7 +104,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} SecondChanceHousingLocator.com. All rights reserved.
+            &copy; {new Date().getFullYear()} SecondChanceHousingList.com. All rights reserved.
           </p>
 
         </div>

@@ -36,7 +36,7 @@ export function generatePDFContent(profile: ClientProfile): string {
 
 Dear ${profile.fullName},
 
-Thank you for using **SecondChanceHousingLocator.com** – the first and only Advanced AI-Powered Search Engine designed specifically for credit-challenged renters. We're excited to provide you with your personalized Second Chance Housing List, carefully matched to your unique rental profile and circumstances.
+Thank you for using **SecondChanceHousingList.com** – the first and only Advanced AI-Powered Search Engine designed specifically for credit-challenged renters. We're excited to provide you with your personalized Second Chance Housing List, carefully matched to your unique rental profile and circumstances.
 
 ---
 
@@ -60,7 +60,7 @@ Based on the information you provided, our AI Search Engine has analyzed your re
 
 ## What Your Service Fee Includes
 
-Your one-time service fee to SecondChanceHousingLocator.com covers the following:
+Your one-time service fee to SecondChanceHousingList.com covers the following:
 
 - **Comprehensive Second Chance Housing Programs List** – Carefully curated and verified programs that match your specific profile
 - **Corporate Guarantor Services** – Alternative approval methods using corporate leasing structures
@@ -491,7 +491,7 @@ We're here to help you succeed in your housing search!
 
 *This document is for informational purposes. Always verify current program eligibility, requirements, and contact information before applying.*
 
-*SecondChanceHousingLocator.com – Helping Credit-Challenged Renters Find Second Chance Housing*
+*SecondChanceHousingList.com – Helping Credit-Challenged Renters Find Second Chance Housing*
 
 *Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}*
 `;

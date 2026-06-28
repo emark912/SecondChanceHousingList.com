@@ -245,7 +245,7 @@ export default function ThankYou() {
                 href="mailto:support@secondchancehousinglocator.com"
                 className="text-primary hover:underline"
               >
-                Support@SecondChanceHousingLocator.com
+                Support@SecondChanceHousingList.com
               </a>
             </p>
           </motion.div>

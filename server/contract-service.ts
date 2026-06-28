@@ -37,7 +37,7 @@ This Corporate Leasing Program Agreement ("Agreement") is entered into as of ${n
 })}, by and between:
 
 SECOND CHANCE HOUSING LOCATOR, INC.
-A corporation operating under the name SecondChanceHousingLocator.com
+A corporation operating under the name SecondChanceHousingList.com
 ("Company")
 
 AND
@@ -229,7 +229,7 @@ Signature: ___________________________________
 
 Print Name: George Williams
 
-Title: Administrator, SecondChanceHousingLocator.com
+Title: Administrator, SecondChanceHousingList.com
 
 Date: ${new Date().toLocaleDateString('en-US', { 
   year: 'numeric', 
@@ -245,11 +245,11 @@ ${data.renterId}
 
 This ID Number is valid for rental housing purposes only and expires ${data.expirationDate}.
 
-IMPORTANT NOTICE: This Agreement is a legally binding contract. Please retain a copy for your records. If you have any questions about the terms and conditions, please contact SecondChanceHousingLocator.com before signing.
+IMPORTANT NOTICE: This Agreement is a legally binding contract. Please retain a copy for your records. If you have any questions about the terms and conditions, please contact SecondChanceHousingList.com before signing.
 
-SecondChanceHousingLocator.com
+SecondChanceHousingList.com
 Housing Relocation Services
-www.SecondChanceHousingLocator.com
+www.SecondChanceHousingList.com
 Email: ${data.companyEmail || 'support@secondchancehousinglocator.com'}
 Phone: ${data.companyPhone || 'Available in your account dashboard'}
 

@@ -100,7 +100,7 @@ export async function sendPaymentReminder(
     <h2>Complete Your Second Chance Housing Search</h2>
     <p>Hi ${customerName},</p>
     <p>${message}</p>
-    <p>You saved your rental profile on SecondChanceHousingLocator.com, but haven't completed your purchase yet.</p>
+    <p>You saved your rental profile on SecondChanceHousingList.com, but haven't completed your purchase yet.</p>
     <p><strong>Your list is FREE.</strong> We accept donations to support our mission. The average donation is $25.00, but you decide what works for your budget (minimum $10.00).</p>
     <p><strong>Optional:</strong> Add a Second Chance Housing Consultant for just $125.00 (regularly $350.00) to help you get approved!</p>
     <p style="text-align: center; margin: 30px 0;">
@@ -110,7 +110,7 @@ export async function sendPaymentReminder(
     </p>
     <p>This link is unique to you and will allow you to complete payment and immediately download your personalized Second Chance Housing List.</p>
     <p>Questions? Contact us at support@secondchancehousinglocator.com</p>
-    <p>Best regards,<br/>SecondChanceHousingLocator.com Team</p>
+    <p>Best regards,<br/>SecondChanceHousingList.com Team</p>
     ${trackingPixelId ? generateTrackingPixel(trackingPixelId) : ''}
   `;
 
@@ -164,7 +164,7 @@ export async function sendRentalResultsEmail(
             </ul>
 
             <h2>About Our Service:</h2>
-            <p>SecondChanceHousingLocator.com is a donation-supported service. We believe everyone deserves a second chance and access to quality housing. Your personalized rental list is FREE. We accept donations to support our mission (average donation: $25.00, but you decide what works for your budget).</p>
+            <p>SecondChanceHousingList.com is a donation-supported service. We believe everyone deserves a second chance and access to quality housing. Your personalized rental list is FREE. We accept donations to support our mission (average donation: $25.00, but you decide what works for your budget).</p>
 
             <p><strong>Optional: Second Chance Housing Consultant - PREMIUM SERVICE</strong></p>
             <p>Add a dedicated housing consultant for just $125.00 (regularly $350.00 - limited time discount!) who will work with you until you\'re approved into a rental property of your choice. They will help negotiate with property managers, set tour appointments, and facilitate the approval process.</p>
@@ -341,7 +341,7 @@ export async function sendAbandonedCartEmail(
 
             <p>Questions? Contact us at support@secondchancehousinglocator.com or call our support team 24/7.</p>
 
-            <p>Best regards,<br/><strong>SecondChanceHousingLocator.com Team</strong></p>
+            <p>Best regards,<br/><strong>SecondChanceHousingList.com Team</strong></p>
           </div>
 
           <div class="footer">
@@ -476,7 +476,7 @@ export async function sendMonthlyPaymentSetupEmail(
             </ul>
             
             <p>We're here to help you succeed!</p>
-            <p>Best regards,<br/><strong>SecondChanceHousingLocator.com Team</strong></p>
+            <p>Best regards,<br/><strong>SecondChanceHousingList.com Team</strong></p>
           </div>
           
           <div class="footer">
@@ -492,7 +492,7 @@ export async function sendMonthlyPaymentSetupEmail(
   
   return sendEmail({
     to: customerEmail,
-    subject: `${customerName}, Set Up Your Monthly Payment Plan - SecondChanceHousingLocator.com`,
+    subject: `${customerName}, Set Up Your Monthly Payment Plan - SecondChanceHousingList.com`,
     html,
   });
 }
