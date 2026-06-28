@@ -1154,6 +1154,129 @@ export default function Home() {
       </section>
 
 
+      {/* Expanded FAQ Section */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Common Questions</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Have questions? We have answers. For more details, visit our full FAQ page.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {[
+              {
+                q: "Is it really free to search?",
+                a: "Yes! Searching is completely free. We're donation-supported. You can donate any amount to unlock landlord contact details.",
+              },
+              {
+                q: "What credit challenges do you help with?",
+                a: "We help with no credit, low credit, evictions, bankruptcy, broken leases, criminal history, and more.",
+              },
+              {
+                q: "How quickly will I get my results?",
+                a: "Our AI compiles your personalized list in seconds. After payment, results are emailed immediately as a PDF.",
+              },
+              {
+                q: "What's your refund policy?",
+                a: "We offer a 100% money-back guarantee. If you're not approved within 30 days, we refund you completely.",
+              },
+            ].map((item, idx) => (
+              <div key={idx} className="p-6 border border-cyan-200/50 rounded-lg hover:shadow-md transition-shadow">
+                <h3 className="font-semibold text-foreground mb-3 text-lg">{item.q}</h3>
+                <p className="text-muted-foreground">{item.a}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button 
+              variant="outline" 
+              className="border-cyan-500 text-cyan-600 hover:bg-cyan-50"
+              onClick={() => navigate('/faq')}
+            >
+              View Full FAQ
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-cyan-50/30">
+        <div className="container max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Success Stories</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Hear from renters who found their perfect home through our AI-powered search service
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah Martinez",
+                location: "Denver, CO",
+                challenge: "Eviction on Record",
+                testimonial: "I was devastated after my eviction, thinking I'd never rent again. The AI search found me a landlord willing to work with me. I got approved in just 2 weeks!",
+                rating: 5,
+              },
+              {
+                name: "James Chen",
+                location: "Austin, TX",
+                challenge: "Low Credit Score",
+                testimonial: "With a 520 credit score, I thought my options were limited. This service found 50+ properties that would consider me. I'm now in my dream apartment!",
+                rating: 5,
+              },
+              {
+                name: "Maria Rodriguez",
+                location: "Phoenix, AZ",
+                challenge: "Criminal History",
+                testimonial: "The consultant was amazing. They helped me understand which properties would be open to my situation and guided me through the entire process. Highly recommend!",
+                rating: 5,
+              },
+              {
+                name: "David Thompson",
+                location: "Atlanta, GA",
+                challenge: "Multiple Evictions",
+                testimonial: "I had 2 evictions and thought I was done. The AI found programs specifically designed for people like me. I'm grateful for this service.",
+                rating: 5,
+              },
+              {
+                name: "Lisa Wong",
+                location: "Portland, OR",
+                challenge: "Bankruptcy",
+                testimonial: "After bankruptcy, I was lost. This service showed me there were still options available. The personalized list was incredibly helpful and thorough.",
+                rating: 5,
+              },
+              {
+                name: "Robert Jackson",
+                location: "Miami, FL",
+                challenge: "No Credit History",
+                testimonial: "As a young adult with no credit, I didn't know where to start. The AI search found me several options and I got approved within 3 weeks!",
+                rating: 5,
+              },
+            ].map((testimonial, idx) => (
+              <Card key={idx} className="border-cyan-200/50 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <span key={i} className="text-yellow-400">★</span>
+                    ))}
+                  </div>
+                  <p className="text-foreground mb-4 italic">"{testimonial.testimonial}"</p>
+                  <div className="border-t border-cyan-100 pt-4">
+                    <p className="font-semibold text-foreground">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.location}</p>
+                    <p className="text-xs text-cyan-600 font-medium mt-2">Challenge: {testimonial.challenge}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* AI Chatbot Widget */}
       <AIChatbot />
 

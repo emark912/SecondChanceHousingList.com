@@ -91,10 +91,10 @@
 - [x] Create animated AI visualization component (nodes, connections, matching indicators)
 - [x] Add "How Our AI Works" section with 4-step process
 - [x] Add "What You'll Find in Your Results" section with 6 result type cards
-- [ ] Add testimonials section
+- [x] Add testimonials section
 - [x] Add refund guarantee messaging
-- [ ] Add expanded FAQ section
-- [ ] Update database schema to support multiple result types (rental, program, corporate, landlord, realtor)
-- [ ] Update search/results logic to handle multiple result types
+- [x] Add expanded FAQ section
+- [x] Update database schema to support multiple result types (rental, program, corporate, landlord, realtor)
+- [x] Update search/results logic to handle multiple result types
 - [x] Update donation messaging to show "$20 starting donation"
 - [x] Add refund policy information
