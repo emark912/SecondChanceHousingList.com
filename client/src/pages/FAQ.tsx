@@ -1,195 +1,157 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChevronDown } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { HelpCircle, Shield } from "lucide-react";
+
+const faqs = [
+  {
+    question: "What is SecondChanceHousingLocator.com?",
+    answer:
+      "SecondChanceHousingLocator.com is an AI-powered search engine that helps credit-challenged renters find second chance housing programs, rental properties, and options that will approve them into a rental property based on their unique rental criteria. Our AI Agent examines both public and private databases in real time to compile a customized list of housing options.",
+  },
+  {
+    question: "Is it really free to search?",
+    answer:
+      "Yes! It is completely FREE to use our Second Chance Housing Locator and to receive your personalized rental list. Our AI Agent compiles your customized list at no cost. We are a donation-supported service. You can support our mission with a donation of your choice (minimum $10.00, average $25.00). Optionally, you can add a Second Chance Housing Consultant for just $125.00 (regularly $350.00 - limited time discount!) to help you get approved into a rental property.",
+  },
+  {
+    question: "What does my personalized list include?",
+    answer:
+      "Your personalized Second Chance Housing List includes: Company Name, Company Website, Contact Person, Company Contact Number, Company Email Address, and detailed descriptions of each rental program, rental property, or housing option. The list typically includes 100+ second chance rental properties, corporate leasing programs, and second chance housing programs.",
+  },
+  {
+    question: "What credit challenges do you help with?",
+    answer:
+      "Our AI Agent is trained to find housing options for renters with a variety of credit challenges including: No Credit Score, Low Credit Score, Evictions, Loan Defaults, Broken Leases, Criminal History, and Bankruptcy. We search for programs and properties that use alternative approval methods.",
+  },
+  {
+    question: "How does the AI search work?",
+    answer:
+      "Our AI-Powered Search Engine Agent researches both public and private databases in real time. It scans second chance housing programs, apartments, private landlords, corporate leasing programs, and local laws. It also verifies legitimacy by checking review platforms, court records, and public records, and removes options associated with excessive negative reviews or high crime areas.",
+  },
+  {
+    question: "What is your refund policy?",
+    answer:
+      "We offer a 100% money-back guarantee. If you are not approved into a rental property within 30 days from one of the rental resources we provided you with, we will refund you 100% of your donation or case manager fee. No questions asked.",
+  },
+  {
+    question: "How quickly will I receive my results?",
+    answer:
+      "Our AI Agent compiles your personalized list in seconds. Once you complete your payment, your results will be emailed to you immediately as a downloadable PDF document.",
+  },
+  {
+    question: "What types of housing options are included?",
+    answer:
+      "Our search covers a wide range of housing types including apartments, townhomes, duplexes, single-family houses, condos, and studios. We search for second chance housing programs, second chance apartments, private landlords, corporate leasing programs, and realtors who specialize in helping credit-challenged renters.",
+  },
+  {
+    question: "What is our In-House Corporate Leasing Program?",
+    answer:
+      "Our In-House Corporate Leasing Program is a premium service where we use our company\'s excellent business credit, corporate name, and financials to submit rental applications on your behalf. Your social security number stays private throughout the process - property managers screen our corporation\'s business credit instead of your personal credit. You\'re placed on the lease as the official occupant. This is an excellent option for renters with significant credit challenges. The program includes a Renters ID number, corporate tradelines added to build excellent rental credit history, and guaranteed approval within 30 days or your money back.",
+  },
+  {
+    question: "How much does the In-House Corporate Leasing Program cost?",
+    answer:
+      "The program costs $1,000.00 down payment + $250.00 after you select your rental property. The $1,000 down payment is used to generate your Renters ID number, register it with rental credit bureaus, add our excellent corporate tradelines to your Renters ID, and manage your file. The $150 after property selection is used to add positive rental history to your Renters ID, provide landlord/property manager verification services, and consultation support.",
+  },
+  {
+    question: "What services are included in the $1,000 down payment?",
+    answer:
+      "The $1,000 down payment includes: (1) Generation of your unique Renters ID number, (2) Registration of your Renters ID with rental-related credit bureaus, (3) Addition of our excellent corporate tradelines to your Renters ID to build rental credit history, and (4) Professional management of your file throughout the process.",
+  },
+  {
+    question: "What services are included in the $150 after property selection?",
+    answer:
+      "The $150 payment after you select your rental property includes: (1) Addition of positive rental history to your Renters ID number in your name, (2) Landlord and property manager verification services for your new rental property, and (3) Consultation and ongoing support to ensure your approval.",
+  },
+  {
+    question: "What is a Corporate Leasing Program?",
+    answer:
+      "Corporate Leasing Programs are companies that can get you approved for a rental property using their excellent corporate credit instead of your personal credit. This is an excellent option for renters with significant credit challenges who may not qualify through traditional means.",
+  },
+  {
+    question: "How do you verify the listings?",
+    answer:
+      "Our AI Agent scans all programs, rental properties, and resources on review platforms, checks court records, public records, private records, and uses other tools to verify legitimacy and historic data. We remove rental options from the list that are associated with excessive negative reviews, high crime areas, and other notable concerns.",
+  },
+  {
+    question: "Can I get help with a moving loan?",
+    answer:
+      "Yes! During the search process, you can indicate whether you need a small loan to help you move into your new rental property. If we can help secure a loan for you, we will include relevant information in your results.",
+  },
+  {
+    question: "How do I contact support?",
+    answer:
+      "You can reach our support team through the Contact Us page on our website. We are here to help you every step of the way in your housing search journey.",
+  },
+  {
+    question: "What is a Second Chance Housing Consultant?",
+    answer:
+      "A Second Chance Housing Consultant is a dedicated professional who works directly with you after you receive your personalized rental list. They help you navigate the rental options, answer questions about each program, set tour appointments, negotiate with property managers and landlords, and guide you through the application process until you are successfully approved into a rental property of your choice. Your consultant will assist you with getting a loan if you need one and waive your application fee in select Second Chance Programs in our partnership program. Exclusive perks include access to credit challenge loan programs (borrow $1,500 to $5,000 for moving expenses) and coupons to waive application fees (save $50 to $300). This premium service is available for just $125.00 (regularly $350.00 - limited time discount!)."
+  },
+  {
+    question: "How does the donation model work?",
+    answer:
+      "Our service is supported by donations from customers who believe in our mission to help credit-challenged renters find housing. Your personalized rental list is completely free. We ask for a donation of your choice (minimum $10.00) to support our operations. The average donation is $25.00, but you decide what works for your budget. Every donation helps us continue serving more renters in need. If you choose donation only, you receive your personalized list of 100+ matching Second Chance Rental Properties and Programs that you can apply to directly.",
+  },
+  {
+    question: "What is the difference between donation only and the case manager service?",
+    answer:
+      "With donation only, you receive your personalized rental list with 100+ matching Second Chance Rental Properties and Programs in your area that you can apply to independently. With the case manager service ($125.00), you get all of that PLUS a dedicated housing consultant who works with you until you are approved, helps negotiate with landlords, sets tour appointments, provides exclusive access to credit challenge loan programs for moving expenses, and gets application fee waivers for select second chance programs. Choose donation only if you prefer to apply independently, or choose the case manager if you want hands-on support throughout the entire approval process.",
+  },
+];
 
 export default function FAQ() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
-
-  const faqs = [
-    {
-      category: "General",
-      questions: [
-        {
-          q: "What is Second Chance Housing List?",
-          a: "Second Chance Housing List is a platform that connects renters with credit challenges, eviction history, criminal records, or other barriers with landlords who are willing to give them a second chance at housing.",
-        },
-        {
-          q: "Is this service free?",
-          a: "Searching for properties is completely free. You only need to make a donation to unlock landlord contact information.",
-        },
-        {
-          q: "How much should I donate?",
-          a: "Donations start at $5 and go up from there. The amount is entirely up to you. Your donation supports our mission and grants you permanent access to landlord contact information.",
-        },
-      ],
-    },
-    {
-      category: "Searching & Properties",
-      questions: [
-        {
-          q: "What information can I see without donating?",
-          a: "You can see all property details including address, rent price, bedrooms, bathrooms, amenities, and which challenges the landlord accepts (no credit, evictions, criminal history, etc.).",
-        },
-        {
-          q: "What information requires a donation?",
-          a: "Landlord and property manager contact information (phone number and email address) is only visible after you make a donation.",
-        },
-        {
-          q: "How many properties are in your database?",
-          a: "We have thousands of properties across 50+ states. We're constantly adding more landlords who are willing to work with tenants facing challenges.",
-        },
-        {
-          q: "Can I filter properties by specific criteria?",
-          a: "Yes! You can filter by location, budget, number of bedrooms, pet-friendly status, and the specific challenges you're facing.",
-        },
-      ],
-    },
-    {
-      category: "Donations & Payments",
-      questions: [
-        {
-          q: "How do I make a donation?",
-          a: "When you find a property you're interested in, click the 'Unlock Contact Info' button. You'll be taken to a secure Stripe checkout page where you can enter your payment information.",
-        },
-        {
-          q: "What payment methods do you accept?",
-          a: "We accept all major credit and debit cards through Stripe. This includes Visa, Mastercard, American Express, and Discover.",
-        },
-        {
-          q: "Is my payment information secure?",
-          a: "Yes. We use Stripe, a PCI-DSS Level 1 certified payment processor. Your payment information is never stored on our servers.",
-        },
-        {
-          q: "Will I receive a receipt?",
-          a: "Yes! You'll receive an email confirmation immediately after your donation is processed, along with instructions on how to access landlord contact information.",
-        },
-        {
-          q: "Can I get a refund?",
-          a: "Donations are generally non-refundable as they support our platform. However, if you experience any issues, please contact our support team.",
-        },
-      ],
-    },
-    {
-      category: "Privacy & Security",
-      questions: [
-        {
-          q: "Is my personal information private?",
-          a: "Yes. We take privacy very seriously. Your information is only shared with landlords you choose to contact.",
-        },
-        {
-          q: "Will landlords spam me?",
-          a: "We encourage landlords to respect your privacy. If you receive unwanted contact, you can report it to us and we'll take action.",
-        },
-        {
-          q: "How is my data protected?",
-          a: "We use industry-standard encryption and security measures to protect your data. We comply with all applicable privacy laws.",
-        },
-        {
-          q: "Can I delete my account?",
-          a: "Yes. You can request account deletion at any time by contacting our support team.",
-        },
-      ],
-    },
-    {
-      category: "Landlords & Properties",
-      questions: [
-        {
-          q: "How do landlords get listed on your platform?",
-          a: "Landlords apply through our application process. We verify that they genuinely accept tenants with second chances.",
-        },
-        {
-          q: "Are all landlords verified?",
-          a: "We verify landlord information to the best of our ability, but we recommend doing your own due diligence before renting.",
-        },
-        {
-          q: "What if I have a bad experience with a landlord?",
-          a: "Please report any issues to our support team. We take complaints seriously and may remove landlords who violate our policies.",
-        },
-      ],
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-5xl font-bold mb-4">Frequently Asked Questions</h1>
-            <p className="text-xl text-blue-100">
-              Find answers to common questions about our platform
+      <section className="py-12 md:py-20">
+        <div className="container max-w-3xl">
+          <div className="text-center mb-12">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+              <HelpCircle className="w-8 h-8 text-primary" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Find answers to common questions about our AI-powered second chance housing search service.
             </p>
           </div>
-        </section>
 
-        {/* FAQ Content */}
-        <section className="max-w-4xl mx-auto px-4 py-16">
-          {faqs.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">{section.category}</h2>
-              <div className="space-y-4">
-                {section.questions.map((faq, questionIndex) => {
-                  const globalIndex = sectionIndex * 100 + questionIndex;
-                  const isExpanded = expandedIndex === globalIndex;
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="border border-border/50 rounded-xl px-5 shadow-sm bg-white data-[state=open]:shadow-md transition-shadow"
+              >
+                <AccordionTrigger className="text-left text-sm md:text-base font-medium text-foreground hover:no-underline py-4">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-4">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
 
-                  return (
-                    <Card
-                      key={questionIndex}
-                      className="overflow-hidden cursor-pointer hover:shadow-md transition"
-                      onClick={() =>
-                        setExpandedIndex(isExpanded ? null : globalIndex)
-                      }
-                    >
-                      <div className="p-6 flex justify-between items-center">
-                        <h3 className="font-bold text-lg text-gray-900 flex-1">
-                          {faq.q}
-                        </h3>
-                        <ChevronDown
-                          className={`w-6 h-6 text-blue-600 transition-transform flex-shrink-0 ml-4 ${
-                            isExpanded ? "rotate-180" : ""
-                          }`}
-                        />
-                      </div>
-
-                      {isExpanded && (
-                        <div className="px-6 pb-6 border-t border-gray-200">
-                          <p className="text-gray-600 leading-relaxed">{faq.a}</p>
-                        </div>
-                      )}
-                    </Card>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        {/* Contact Support */}
-        <section className="bg-white py-16">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Didn't find your answer?</h2>
-            <p className="text-gray-600 text-lg mb-8">
-              Our support team is here to help. Reach out with any questions.
-            </p>
-            <div className="space-y-4">
-              <p className="text-lg">
-                <strong>Email:</strong> support@secondchancehousinglist.com
-              </p>
-              <p className="text-lg">
-                <strong>Phone:</strong> (555) 123-4567
-              </p>
-              <p className="text-lg">
-                <strong>Hours:</strong> Monday - Friday, 9am - 5pm EST
-              </p>
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 text-sm font-medium">
+              <Shield className="w-4 h-4" />
+              30-Day Money Back Guarantee on All Purchases
             </div>
           </div>
-        </section>
-      </main>
+
+
+        </div>
+      </section>
 
       <Footer />
     </div>

@@ -256,34 +256,14 @@ class SDKServer {
     } as GetUserInfoWithJwtResponse;
   }
 
-  async authenticateRequest(req: Request): Promise<AuthenticatedUser> {
-    // 1. Prefer the session cookie (regular OAuth login).
+  async authenticateRequest(req: Request): Promise<User> {
+    // Regular authentication flow
     const cookies = this.parseCookies(req.headers.cookie);
-    let sessionToken = cookies.get(COOKIE_NAME);
-
-    // 2. Fallback to the Authorization header (Preview auto-login via
-    //    sessionStorage), used when the browser blocks iframe cookies such as
-    //    Safari ITP, private browsing, or iOS/Android WebView.
-    if (!sessionToken) {
-      const authHeader = req.headers.authorization;
-      if (typeof authHeader === "string" && authHeader.startsWith("Bearer ")) {
-        sessionToken = authHeader.slice(7);
-      }
-    }
-
-    const session = await this.verifySession(sessionToken);
+    const sessionCookie = cookies.get(COOKIE_NAME);
+    const session = await this.verifySession(sessionCookie);
 
     if (!session) {
       throw ForbiddenError("Invalid session cookie");
-    }
-
-    if (session.openId.startsWith(CRON_OPEN_ID_PREFIX)) {
-      const userInfo = await this.getUserInfoWithJwt(sessionToken ?? "");
-      const taskUid = userInfo.taskUid ?? null;
-      if (!taskUid) {
-        throw ForbiddenError("Cron session missing task_uid");
-      }
-      return buildCronUser(userInfo);
     }
 
     const sessionUserId = session.openId;
@@ -293,7 +273,7 @@ class SDKServer {
     // If user not in DB, sync from OAuth server automatically
     if (!user) {
       try {
-        const userInfo = await this.getUserInfoWithJwt(sessionToken ?? "");
+        const userInfo = await this.getUserInfoWithJwt(sessionCookie ?? "");
         await db.upsertUser({
           openId: userInfo.openId,
           name: userInfo.name || null,
@@ -319,33 +299,6 @@ class SDKServer {
 
     return user;
   }
-}
-
-const CRON_OPEN_ID_PREFIX = "cron_";
-
-/** Result of `sdk.authenticateRequest`. Cron callbacks set `isCron=true` and `taskUid`; see `references/periodic-updates.md`. */
-export type AuthenticatedUser = User & {
-  taskUid?: string;
-  isCron?: boolean;
-};
-
-function buildCronUser(
-  userInfo: GetUserInfoWithJwtResponse
-): AuthenticatedUser {
-  const now = new Date();
-  return {
-    id: -1,
-    openId: userInfo.openId,
-    name: userInfo.name || "Manus Scheduled Task",
-    email: null,
-    loginMethod: null,
-    role: "user",
-    createdAt: now,
-    updatedAt: now,
-    lastSignedIn: now,
-    taskUid: userInfo.taskUid ?? undefined,
-    isCron: true,
-  } as AuthenticatedUser;
 }
 
 export const sdk = new SDKServer();

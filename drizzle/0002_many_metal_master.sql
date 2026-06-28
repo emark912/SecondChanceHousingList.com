@@ -1,0 +1,1 @@
+ALTER TABLE `partnerPrograms` ADD `isActive` boolean DEFAULT true NOT NULL;

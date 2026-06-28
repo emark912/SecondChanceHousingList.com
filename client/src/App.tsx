@@ -4,59 +4,97 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Searching from "./pages/Searching";
+import SearchFormPage from "./pages/SearchFormPage";
+import SearchingScreen from "./pages/SearchingScreen";
 import Results from "./pages/Results";
-import PropertyDetail from "./pages/PropertyDetail";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import PaymentFailed from "./pages/PaymentFailed";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminProperties from "./pages/AdminProperties";
-import HowItWorks from "./pages/HowItWorks";
+import Checkout from "./pages/Checkout";
+import ResultsCheckout from "./pages/ResultsCheckout";
 import FAQ from "./pages/FAQ";
-import Application from "./pages/Application";
+import Contact from "./pages/Contact";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminPrograms from "./pages/AdminPrograms";
+import AdminLogin from "./pages/AdminLogin";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import ThankYou from "./pages/ThankYou";
+import FlexiblePayment from "./pages/FlexiblePayment";
+import FlexiblePaymentConfirmation from "./pages/FlexiblePaymentConfirmation";
+import AdminPaymentDashboard from "./pages/AdminPaymentDashboard";
+import { EmailTemplateManager } from "./pages/EmailTemplateManager";
+import { AdminEmailTemplates } from "./pages/AdminEmailTemplates";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import PaymentConfirmation from "./pages/PaymentConfirmation";
+import CorporateLeasingConfirmation from "./pages/CorporateLeasingConfirmation";
+import RentalProcessDirections from "./pages/RentalProcessDirections";
+import ToDoList from "./pages/ToDoList";
+import PartnershipProgram from "./pages/PartnershipProgram";
+import PartnershipVerify from "./pages/PartnershipVerify";
+import PartnershipDashboard from "./pages/PartnershipDashboard";
+import { PartnerDashboardEnhanced } from "./pages/PartnerDashboardEnhanced";
+import AdminPartnershipManagement from "./pages/AdminPartnershipManagement";
 
+import PartnerSignup from "./pages/PartnerSignup";
+import PartnerLogin from "./pages/PartnerLogin";
+import PartnerVerifyEmail from "./pages/PartnerVerifyEmail";
+import PartnerActivateTrial from "./pages/PartnerActivateTrial";
+import PartnerCardUpdated from "./pages/PartnerCardUpdated";
+import PartnerAccountDashboard from "./pages/PartnerAccountDashboard";
+import TestPayment from "./pages/TestPayment";
+import { PartnerProvider } from "./contexts/PartnerContext";
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/searching"} component={Searching} />
-      <Route path={"/results"} component={Results} />
-      <Route path={"/property/:id"} component={PropertyDetail} />
-      <Route path={"/payment/success"} component={PaymentSuccess} />
-      <Route path={"/payment/failed"} component={PaymentFailed} />
-      <Route path={"/admin"} component={AdminDashboard} />
-      <Route path={"/admin/properties"} component={AdminProperties} />
-      <Route path={"/how-it-works"} component={HowItWorks} />
+      <Route path={"/search-form"} component={SearchFormPage} />
+      <Route path={"/searching"} component={SearchingScreen} />
+      <Route path={"/results/:orderId"} component={Results} />
+      <Route path={"/results"} component={ResultsCheckout} />
+      <Route path={"/checkout"} component={Checkout} />
+      <Route path={"/payment-success"} component={PaymentSuccess} />
+      <Route path={"/checkout-success"} component={CheckoutSuccess} />
+      <Route path={"/payment-confirmation"} component={PaymentConfirmation} />
+      <Route path={"/corporate-leasing-confirmation"} component={CorporateLeasingConfirmation} />
+      <Route path={"/thank-you"} component={ThankYou} />
+      <Route path={"/flexible-payment"} component={FlexiblePayment} />
+      <Route path={"/flexible-payment-confirmation"} component={FlexiblePaymentConfirmation} />
       <Route path={"/faq"} component={FAQ} />
-      <Route path={"/application"} component={Application} />
+      <Route path={"/contact"} component={Contact} />
+      <Route path={"/rental-process-directions"} component={RentalProcessDirections} />
+      <Route path={"/to-do-list"} component={ToDoList} />
+      <Route path={"/partnership"} component={PartnershipProgram} />
+      <Route path={"/partnership/verify"} component={PartnershipVerify} />
+      <Route path={"/partnership/dashboard"} component={PartnershipDashboard} />
+      <Route path={"/partnership/dashboard-enhanced"} component={PartnerDashboardEnhanced} />
+      <Route path={"/partner/signup"} component={PartnerSignup} />
+      <Route path={"/partner/login"} component={PartnerLogin} />
+      <Route path={"/partner/verify-email"} component={PartnerVerifyEmail} />
+      <Route path={"/partner/activate-trial"} component={PartnerActivateTrial} />
+      <Route path={"/partner/card-updated"} component={PartnerCardUpdated} />
+      <Route path={"/partner/dashboard"} component={PartnerAccountDashboard} />
+      <Route path={"/admin-login"} component={AdminLogin} />
+      <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin/programs"} component={AdminPrograms} />
+      <Route path={"/admin/payments"} component={AdminPaymentDashboard} />
+      <Route path={"/admin/email-templates"} component={AdminEmailTemplates} />
+      <Route path={"/admin/partnership"} component={AdminPartnershipManagement} />
+      <Route path={"/test-payment"} component={TestPayment} />
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
+      <PartnerProvider>
+        <ThemeProvider defaultTheme="light">
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </ThemeProvider>
+      </PartnerProvider>
     </ErrorBoundary>
   );
 }
