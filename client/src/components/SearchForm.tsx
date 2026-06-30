@@ -348,7 +348,7 @@ export default function SearchForm() {
               <p className="text-sm text-muted-foreground">Select all that apply to you during approval.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-              {CREDIT_CHALLENGES.map((challenge) => (
+              {CREDIT_CHALLENGES.map((challenge: string) => (
                 <label
                   key={challenge}
                   className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
@@ -382,7 +382,7 @@ export default function SearchForm() {
                   <SelectValue placeholder="Select housing type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {HOUSING_TYPES.map((type) => (
+                  {HOUSING_TYPES.map((type: string) => (
                     <SelectItem key={type} value={type}>{type}</SelectItem>
                   ))}
                 </SelectContent>
@@ -451,7 +451,7 @@ export default function SearchForm() {
                   <SelectValue placeholder="How long at current employer?" />
                 </SelectTrigger>
                 <SelectContent>
-                  {EMPLOYMENT_DURATIONS.map((dur) => (
+                  {EMPLOYMENT_DURATIONS.map((dur: string) => (
                     <SelectItem key={dur} value={dur}>{dur}</SelectItem>
                   ))}
                 </SelectContent>
@@ -462,7 +462,7 @@ export default function SearchForm() {
                 Do you need a small loan to help you move in?
               </Label>
               <RadioGroup value={needsMovingLoan} onValueChange={(v) => setNeedsMovingLoan(v as "yes" | "no" | "maybe")}>
-                {LOAN_OPTIONS.map((option) => (
+                {LOAN_OPTIONS.map((option: any) => (
                   <div key={option.value} className="flex items-center space-x-3 py-1">
                     <RadioGroupItem value={option.value} id={`loan-${option.value}`} />
                     <Label htmlFor={`loan-${option.value}`} className="text-sm font-normal cursor-pointer">
