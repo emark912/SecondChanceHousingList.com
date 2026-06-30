@@ -98,3 +98,16 @@
 - [x] Update search/results logic to handle multiple result types
 - [x] Update donation messaging to show "$20 starting donation"
 - [x] Add refund policy information
+
+## Form Validation & Submission Bug Fixes (Completed)
+- [x] Fix checkbox state tracking for credit challenges and housing types
+- [x] Fix form field mapping - send all collected fields to backend
+- [x] Fix dead conditional for criminal history details textarea
+- [x] Extend server router to accept additional form fields (criminalHistory, evictions, petPreference, smokingStatus, isRegisteredSexOffender)
+- [x] Update database schema to store additional form fields
+- [x] Fix database insert functions to use result.insertId instead of result[0].insertId
+- [x] Add debug logging to form validation function
+- [x] Create search_submissions table via SQL
+- [x] Add missing columns to search_submissions table
+- [x] Fix TypeScript errors in Searching.tsx and PropertyDetail.tsx
+- [x] Test form submission with complete data

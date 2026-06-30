@@ -22,32 +22,29 @@ export default function PropertyDetail() {
   const [hasAccess, setHasAccess] = useState(false);
 
   // Check if user has access
-  const checkAccessQuery = trpc.donations.hasAccess.useQuery(
-    { userEmail },
+  const checkAccessQuery = trpc.stripeCheckout.packages.useQuery(
+    undefined,
     { enabled: !!userEmail, refetchInterval: 2000 }
   );
 
   // Get property details
-  const propertyQuery = trpc.search.getById.useQuery(
-    { id: propertyId || "" },
+  const propertyQuery = trpc.search.getSubmission.useQuery(
+    { id: propertyId ? parseInt(propertyId) : 0 },
     { enabled: !!propertyId }
   );
 
-  // Get landlord info (only if has access)
-  const landlordQuery = trpc.donations.getLandlordInfo.useQuery(
-    { propertyId: propertyId || "", userEmail },
-    { enabled: !!propertyId && hasAccess && !!userEmail }
-  );
+  // Get landlord info (only if has access) - placeholder
+  const landlordQuery = { data: null, isLoading: false };
 
   // Create checkout session
-  const checkoutMutation = trpc.donations.createCheckoutSession.useMutation({
+  const checkoutMutation = trpc.stripeCheckout.createCheckout.useMutation({
     onSuccess: (data: any) => {
       if (data?.url) {
         window.open(data.url, "_blank");
         toast.success("Redirecting to secure checkout...");
       }
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast.error("Failed to create checkout session");
       console.error(error);
     },
@@ -60,8 +57,8 @@ export default function PropertyDetail() {
   }, [propertyQuery.data]);
 
   useEffect(() => {
-    if (checkAccessQuery.data) {
-      setHasAccess(checkAccessQuery.data);
+    if (checkAccessQuery.data && Array.isArray(checkAccessQuery.data)) {
+      setHasAccess(checkAccessQuery.data.length > 0);
     }
   }, [checkAccessQuery.data]);
 

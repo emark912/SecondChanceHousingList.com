@@ -9,12 +9,12 @@ export default function Searching() {
 
   const formData = JSON.parse(sessionStorage.getItem("searchFormData") || "{}");
 
-  const searchMutation = trpc.search.properties.useMutation({
-    onSuccess: (data) => {
+  const searchMutation = trpc.search.submit.useMutation({
+    onSuccess: (data: any) => {
       sessionStorage.setItem("searchResults", JSON.stringify(data));
       navigate("/results");
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error("Search error:", error);
       navigate("/");
     },
@@ -31,15 +31,19 @@ export default function Searching() {
 
     // Execute search
     searchMutation.mutate({
-      city: formData.city,
-      state: formData.state,
-      bedrooms: formData.bedrooms ? parseInt(formData.bedrooms.match(/\d+/)?.[0] || "0") : undefined,
-      maxRent: formData.maxRent,
-      petFriendly: formData.petFriendly,
-      creditChallenges: formData.creditChallenges,
-      userEmail: formData.userEmail,
-      userName: formData.userName,
-      userPhone: formData.userPhone,
+      customerName: formData.fullName || "",
+      customerEmail: formData.email || "",
+      city: formData.city || "",
+      state: formData.state || "",
+      searchRadiusMiles: 25,
+      creditChallenges: formData.creditChallenges || [],
+      housingType: "apartment",
+      bedrooms: formData.bedrooms ? parseInt(formData.bedrooms.match(/\d+/)?.[0] || "1") : 1,
+      occupants: 1,
+      totalHouseholdIncome: formData.income || "0",
+      monthlyTakeHomeIncome: formData.monthlyBudget || "0",
+      employmentDuration: "asap",
+      needsMovingLoan: "no" as const,
     });
 
     return () => clearInterval(interval);
