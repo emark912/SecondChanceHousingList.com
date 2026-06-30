@@ -14,7 +14,7 @@ export function AIChatbot() {
     {
       id: "1",
       type: "bot",
-      text: "Hi! I'm the AI Assistant for Second Chance Housing Locator. How can I help you today?",
+      text: "Hi! I'm the AI Assistant for Second Chance Housing List. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");

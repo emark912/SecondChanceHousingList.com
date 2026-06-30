@@ -136,11 +136,11 @@ export async function sendSignupConfirmationEmail(
             <p>If you have any questions about the partnership program, please reply to this email or contact our support team.</p>
 
             <p>Best regards,<br/>
-            Second Chance Housing Locator Partnership Team</p>
+            Second Chance Housing List Partnership Team</p>
           </div>
 
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
             <p>This email was sent to ${email} because you signed up for our partnership program.</p>
           </div>
         </div>
@@ -150,7 +150,7 @@ export async function sendSignupConfirmationEmail(
 
   return sendPartnerEmail({
     to: email,
-    subject: "Welcome to Second Chance Housing Locator Partnership Program - Verify Your Email",
+    subject: "Welcome to Second Chance Housing List Partnership Program - Verify Your Email",
     html,
     partnerId,
     emailType: "signup_confirmation",
@@ -241,11 +241,11 @@ export async function sendTrialStartedEmail(
             <p><em>Bonus: Every package includes 5 extra leads to account for bad leads!</em></p>
 
             <p>Best regards,<br/>
-            Second Chance Housing Locator Partnership Team</p>
+            Second Chance Housing List Partnership Team</p>
           </div>
 
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -357,7 +357,7 @@ export async function sendLeadDeliveryEmail(
           </div>
 
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -433,11 +433,11 @@ export async function sendPackagePurchasedEmail(
             <p>When your current package runs out, simply purchase another package from your partner dashboard. Leads are delivered instantly!</p>
 
             <p>Best regards,<br/>
-            Second Chance Housing Locator Partnership Team</p>
+            Second Chance Housing List Partnership Team</p>
           </div>
 
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -505,11 +505,11 @@ export async function sendPackageExpiredEmail(
             </div>
 
             <p>Best regards,<br/>
-            Second Chance Housing Locator Partnership Team</p>
+            Second Chance Housing List Partnership Team</p>
           </div>
 
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -559,10 +559,10 @@ export async function sendPasswordResetEmail(
               <div class="code">${resetCode}</div>
             </div>
             <p>This code expires in 1 hour. If you did not request a password reset, please ignore this email.</p>
-            <p>Best regards,<br/>Second Chance Housing Locator Partnership Team</p>
+            <p>Best regards,<br/>Second Chance Housing List Partnership Team</p>
           </div>
           <div class="footer">
-            <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p>© 2026 Second Chance Housing List. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -570,7 +570,7 @@ export async function sendPasswordResetEmail(
   `;
   return sendPartnerEmail({
     to: email,
-    subject: "Password Reset Code - Second Chance Housing Locator",
+    subject: "Password Reset Code - Second Chance Housing List",
     html,
     emailType: "password_reset",
   });
@@ -604,7 +604,7 @@ export async function sendLowLeadsWarningEmail(
       .footer{text-align:center;font-size:12px;color:#666;margin-top:20px}
     </style></head><body>
       <div class="container">
-        <div class="header"><h1>Low Leads Warning</h1><p>Second Chance Housing Locator Partnership Program</p></div>
+        <div class="header"><h1>Low Leads Warning</h1><p>Second Chance Housing List Partnership Program</p></div>
         <div class="alert-box">
           <p style="margin:0;font-size:16px;color:#c0392b;font-weight:bold;">You only have</p>
           <div class="leads-count">${leadsRemaining}</div>
@@ -618,14 +618,14 @@ export async function sendLowLeadsWarningEmail(
           <div style="text-align:center;"><a href="${dashboardUrl}" class="cta-button">Go to My Dashboard</a></div>
           <p style="font-size:13px;color:#666;">Questions? Contact support@secondchancehousinglocator.com.</p>
         </div>
-        <div class="footer"><p>2026 Second Chance Housing Locator. All rights reserved.</p></div>
+        <div class="footer"><p>2026 Second Chance Housing List. All rights reserved.</p></div>
       </div>
     </body></html>
   `;
 
   return sendPartnerEmail({
     to: email,
-    subject: `Low Leads Alert: Only ${leadsRemaining} Lead${leadsRemaining !== 1 ? "s" : ""} Remaining - Second Chance Housing Locator`,
+    subject: `Low Leads Alert: Only ${leadsRemaining} Lead${leadsRemaining !== 1 ? "s" : ""} Remaining - Second Chance Housing List`,
     html,
     partnerId,
     emailType: "low_leads_warning",

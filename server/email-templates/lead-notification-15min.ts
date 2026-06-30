@@ -237,12 +237,12 @@ export const leadNotification15MinTemplate = {
 
             <!-- Closing -->
             <p style="margin-top: 30px; color: #666;">We believe everyone deserves a second chance and access to quality housing. Let's find you the perfect home!</p>
-            <p style="margin-top: 5px; color: #999; font-size: 14px;">Best regards,<br><strong>The Second Chance Housing Locator Team</strong></p>
+            <p style="margin-top: 5px; color: #999; font-size: 14px;">Best regards,<br><strong>The Second Chance Housing List Team</strong></p>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p style="margin: 0 0 10px 0;">© 2026 Second Chance Housing Locator. All rights reserved.</p>
+            <p style="margin: 0 0 10px 0;">© 2026 Second Chance Housing List. All rights reserved.</p>
             <p style="margin: 0;">
                 <a href="https://www.secondchancehousinglocator.com/privacy">Privacy Policy</a> | 
                 <a href="https://www.secondchancehousinglocator.com/terms">Terms of Service</a> | 
@@ -295,9 +295,9 @@ Our support team is available 24/7 to answer any questions:
 We believe everyone deserves a second chance and access to quality housing. Let's find you the perfect home!
 
 Best regards,
-The Second Chance Housing Locator Team
+The Second Chance Housing List Team
 
-© 2026 Second Chance Housing Locator. All rights reserved.
+© 2026 Second Chance Housing List. All rights reserved.
 Privacy Policy: https://www.secondchancehousinglocator.com/privacy
 Terms of Service: https://www.secondchancehousinglocator.com/terms
 Unsubscribe: https://www.secondchancehousinglocator.com/unsubscribe

@@ -270,7 +270,7 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   y -= 10;
   
   drawText(
-    `Thank you for choosing Second Chance Housing Locator. We are pleased to provide you with this comprehensive database of resources to assist you in finding affordable housing in ${profileData.location}.`,
+    `Thank you for choosing Second Chance Housing List. We are pleased to provide you with this comprehensive database of resources to assist you in finding affordable housing in ${profileData.location}.`,
     9,
     false,
     [0.2, 0.2, 0.2]
@@ -320,7 +320,7 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   y -= 8;
   
   drawText(
-    '2. LEGAL COMPLIANCE: You must comply with all applicable local, state, and federal laws when contacting or working with any of these programs or companies. Second Chance Housing Locator is not responsible for ensuring your compliance with any laws.',
+    '2. LEGAL COMPLIANCE: You must comply with all applicable local, state, and federal laws when contacting or working with any of these programs or companies. Second Chance Housing List is not responsible for ensuring your compliance with any laws.',
     9,
     false,
     [0.2, 0.2, 0.2]
@@ -336,7 +336,7 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   y -= 8;
   
   drawText(
-    '4. NO GUARANTEE: Second Chance Housing Locator makes no guarantee that you will be approved by any program or company listed. Approval depends on individual circumstances, eligibility requirements, and the discretion of each organization.',
+    '4. NO GUARANTEE: Second Chance Housing List makes no guarantee that you will be approved by any program or company listed. Approval depends on individual circumstances, eligibility requirements, and the discretion of each organization.',
     9,
     false,
     [0.2, 0.2, 0.2]
@@ -344,7 +344,7 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   y -= 8;
   
   drawText(
-    '5. NO LIABILITY: Second Chance Housing Locator is not liable for any interactions, disputes, charges, or outcomes resulting from your contact with any program or company in this database. You assume all risk.',
+    '5. NO LIABILITY: Second Chance Housing List is not liable for any interactions, disputes, charges, or outcomes resulting from your contact with any program or company in this database. You assume all risk.',
     9,
     false,
     [0.2, 0.2, 0.2]
@@ -438,7 +438,7 @@ export async function generateFinalPDF(profileData: CustomerProfileData): Promis
   
   drawText('Contact Information:', 10, true);
   y -= 10;
-  drawText('Second Chance Housing Locator', 9);
+  drawText('Second Chance Housing List', 9);
   drawText('Email: support@secondchancehousinglocator.com', 9);
   drawText('Website: www.secondchancehousinglocator.com', 9);
   y -= 12;

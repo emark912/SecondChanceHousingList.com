@@ -273,7 +273,7 @@ function generateReceiptHTML(data: ReceiptData): string {
           <!-- Footer -->
           <div class="footer">
             <p>
-              © ${currentYear} Second Chance Housing Locator. All rights reserved.<br>
+              © ${currentYear} Second Chance Housing List. All rights reserved.<br>
               <a href="https://www.secondchancehousinglocator.com" class="footer-link">Visit Our Website</a> | 
               <a href="https://www.secondchancehousinglocator.com/contact" class="footer-link">Contact Us</a>
             </p>

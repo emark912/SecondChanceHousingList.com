@@ -132,7 +132,7 @@ Questions? Contact us:
 Email: support@secondchancehousinglocator.com
 Website: www.secondchancehousinglocator.com
 
-Thank you for using Second Chance Housing Locator!
+Thank you for using Second Chance Housing List!
 We believe everyone deserves a second chance and access to quality housing.
     `;
   };

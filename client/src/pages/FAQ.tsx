@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "Is it really free to search?",
     answer:
-      "Yes! It is completely FREE to use our Second Chance Housing Locator and to receive your personalized rental list. Our AI Agent compiles your customized list at no cost. We are a donation-supported service. You can support our mission with a donation of your choice (minimum $10.00, average $25.00). Optionally, you can add a Second Chance Housing Consultant for just $125.00 (regularly $350.00 - limited time discount!) to help you get approved into a rental property.",
+      "Yes! It is completely FREE to use our Second Chance Housing List and to receive your personalized rental list. Our AI Agent compiles your customized list at no cost. We are a donation-supported service. You can support our mission with a donation of your choice (minimum $10.00, average $25.00). Optionally, you can add a Second Chance Housing Consultant for just $125.00 (regularly $350.00 - limited time discount!) to help you get approved into a rental property.",
   },
   {
     question: "What does my personalized list include?",

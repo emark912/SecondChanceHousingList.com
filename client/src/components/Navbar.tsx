@@ -21,7 +21,7 @@ export default function Navbar() {
             <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/30 group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all">
               <Shield className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <span className="hidden sm:inline text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Second Chance Housing Locator</span>
+            <span className="hidden sm:inline text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Second Chance Housing List</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">

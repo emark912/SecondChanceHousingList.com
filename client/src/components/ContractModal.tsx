@@ -294,7 +294,7 @@ export const ContractModal: React.FC<ContractModalProps> = ({ isOpen, onClose })
               <p>Housing Relocation Services</p>
               <p>www.SecondChanceHousingList.com</p>
               <p>Email: support@secondchancehousinglocator.com</p>
-              <p className="mt-4">© 2026 Second Chance Housing Locator, Inc. All Rights Reserved.</p>
+              <p className="mt-4">© 2026 Second Chance Housing List, Inc. All Rights Reserved.</p>
             </div>
           </div>
         </div>

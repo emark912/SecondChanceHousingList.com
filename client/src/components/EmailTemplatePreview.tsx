@@ -59,7 +59,7 @@ export function EmailTemplatePreview({
       <a href="#" class="cta-button">${template.ctaText}</a>
     </div>
     <div class="footer">
-      <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+      <p>© 2026 Second Chance Housing List. All rights reserved.</p>
     </div>
   </div>
 </body>
@@ -124,7 +124,7 @@ export function EmailTemplatePreview({
 
               {/* Footer */}
               <div className="mt-8 pt-6 border-t text-center text-xs text-gray-500">
-                <p>© 2026 Second Chance Housing Locator. All rights reserved.</p>
+                <p>© 2026 Second Chance Housing List. All rights reserved.</p>
               </div>
             </div>
           </div>

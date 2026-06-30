@@ -206,7 +206,7 @@ export function generateHousingListPDF(
     );
     doc.moveDown(0.3);
     doc.fontSize(9).font("Helvetica").text(
-      "Second Chance Housing Locator"
+      "Second Chance Housing List"
     );
     doc.fontSize(9).font("Helvetica").text(
       "Email: support@secondchancehousinglocator.com"
@@ -219,7 +219,7 @@ export function generateHousingListPDF(
 
     // Disclaimer
     doc.fontSize(8).font("Helvetica").text(
-      "This list is provided for informational purposes. Second Chance Housing Locator does not guarantee approval by any program listed. Each program has its own eligibility requirements and application process. Please verify all information directly with each program.",
+      "This list is provided for informational purposes. Second Chance Housing List does not guarantee approval by any program listed. Each program has its own eligibility requirements and application process. Please verify all information directly with each program.",
       { width: 475, align: "left" }
     );
 

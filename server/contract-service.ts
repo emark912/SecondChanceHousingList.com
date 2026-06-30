@@ -253,7 +253,7 @@ www.SecondChanceHousingList.com
 Email: ${data.companyEmail || 'support@secondchancehousinglocator.com'}
 Phone: ${data.companyPhone || 'Available in your account dashboard'}
 
-© 2026 Second Chance Housing Locator, Inc. All Rights Reserved.
+© 2026 Second Chance Housing List, Inc. All Rights Reserved.
 `;
 
   // Convert text to buffer (simplified approach)

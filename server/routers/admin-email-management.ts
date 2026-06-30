@@ -128,7 +128,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
     <a href="{{checkoutLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">View My Results →</a>
   </div>
   <p style="font-size:13px;color:#666">This link expires in 48 hours. Don't miss your chance to find housing today.</p>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Team</strong></p>
 </div>
 </div>`,
   },
@@ -147,7 +147,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:24px 0">
     <a href="{{checkoutLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Access My Results Now →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Team</strong></p>
 </div>
 </div>`,
   },
@@ -166,12 +166,12 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:24px 0">
     <a href="{{checkoutLink}}" style="background:#cc3300;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Claim My Results Before They Expire →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Team</strong></p>
 </div>
 </div>`,
   },
   order_confirmation: {
-    subject: "Order Confirmed — Second Chance Housing Locator",
+    subject: "Order Confirmed — Second Chance Housing List",
     audience: "customer",
     description: "Sent immediately after a customer completes payment.",
     bodyHtml: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
@@ -182,7 +182,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <p>Hi {{customerName}},</p>
   <p>Thank you for your order! Your payment has been received and your personalised Second Chance Housing results are being prepared.</p>
   <p>You will receive your results PDF shortly at this email address.</p>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Team</strong></p>
 </div>
 </div>`,
   },
@@ -196,7 +196,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
 </div>
 <div style="background:#f9f9f9;padding:24px;border-radius:0 0 8px 8px">
   <p>Hi {{partnerName}},</p>
-  <p>Thank you for signing up for the Second Chance Housing Locator Partnership Program! We're excited to work with <strong>{{businessName}}</strong>.</p>
+  <p>Thank you for signing up for the Second Chance Housing List Partnership Program! We're excited to work with <strong>{{businessName}}</strong>.</p>
   <h3>Verify Your Email Address</h3>
   <div style="text-align:center;margin:20px 0">
     <a href="{{verificationLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Verify Email Address →</a>
@@ -204,7 +204,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <p>Or enter this code on the verification page:</p>
   <div style="background:#e8f4f8;padding:16px;border-radius:6px;font-family:monospace;font-size:24px;text-align:center;letter-spacing:4px;font-weight:bold">{{verificationCode}}</div>
   <p>After verification you will receive <strong>20 free trial leads</strong> to test our service.</p>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -223,7 +223,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{dashboardLink}}" style="background:#006633;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Go to My Dashboard →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -251,7 +251,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{upgradeLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Upgrade to See Full Contact Info →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -276,7 +276,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
     <tr><td style="padding:8px;font-weight:bold">Monthly Income</td><td style="padding:8px">{{monthlyIncome}}</td></tr>
   </table>
   <p>You have <strong>{{leadsRemaining}}</strong> leads remaining in your package.</p>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -303,7 +303,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{upgradeLink}}" style="background:#cc6600;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Activate Package &amp; Unlock All Leads →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -322,7 +322,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:24px 0">
     <a href="{{upgradeLink}}" style="background:#cc3300;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Activate a Lead Package →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -341,7 +341,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{dashboardLink}}" style="background:#006633;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Go to My Dashboard →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -359,7 +359,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{upgradeLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Purchase New Package →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
@@ -377,12 +377,12 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
   <div style="text-align:center;margin:20px 0">
     <a href="{{upgradeLink}}" style="background:#cc6600;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Top Up Leads →</a>
   </div>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },
   password_reset: {
-    subject: "Reset Your Password — Second Chance Housing Locator",
+    subject: "Reset Your Password — Second Chance Housing List",
     audience: "partner",
     description: "Sent when a partner requests a password reset.",
     bodyHtml: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
@@ -396,7 +396,7 @@ const DEFAULT_TEMPLATES: Record<string, { subject: string; audience: string; des
     <a href="{{resetLink}}" style="background:#0066cc;color:white;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold">Reset My Password →</a>
   </div>
   <p>If you did not request a password reset, you can safely ignore this email.</p>
-  <p>Best regards,<br/><strong>Second Chance Housing Locator Partnership Team</strong></p>
+  <p>Best regards,<br/><strong>Second Chance Housing List Partnership Team</strong></p>
 </div>
 </div>`,
   },

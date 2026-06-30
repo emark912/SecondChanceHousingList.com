@@ -135,7 +135,7 @@ async function sendPackageExpiredEmail(
           
           <p style="font-size: 12px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
             Best regards,<br>
-            <strong>Second Chance Housing Locator Partnership Team</strong>
+            <strong>Second Chance Housing List Partnership Team</strong>
           </p>
         </div>
       </div>

@@ -102,7 +102,7 @@ export default function PartnerCardUpdated() {
         </Button>
 
         <p className="text-xs text-gray-400 mt-4">
-          Second Chance Housing Locator Partnership Program
+          Second Chance Housing List Partnership Program
         </p>
       </div>
     </div>

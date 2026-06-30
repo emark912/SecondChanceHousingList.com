@@ -1,5 +1,5 @@
 /**
- * Cron Jobs for Second Chance Housing Locator
+ * Cron Jobs for Second Chance Housing List
  * - Lead expiration: runs every 6 hours
  */
 

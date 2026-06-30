@@ -12,7 +12,7 @@ interface Message {
   timestamp: Date;
 }
 
-const WELCOME_MESSAGE = "Hi! 👋 Welcome to Second Chance Housing Locator. How can I help you today?";
+const WELCOME_MESSAGE = "Hi! 👋 Welcome to Second Chance Housing List. How can I help you today?";
 
 const QUICK_RESPONSES = [
   "How does the approval process work?",
